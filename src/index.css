@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@400;600;800&display=swap');
+
+:root {
+  --font-sans: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-cute: 'Gowun Dodum', cursive, sans-serif;
+  
+  --bg-main: #fcf9f2;
+  --bg-card: #ffffff;
+  --border-cute: #e5e0d4;
+  --text-dark: #2d3748;
+  --text-muted: #64748b;
+  
+  /* Pastel Accent Colors matching user poster images */
+  --badge-day1: #4f46e5;
+  --badge-day2: #0d9488;
+  --badge-day3: #d97706;
+  --badge-day4: #7c3aed;
+  --badge-day5: #ea580c;
+  --badge-day6: #db2777;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-cute), var(--font-sans);
+  background-color: #f7f3e9;
+  background-image: 
+    radial-gradient(#e2dad0 1.5px, transparent 1.5px),
+    radial-gradient(#e2dad0 1.5px, #f7f3e9 1.5px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+  color: #2d3748;
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Paper Card Style */
+.paper-panel {
+  background: #ffffff;
+  border: 2.5px solid #2d3748;
+  border-radius: 1.5rem;
+  box-shadow: 5px 5px 0px #2d3748;
+  position: relative;
+}
+
+.paper-card {
+  background: #ffffff;
+  border: 2px solid #334155;
+  border-radius: 1.25rem;
+  box-shadow: 4px 4px 0px #334155;
+  transition: all 0.2s ease-in-out;
+}
+
+.paper-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #1e293b;
+}
+
+/* Washi Tape Badge Effect */
+.washi-tape {
+  position: relative;
+}
+
+.washi-tape::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1.5deg);
+  width: 90px;
+  height: 22px;
+  background: rgba(254, 240, 138, 0.85);
+  border: 1px dashed rgba(217, 119, 6, 0.4);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  z-index: 20;
+}
+
+/* Sticker Pill */
+.sticker-badge {
+  font-family: var(--font-cute);
+  font-weight: 700;
+  padding: 0.35rem 0.9rem;
+  border-radius: 9999px;
+  border: 2px solid #1e293b;
+  box-shadow: 2px 2px 0px #1e293b;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+}
+
+/* Timeline dashed line */
+.timeline-container-cute {
+  position: relative;
+}
+
+.timeline-container-cute::before {
+  content: '';
+  position: absolute;
+  top: 1.5rem;
+  bottom: 1.5rem;
+  left: 1.75rem;
+  width: 3px;
+  border-left: 3px dashed #cbd5e1;
+}
+
+@media (max-width: 640px) {
+  .timeline-container-cute::before {
+    left: 1.15rem;
+  }
+}
+
+/* Scrollbar None Utility for Mobile Swipe */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1e9dc;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+  border: 2px solid #f1e9dc;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.95) translateY(5px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.animate-pop-in {
+  animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
