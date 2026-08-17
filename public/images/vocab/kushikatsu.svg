@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <rect width="100" height="100" rx="20" fill="#FEF2F2"/>
+  <!-- Skewers -->
+  <line x1="30" y1="85" x2="30" y2="25" stroke="#B45309" stroke-width="3" stroke-linecap="round"/>
+  <rect x="22" y="28" width="16" height="36" rx="6" fill="#D97706" stroke="#1E293B" stroke-width="2.5"/>
+  <line x1="50" y1="85" x2="50" y2="20" stroke="#B45309" stroke-width="3" stroke-linecap="round"/>
+  <rect x="42" y="24" width="16" height="42" rx="6" fill="#B45309" stroke="#1E293B" stroke-width="2.5"/>
+  <line x1="70" y1="85" x2="70" y2="30" stroke="#B45309" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="70" cy="36" r="9" fill="#F59E0B" stroke="#1E293B" stroke-width="2"/>
+  <circle cx="70" cy="52" r="9" fill="#F59E0B" stroke="#1E293B" stroke-width="2"/>
+  <!-- Warning badge: 1-Dip only -->
+  <rect x="18" y="70" width="64" height="14" rx="4" fill="#EF4444" stroke="#1E293B" stroke-width="1.5"/>
+  <text x="50" y="80" font-family="sans-serif" font-size="7.5" font-weight="900" fill="#FFFFFF" text-anchor="middle">二度づけ禁止 (1회만 찍기)</text>
+</svg>

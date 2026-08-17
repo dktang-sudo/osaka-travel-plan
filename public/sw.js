@@ -1,8 +1,22 @@
-const CACHE_NAME = 'osaka-travel-v1';
+const CACHE_NAME = 'osaka-travel-v2';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/manifest.webmanifest',
+  '/images/vocab/ticket.svg',
+  '/images/vocab/ferry.svg',
+  '/images/vocab/whale.svg',
+  '/images/vocab/icecream.svg',
+  '/images/vocab/beetle.svg',
+  '/images/vocab/nintendo.svg',
+  '/images/vocab/butterbeer.svg',
+  '/images/vocab/takoyaki.svg',
+  '/images/vocab/kushikatsu.svg',
+  '/images/vocab/glico.svg',
+  '/images/vocab/taxfree.svg',
+  '/images/vocab/ramen.svg',
+  '/images/vocab/beer.svg',
+  '/images/vocab/rapit.svg',
 ];
 
 // 설치 시 정적 에셋 캐싱

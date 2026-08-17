@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <rect width="100" height="100" rx="20" fill="#FEF2F2"/>
+  <!-- Bowl -->
+  <path d="M15 45 C 15 80, 85 80, 85 45 Z" fill="#DC2626" stroke="#1E293B" stroke-width="3"/>
+  <ellipse cx="50" cy="45" rx="35" ry="12" fill="#FEF3C7" stroke="#1E293B" stroke-width="2.5"/>
+  <!-- Noodles & Egg -->
+  <circle cx="40" cy="45" r="7" fill="#F59E0B" stroke="#FFFFFF" stroke-width="3"/>
+  <path d="M52 42 Q 60 48 70 42" stroke="#B45309" stroke-width="3" stroke-linecap="round"/>
+  <path d="M48 48 Q 58 54 68 48" stroke="#B45309" stroke-width="3" stroke-linecap="round"/>
+  <!-- Chopsticks -->
+  <line x1="75" y1="20" x2="35" y2="45" stroke="#78350F" stroke-width="3" stroke-linecap="round"/>
+  <line x1="78" y1="25" x2="38" y2="50" stroke="#78350F" stroke-width="3" stroke-linecap="round"/>
+</svg>

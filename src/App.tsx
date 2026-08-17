@@ -4,6 +4,7 @@ import { Header } from './components/Header';
 import { OverviewGrid } from './components/OverviewGrid';
 import { DayDetailView } from './components/DayDetailView';
 import { RouteMapModal } from './components/RouteMapModal';
+import { JapaneseVocabModal } from './components/JapaneseVocabModal';
 import { TipsAndChecklist } from './components/TipsAndChecklist';
 import { Heart } from 'lucide-react';
 
@@ -20,6 +21,11 @@ export const App: React.FC = () => {
   const [selectedRoute, setSelectedRoute] = useState<RouteOption | null>(null);
   const [selectedRoutes, setSelectedRoutes] = useState<RouteOption[]>([]);
   const [selectedNextItem, setSelectedNextItem] = useState<ScheduleItem | null>(null);
+
+  // Japanese Vocab Modal state
+  const [isVocabModalOpen, setIsVocabModalOpen] = useState(false);
+  const [selectedVocabItem, setSelectedVocabItem] = useState<ScheduleItem | null>(null);
+  const [selectedVocabDayTitle, setSelectedVocabDayTitle] = useState('');
 
   const handleOpenItemMap = (
     item: ScheduleItem,
@@ -59,6 +65,17 @@ export const App: React.FC = () => {
     setSelectedRoute(null);
     setSelectedRoutes([]);
     setSelectedNextItem(null);
+  };
+
+  const handleOpenVocabModal = (item: ScheduleItem, dayTitle: string) => {
+    setSelectedVocabItem(item);
+    setSelectedVocabDayTitle(dayTitle);
+    setIsVocabModalOpen(true);
+  };
+
+  const handleCloseVocabModal = () => {
+    setIsVocabModalOpen(false);
+    setSelectedVocabItem(null);
   };
 
   const currentDayIndex = activeTab.startsWith('day')
@@ -101,6 +118,7 @@ export const App: React.FC = () => {
               onNextDay={handleNextDay}
               onOpenItemMap={handleOpenItemMap}
               onOpenDayMap={handleOpenDayMap}
+              onOpenVocabModal={handleOpenVocabModal}
             />
           )}
 
@@ -114,7 +132,7 @@ export const App: React.FC = () => {
             <Heart size={14} className="text-rose-500 fill-rose-500" />
           </p>
           <p className="text-slate-500">
-            시간대별 동선 · 구글 지도 · 꿀팁 & 주의사항 완벽 내비게이션
+            시간대별 동선 · 구글 지도 · 오프라인 동선 맵 · 현지 일본어 단어장 & 주의사항 완벽 내비게이션
           </p>
         </footer>
       </div>
@@ -129,6 +147,14 @@ export const App: React.FC = () => {
         selectedRoute={selectedRoute}
         routes={selectedRoutes}
         nextItem={selectedNextItem}
+      />
+
+      {/* Global Japanese Vocab & Menu Modal */}
+      <JapaneseVocabModal
+        isOpen={isVocabModalOpen}
+        onClose={handleCloseVocabModal}
+        item={selectedVocabItem}
+        dayTitle={selectedVocabDayTitle}
       />
     </div>
   );

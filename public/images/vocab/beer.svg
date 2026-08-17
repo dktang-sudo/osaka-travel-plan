@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <rect width="100" height="100" rx="20" fill="#FEF3C7"/>
+  <!-- Beer Glass -->
+  <rect x="30" y="30" width="36" height="52" rx="6" fill="#F59E0B" stroke="#1E293B" stroke-width="3"/>
+  <!-- Handle -->
+  <path d="M66 38 Q 82 38 82 56 Q 82 72 66 72" fill="none" stroke="#1E293B" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Foam -->
+  <path d="M26 30 Q 36 16 48 28 Q 60 16 70 30 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="2.5"/>
+  <!-- Bubbles -->
+  <circle cx="42" cy="50" r="2" fill="#FFFFFF"/>
+  <circle cx="52" cy="62" r="2.5" fill="#FFFFFF"/>
+  <circle cx="45" cy="72" r="2" fill="#FFFFFF"/>
+  <text x="48" y="58" font-family="sans-serif" font-size="8" font-weight="900" fill="#78350F" text-anchor="middle">生ビール</text>
+</svg>

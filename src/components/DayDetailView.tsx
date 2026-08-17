@@ -47,6 +47,7 @@ interface DayDetailViewProps {
   onNextDay: () => void;
   onOpenItemMap: (item: ScheduleItem, dayTitle: string, route?: RouteOption, allRoutes?: RouteOption[], nextItem?: ScheduleItem | null) => void;
   onOpenDayMap: (day: DayItinerary) => void;
+  onOpenVocabModal: (item: ScheduleItem, dayTitle: string) => void;
 }
 
 export const DayDetailView: React.FC<DayDetailViewProps> = ({
@@ -55,6 +56,7 @@ export const DayDetailView: React.FC<DayDetailViewProps> = ({
   onNextDay,
   onOpenItemMap,
   onOpenDayMap,
+  onOpenVocabModal,
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
@@ -276,6 +278,24 @@ export const DayDetailView: React.FC<DayDetailViewProps> = ({
                       </ul>
                     </div>
                   )}
+
+                  {/* ★ 필요 용어란 (현지 일본어 / 입장권 종류 / 메뉴명 / 발음 팝업) */}
+                  <div className="pt-1">
+                    <button
+                      onClick={() => onOpenVocabModal(item, day.title)}
+                      className="w-full sm:w-auto px-4 py-2.5 bg-gradient-to-r from-amber-100 to-orange-100 hover:from-amber-200 hover:to-orange-200 text-slate-900 border-2 border-slate-900 rounded-xl text-xs font-black transition shadow-[2px_2px_0px_#1e293b] flex items-center justify-between sm:justify-start gap-2.5 active:scale-95 group"
+                    >
+                      <div className="flex items-center gap-2">
+                        <div className="w-5 h-5 rounded-lg bg-amber-400 border border-slate-900 flex items-center justify-center text-[10px] font-black">
+                          あ
+                        </div>
+                        <span>🗣️ <strong>필요 용어 & 현지 일본어</strong> (입장권 · 메뉴 · 주문)</span>
+                      </div>
+                      <span className="text-[10px] bg-white text-slate-800 font-extrabold px-2 py-0.5 rounded-md border border-slate-900 group-hover:bg-amber-300">
+                        단어장 열기 ➔
+                      </span>
+                    </button>
+                  </div>
 
                   {/* Next Destination Hint Indicator */}
                   {nextItem && !hasMultipleRoutes && (

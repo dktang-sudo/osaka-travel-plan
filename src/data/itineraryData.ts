@@ -15,6 +15,21 @@ export interface RouteOption {
   isPrimary?: boolean;
 }
 
+export interface VocabItem {
+  id: string;
+  korean: string;        // 한국어 뜻 (예: "성인 왕복 승선권")
+  japanese: string;      // 일본어 한자/가나 (예: "大人 往復乗船券")
+  pronunciation: string; // 한국어 발음 (예: "오토나 오-후쿠 조-센켄")
+  category: 'ticket' | 'order' | 'shopping' | 'transport' | 'service' | 'general';
+  image?: string;        // 시각 자료 이미지 경로 (예: "/images/vocab/ticket.svg")
+  situationTip?: string; // 현지 사용 팁 (예: "매표소 직원에게 손가락 2개와 함께 화면을 보여주세요")
+}
+
+export interface VocabularyCategory {
+  categoryName: string; // 카테고리 명칭 (예: "🎟️ 매표 & 입장권 용어", "🍜 메뉴 주문 & 요청")
+  items: VocabItem[];
+}
+
 export interface ScheduleItem {
   id: string;
   time: string;
@@ -28,6 +43,7 @@ export interface ScheduleItem {
   recommendations: string[];
   precautions: string[];
   routes?: RouteOption[];
+  vocabCategories?: VocabularyCategory[];
 }
 
 export interface DayChecklist {
@@ -112,6 +128,179 @@ export const getItemRoutes = (
       isPrimary: true,
     },
   ];
+};
+
+/**
+ * 기본 카테고리별 필수 일본어 용어 목록
+ */
+const DEFAULT_VOCABS_BY_CATEGORY: Record<string, VocabularyCategory[]> = {
+  hotel: [
+    {
+      categoryName: '🏨 숙소 & 체크인 필수 표현',
+      items: [
+        {
+          id: 'vh-1',
+          korean: '체크인 부탁드립니다.',
+          japanese: 'チェックインお願いします。',
+          pronunciation: '첵쿠인 오네가이시마스',
+          category: 'service',
+          image: '/images/vocab/ticket.svg',
+          situationTip: '호텔 프런트 데스크에서 여권과 함께 보여주세요.',
+        },
+        {
+          id: 'vh-2',
+          korean: '체크인 전에 짐을 맡길 수 있을까요?',
+          japanese: 'チェックイン前に荷物を預けられますか？',
+          pronunciation: '첵쿠인 마에니 니모츠오 아즈케라레마스카?',
+          category: 'service',
+          image: '/images/vocab/ticket.svg',
+          situationTip: '호텔에 일찍 도착했을 때 캐리어를 맡길 때 유용합니다.',
+        },
+        {
+          id: 'vh-3',
+          korean: '체크아웃 부탁드립니다.',
+          japanese: 'チェックアウトお願いします。',
+          pronunciation: '첵쿠아우토 오네가이시마스',
+          category: 'service',
+          image: '/images/vocab/ticket.svg',
+        },
+      ],
+    },
+    {
+      categoryName: '💬 프런트 요청 표현',
+      items: [
+        {
+          id: 'vh-4',
+          korean: '수건 2장 더 부탁드립니다.',
+          japanese: 'タオルをあと2枚お願いします。',
+          pronunciation: '타오루오 아토 니마이 오네가이시마스',
+          category: 'service',
+        },
+        {
+          id: 'vh-5',
+          korean: '와이파이 비밀번호가 어떻게 되나요?',
+          japanese: 'Wi-Fiのパスワードは何ですか？',
+          pronunciation: '와이파이노 파스와-도와 난데스카?',
+          category: 'service',
+        },
+      ],
+    },
+  ],
+  food: [
+    {
+      categoryName: '🍽️ 식당 주문 & 요청',
+      items: [
+        {
+          id: 'vf-1',
+          korean: '저기요! (주문할 때 부르기)',
+          japanese: 'すみません！',
+          pronunciation: '스미마센!',
+          category: 'order',
+          situationTip: '식당 직원을 부를 때 가볍게 손을 들며 말씀하세요.',
+        },
+        {
+          id: 'vf-2',
+          korean: '이것 주세요. (손가락으로 가리키며)',
+          japanese: 'これ、お願いします。',
+          pronunciation: '코레, 오네가이시마스',
+          category: 'order',
+          image: '/images/vocab/takoyaki.svg',
+        },
+        {
+          id: 'vf-3',
+          korean: '물 좀 더 주실 수 있나요?',
+          japanese: 'お冷（お水）おかわりお願いします。',
+          pronunciation: '오히야(오미즈) 오카와리 오네가이시마스',
+          category: 'order',
+        },
+        {
+          id: 'vf-4',
+          korean: '계산 부탁드립니다.',
+          japanese: 'お会計お願いします。',
+          pronunciation: '오카이케이 오네가이시마스',
+          category: 'order',
+          situationTip: '식사를 마치고 나갈 때 카운터에서 말씀하세요.',
+        },
+        {
+          id: 'vf-5',
+          korean: '생맥주 1잔 주세요 🍺',
+          japanese: '生ビール一つお願いします。',
+          pronunciation: '나마비-루 히토츠 오네가이시마스',
+          category: 'order',
+          image: '/images/vocab/beer.svg',
+        },
+      ],
+    },
+  ],
+  shopping: [
+    {
+      categoryName: '🛍️ 쇼핑 & 면세(Tax Free)',
+      items: [
+        {
+          id: 'vs-1',
+          korean: '면세(Tax Free) 가능한가요?',
+          japanese: '免税（Tax Free）できますか？',
+          pronunciation: '멘제이(텍스 프리) 데키마스카?',
+          category: 'shopping',
+          image: '/images/vocab/taxfree.svg',
+          situationTip: '여권을 보여주며 계산 전에 말씀하세요.',
+        },
+        {
+          id: 'vs-2',
+          korean: '새 상품으로 있나요?',
+          japanese: '新しい在庫はありますか？',
+          pronunciation: '아타라시이 자이코와 아리마스카?',
+          category: 'shopping',
+        },
+        {
+          id: 'vs-3',
+          korean: '카드 결제 가능한가요?',
+          japanese: 'カード使えますか？',
+          pronunciation: '카-도 츠카에마스카?',
+          category: 'shopping',
+        },
+      ],
+    },
+  ],
+  transport: [
+    {
+      categoryName: '🚆 교통 & 승차권 표현',
+      items: [
+        {
+          id: 'vt-1',
+          korean: '성인 2장 부탁드립니다.',
+          japanese: '大人2枚お願いします。',
+          pronunciation: '오토나 니마이 오네가이시마스',
+          category: 'ticket',
+          image: '/images/vocab/ticket.svg',
+        },
+        {
+          id: 'vt-2',
+          korean: '이 열차 난바역 가나요?',
+          japanese: 'この電車は難波駅に行きますか？',
+          pronunciation: '코노 덴샤와 난바에키니 이키마스카?',
+          category: 'transport',
+        },
+        {
+          id: 'vt-3',
+          korean: '화장실은 어디인가요?',
+          japanese: 'トイレはどこですか？',
+          pronunciation: '토이레와 도코데스카?',
+          category: 'general',
+        },
+      ],
+    },
+  ],
+};
+
+/**
+ * 특정 일정 아이템의 일본어 용어 목록을 반환합니다.
+ */
+export const getItemVocabs = (item: ScheduleItem): VocabularyCategory[] => {
+  if (item.vocabCategories && item.vocabCategories.length > 0) {
+    return item.vocabCategories;
+  }
+  return DEFAULT_VOCABS_BY_CATEGORY[item.category] || DEFAULT_VOCABS_BY_CATEGORY.food;
 };
 
 export const ITINERARY_DATA: DayItinerary[] = [
@@ -373,6 +562,38 @@ export const ITINERARY_DATA: DayItinerary[] = [
               "2단계: 2층 푸드코트(나니와 쿠이신보 요코초) 또는 대관람차 탑승 게이트로 이동"
             ],
           },
+        ],
+        vocabCategories: [
+          {
+            categoryName: "🎟️ 캡틴라인 매표 & 승선 용어",
+            items: [
+              {
+                id: "v2-2-1",
+                korean: "대인 왕복 승선권 2장 주세요.",
+                japanese: "大人 往復乗船券 2枚お願いします。",
+                pronunciation: "오토나 오-후쿠 조-센켄 니마이 오네가이시마스",
+                category: "ticket",
+                image: "/images/vocab/ferry.svg",
+                situationTip: "캡틴라인 매표소 창구에서 화면을 보여주며 구매하세요. (왕복 할인 적용)",
+              },
+              {
+                id: "v2-2-2",
+                korean: "다음 배는 몇 시에 출발하나요?",
+                japanese: "次の便は何時に出発しますか？",
+                pronunciation: "츠기노 벤와 난지니 슛파츠 시마스카?",
+                category: "transport",
+                situationTip: "출항 시간을 확인할 때 직원에게 물어보세요.",
+              },
+              {
+                id: "v2-2-3",
+                korean: "덴포잔(가이유칸)행 배가 맞나요?",
+                japanese: "天保山（海遊館）行きで合っていますか？",
+                pronunciation: "텐포-잔(카이유-칸) 유키데 앗테이마스카?",
+                category: "transport",
+                situationTip: "배에 탑승하기 전 승무원에게 확인하세요.",
+              },
+            ]
+          },
         ]
       },
       {
@@ -392,6 +613,58 @@ export const ITINERARY_DATA: DayItinerary[] = [
         precautions: [
           "월요일이라도 관광객이 많아 입장이 지연될 수 있으니 모바일 웹 타임슬롯 사전예약 필수!",
           "내부 플래시 촬영 금지 구역 준수"
+        ],
+        vocabCategories: [
+          {
+            categoryName: "🎟️ 가이유칸 입장 & 시설 용어",
+            items: [
+              {
+                id: "v2-3-1",
+                korean: "모바일 예약 QR 티켓입니다.",
+                japanese: "ウェブ予約のQRチケットです。",
+                pronunciation: "웨부 요야쿠노 큐-아-루 치켓토데스",
+                category: "ticket",
+                image: "/images/vocab/whale.svg",
+                situationTip: "입구 게이트 검표 직원에게 스마트폰 화면을 보여주세요.",
+              },
+              {
+                id: "v2-3-2",
+                korean: "한국어 안내 리플릿 있나요?",
+                japanese: "韓国語のパンフレットはありますか？",
+                pronunciation: "칸코쿠고노 판후렛토와 아리마스카?",
+                category: "service",
+              },
+              {
+                id: "v2-3-3",
+                korean: "고래상어 수조는 어디인가요?",
+                japanese: "ジンベエザメの水槽はどこですか？",
+                pronunciation: "진베-자메노 스이소-와 도코데스카?",
+                category: "general",
+                image: "/images/vocab/whale.svg",
+              },
+            ]
+          },
+          {
+            categoryName: "🍦 가이유칸 시그니처 디저트 & 굿즈",
+            items: [
+              {
+                id: "v2-3-4",
+                korean: "미즈타마리(물웅덩이) 소다 소프트 아이스크림 하나 주세요.",
+                japanese: "ミズタマリソフト（ソーダ味）を1つお願いします。",
+                pronunciation: "미즈타마리 소후토(소-다 아지)오 히토츠 오네가이시마스",
+                category: "order",
+                image: "/images/vocab/icecream.svg",
+                situationTip: "수족관 4층 카페에서 가이유칸 시그니처 아이스크림 주문 시 사용하세요.",
+              },
+              {
+                id: "v2-3-5",
+                korean: "고래상어 봉제인형 선물용 포장 부탁드립니다.",
+                japanese: "ジンベエザメのぬいぐるみをプレゼント包装でお願いします。",
+                pronunciation: "진베-자메노 누이구루미오 푸레젠토 호-소-데 오네가이시마스",
+                category: "shopping",
+              },
+            ]
+          }
         ]
       },
       {
@@ -426,6 +699,38 @@ export const ITINERARY_DATA: DayItinerary[] = [
         ],
         precautions: [
           "국내 입국 시 살아있는 곤충 생체 반입은 검역법상 금지되어 있으므로 표본/피규어/용품 위주 구경!"
+        ],
+        vocabCategories: [
+          {
+            categoryName: "🐞 곤충샵 쇼핑 & 문의 표현",
+            items: [
+              {
+                id: "v2-5-1",
+                korean: "헤라클레스 장수풍뎅이 표본 있나요?",
+                japanese: "ヘラクレスオオカブトの標本はありますか？",
+                pronunciation: "헤라쿠레스 오오카부토노 효-혼와 아리마스카?",
+                category: "shopping",
+                image: "/images/vocab/beetle.svg",
+                situationTip: "직원에게 표본 진열 위치를 물어볼 때 사용하세요.",
+              },
+              {
+                id: "v2-5-2",
+                korean: "사슴벌레 피규어 / 굿즈 어디 있나요?",
+                japanese: "クワガタのフィギュアやグッズはどこですか？",
+                pronunciation: "쿠와가타노 피규아야 굿즈와 도코데스카?",
+                category: "shopping",
+                image: "/images/vocab/beetle.svg",
+              },
+              {
+                id: "v2-5-3",
+                korean: "한국으로 가져갈 건데, 튼튼하게 포장해 주실 수 있나요?",
+                japanese: "韓国に持って帰るので、厳重に包装してもらえますか？",
+                pronunciation: "칸코쿠니 못테 카에루노데, 겐쥬-니 호-소- 시테 모라에마스카?",
+                category: "service",
+                situationTip: "표본 상자 파손을 방지하기 위해 에어캡 포장을 요청하세요.",
+              },
+            ]
+          }
         ]
       },
       {
@@ -541,6 +846,60 @@ export const ITINERARY_DATA: DayItinerary[] = [
         precautions: [
           "인기 어트랙션 대기시간이 60~120분에 달할 수 있으므로 싱글라이더 라인 활용 추천",
           "오후 늦게 닌텐도 월드 재입장이 불가할 수 있으니 수령한 타임슬롯 엄수"
+        ],
+        vocabCategories: [
+          {
+            categoryName: "🎟️ USJ 입장 & 어트랙션 표현",
+            items: [
+              {
+                id: "v3-3-1",
+                korean: "슈퍼 닌텐도 월드 e정리권(타임슬롯) 보여주기",
+                japanese: "スーパー・ニンテンドー・ワールド エリア入場整理券です。",
+                pronunciation: "스-파- 닌텐도- 와-루도 에리아 뉴-조- 세-리켄데스",
+                category: "ticket",
+                image: "/images/vocab/nintendo.svg",
+                situationTip: "닌텐도 월드 입구 토관 앞에서 직원에게 앱 QR코드를 보여주세요.",
+              },
+              {
+                id: "v3-3-2",
+                korean: "싱글라이더(Single Rider) 이용 가능한가요?",
+                japanese: "シングルライダーで乗れますか？",
+                pronunciation: "신구루 라이다-데 노레마스카?",
+                category: "service",
+                situationTip: "혼자 타도 괜찮다면 대기시간을 절반 이하로 줄일 수 있습니다.",
+              },
+            ]
+          },
+          {
+            categoryName: "🍺 USJ 테마 파크 푸드 & 굿즈",
+            items: [
+              {
+                id: "v3-3-3",
+                korean: "버터맥주(무알콜) 1잔 주세요 🍺",
+                japanese: "バタービール（ノンアルコール）を1つお願いします。",
+                pronunciation: "바타-비-루(논아루코-루)오 히토츠 오네가이시마스",
+                category: "order",
+                image: "/images/vocab/butterbeer.svg",
+                situationTip: "해리포터 존 오크통 가판대에서 주문 시 사용하세요.",
+              },
+              {
+                id: "v3-3-4",
+                korean: "기념품 컵 포함 버터맥주로 주세요.",
+                japanese: "プレミアムマグカップ付きでお願いします。",
+                pronunciation: "푸레미아무 마구캇푸 츠키데 오네가이시마스",
+                category: "order",
+                image: "/images/vocab/butterbeer.svg",
+              },
+              {
+                id: "v3-3-5",
+                korean: "미니언즈 팝콘통 하나 주세요 🍿",
+                japanese: "ミニオンのポップコーンバケツを1つください。",
+                pronunciation: "미니온노 폿푸코-누 바케츠오 히토츠 쿠다사이",
+                category: "order",
+                image: "/images/vocab/takoyaki.svg",
+              },
+            ]
+          }
         ]
       },
       {
@@ -729,6 +1088,30 @@ export const ITINERARY_DATA: DayItinerary[] = [
         precautions: [
           "★ 승선권 미리 exchange 필수! 낮에 매표소에서 시간 지정 실물표로 교환해야 탑승 가능",
           "18:15 탑승 10분 전 선착장 대기"
+        ],
+        vocabCategories: [
+          {
+            categoryName: "🛥️ 도톤보리 크루즈 & 글리코상 포토",
+            items: [
+              {
+                id: "v4-8-1",
+                korean: "18시 15분 편으로 시간 지정 교환 부탁드립니다.",
+                japanese: "18時15分の便で時間指定の交換をお願いします。",
+                pronunciation: "쥬-하치지 쥬-고훈노 벤데 지칸 시테-노 코-칸오 오네가이시마스",
+                category: "ticket",
+                image: "/images/vocab/ferry.svg",
+                situationTip: "돈키호테 앞 매표소 창구에서 낮에 실물 탑승권으로 교환 시 보여주세요.",
+              },
+              {
+                id: "v4-8-2",
+                korean: "글리코상 앞에서 사진 한 장 찍어주실 수 있나요? 📸",
+                japanese: "グリコの前で写真を1枚撮っていただけますか？",
+                pronunciation: "구리코노 마에데 샤신오 이치마이 톳테 이타다케마스카?",
+                category: "general",
+                image: "/images/vocab/glico.svg",
+              },
+            ]
+          }
         ]
       },
       {
@@ -745,7 +1128,46 @@ export const ITINERARY_DATA: DayItinerary[] = [
           "글리코상 전용 포토 스팟(에비스 다리 / 놋폰바시 방향) 사진 촬영",
           "쿠시카츠 다루마, 이치란 라멘, 킨류 라멘 중 선택 저녁"
         ],
-        precautions: ["도톤보리 거리 보행자 인파 매우 많음, 소지품 유의"]
+        precautions: ["도톤보리 거리 보행자 인파 매우 많음, 소지품 유의"],
+        vocabCategories: [
+          {
+            categoryName: "🍢 쿠시카츠 & 도톤보리 맛집 주문",
+            items: [
+              {
+                id: "v4-9-1",
+                korean: "인기 쿠시카츠 모둠 세트 하나 주세요.",
+                japanese: "人気串カツ盛り合わせセットを1つお願いします。",
+                pronunciation: "닌키 쿠시카츠 모리아와세 셋토오 히토츠 오네가이시마스",
+                category: "order",
+                image: "/images/vocab/kushikatsu.svg",
+                situationTip: "소고기, 새우, 메추리알 등 인기 꼬치가 포함된 세트 주문 시 편리합니다.",
+              },
+              {
+                id: "v4-9-2",
+                korean: "소스는 1번만 찍어 먹겠습니다! (위생 규칙)",
+                japanese: "ソースの二度づけはしません！（ルール確認）",
+                pronunciation: "소-스노 니도즈케와 시마센! (루-루 카쿠닌)",
+                category: "general",
+                image: "/images/vocab/kushikatsu.svg",
+              },
+              {
+                id: "v4-9-3",
+                korean: "생맥주(나마비루) 2잔 주세요 🍻",
+                japanese: "生ビールを2杯お願いします。",
+                pronunciation: "나마비-루오 니하이 오네가이시마스",
+                category: "order",
+                image: "/images/vocab/beer.svg",
+              },
+              {
+                id: "v4-9-4",
+                korean: "양배추 리필 가능한가요?",
+                japanese: "キャベツのおかわりできますか？",
+                pronunciation: "캬베츠노 오카와리 데키마스카?",
+                category: "order",
+              },
+            ]
+          }
+        ]
       },
       {
         id: "d4-10",
@@ -890,6 +1312,57 @@ export const ITINERARY_DATA: DayItinerary[] = [
         ],
         precautions: [
           "★ 카톡 플친 또는 웹 쿠폰(10% 면세 + 5% 추가 할인) 바코드를 캡처가 아닌 '모바일 웹 브라우저'로 띄워 제시해야 적용됨!"
+        ],
+        vocabCategories: [
+          {
+            categoryName: "🛍️ 돈키호테 면세(Tax Free) & 할인쿠폰",
+            items: [
+              {
+                id: "v5-7-1",
+                korean: "면세(Tax Free) 계산 부탁드립니다. (여권 제시)",
+                japanese: "免税会計をお願いします。（パスポート提示）",
+                pronunciation: "멘제- 카이케이오 오네가이시마스",
+                category: "shopping",
+                image: "/images/vocab/taxfree.svg",
+                situationTip: "면세 전용 카운터에서 여권과 함께 물건을 올리며 말씀하세요.",
+              },
+              {
+                id: "v5-7-2",
+                korean: "모바일 웹 5% 추가 할인 쿠폰 바코드입니다.",
+                japanese: "5％割引クーポンのバーコードです。",
+                pronunciation: "고파-센토 와리비키 쿠-폰노 바-코-도데스",
+                category: "shopping",
+                image: "/images/vocab/taxfree.svg",
+                situationTip: "캡처본이 아닌 스마트폰 브라우저 화면의 바코드를 스캔해달라고 하세요.",
+              },
+            ]
+          },
+          {
+            categoryName: "💊 인기 의약품 & 과자 위치 묻기",
+            items: [
+              {
+                id: "v5-7-3",
+                korean: "카베진 (위장약) 어디에 있나요?",
+                japanese: "キャベジン（胃腸薬）はどこですか？",
+                pronunciation: "캬베진(이쵸-야쿠)와 도코데스카?",
+                category: "shopping",
+              },
+              {
+                id: "v5-7-4",
+                korean: "로이히 츠보코(동전파스) 어디에 있나요?",
+                japanese: "ロイヒつぼ膏（コインパス）はどこですか？",
+                pronunciation: "로이히 츠보코-(코인파스)와 도코데스카?",
+                category: "shopping",
+              },
+              {
+                id: "v5-7-5",
+                korean: "곤약젤리 어디 있나요? (기내반입 불가, 위탁용)",
+                japanese: "蒟蒻ゼリーはどこにありますか？",
+                pronunciation: "콘냐쿠 제리-와 도코니 아리마스카?",
+                category: "shopping",
+              },
+            ]
+          }
         ]
       },
       {
