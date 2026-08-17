@@ -565,19 +565,65 @@ export const ITINERARY_DATA: DayItinerary[] = [
         ],
         vocabCategories: [
           {
-            categoryName: "🎟️ 캡틴라인 매표 & 승선 용어",
+            categoryName: "🎟️ 캡틴라인 티켓 종류 & 매표",
             items: [
               {
                 id: "v2-2-1",
-                korean: "대인 왕복 승선권 2장 주세요.",
-                japanese: "大人 往復乗船券 2枚お願いします。",
-                pronunciation: "오토나 오-후쿠 조-센켄 니마이 오네가이시마스",
+                korean: "대인(중학생 이상) 왕복 승선권 (1,700엔)",
+                japanese: "大人（中学生以上） 往復乗船券 1枚",
+                pronunciation: "오토나(츄-갓쿠세- 이죠-) 오-후쿠 조-센켄 이치마이",
                 category: "ticket",
-                image: "/images/vocab/ferry.svg",
-                situationTip: "캡틴라인 매표소 창구에서 화면을 보여주며 구매하세요. (왕복 할인 적용)",
+                image: "/images/vocab/ticket.svg",
+                situationTip: "왕복으로 끊으면 편도 2장보다 100엔 할인됩니다. 매표소에 보여주세요.",
               },
               {
                 id: "v2-2-2",
+                korean: "대인 편도 승선권 (900엔)",
+                japanese: "大人 片道乗船券 1枚",
+                pronunciation: "오토나 카타미치 조-센켄 이치마이",
+                category: "ticket",
+                image: "/images/vocab/ticket.svg",
+              },
+              {
+                id: "v2-2-3",
+                korean: "소인(초등학생) 왕복 승선권 (850엔)",
+                japanese: "小人（小学生） 往復乗船券 1枚",
+                pronunciation: "쇼-닌(쇼-갓쿠세-) 오-후쿠 조-센켄 이치마이",
+                category: "ticket",
+                image: "/images/vocab/ticket.svg",
+              },
+              {
+                id: "v2-2-4",
+                korean: "소인(초등학생) 편도 승선권 (450엔)",
+                japanese: "小人（小学生） 片道乗船券 1枚",
+                pronunciation: "쇼-닌(쇼-갓쿠세-) 카타미치 조-센켄 이치마이",
+                category: "ticket",
+                image: "/images/vocab/ticket.svg",
+              },
+              {
+                id: "v2-2-5",
+                korean: "유아 승선권 (미취학 아동: 어른 1명당 1명 무료)",
+                japanese: "幼児乗船券（未就学児：大人1名につき1名無料）",
+                pronunciation: "요-지 조-센켄 (미슈-가쿠지: 오토나 이치메-니츠키 이치메- 무료-)",
+                category: "ticket",
+                image: "/images/vocab/ticket.svg",
+                situationTip: "성인 1명당 미취학 유아 1명은 무료이며, 2명째부터는 소인 요금(450엔)이 부과됩니다.",
+              },
+              {
+                id: "v2-2-6",
+                korean: "캡틴라인 + 가이유칸 세트권 있나요?",
+                japanese: "キャプテンラインと海遊館のセット券はありますか？",
+                pronunciation: "캬푸텐라인토 카이유-칸노 셋토켄와 아리마스카?",
+                category: "ticket",
+                image: "/images/vocab/ferry.svg",
+              },
+            ]
+          },
+          {
+            categoryName: "🚢 캡틴라인 탑승 & 운항 안내",
+            items: [
+              {
+                id: "v2-2-7",
                 korean: "다음 배는 몇 시에 출발하나요?",
                 japanese: "次の便は何時に出発しますか？",
                 pronunciation: "츠기노 벤와 난지니 슛파츠 시마스카?",
@@ -585,15 +631,22 @@ export const ITINERARY_DATA: DayItinerary[] = [
                 situationTip: "출항 시간을 확인할 때 직원에게 물어보세요.",
               },
               {
-                id: "v2-2-3",
+                id: "v2-2-8",
                 korean: "덴포잔(가이유칸)행 배가 맞나요?",
                 japanese: "天保山（海遊館）行きで合っていますか？",
                 pronunciation: "텐포-잔(카이유-칸) 유키데 앗테이마스카?",
                 category: "transport",
-                situationTip: "배에 탑승하기 전 승무원에게 확인하세요.",
+                image: "/images/vocab/ferry.svg",
+              },
+              {
+                id: "v2-2-9",
+                korean: "야외 덱(2층 바깥 좌석)에 앉아도 되나요?",
+                japanese: "デッキ席（屋外）に座ってもいいですか？",
+                pronunciation: "덱키세키(오쿠가이)니 스왓테모 이이데스카?",
+                category: "service",
               },
             ]
-          },
+          }
         ]
       },
       {
@@ -616,39 +669,65 @@ export const ITINERARY_DATA: DayItinerary[] = [
         ],
         vocabCategories: [
           {
-            categoryName: "🎟️ 가이유칸 입장 & 시설 용어",
+            categoryName: "🎟️ 가이유칸 티켓 종류 (입장권 전종)",
             items: [
               {
                 id: "v2-3-1",
-                korean: "모바일 예약 QR 티켓입니다.",
-                japanese: "ウェブ予約のQRチケットです。",
-                pronunciation: "웨부 요야쿠노 큐-아-루 치켓토데스",
+                korean: "어른 입장권 (16세 이상 / 고교생 이상 2,700엔)",
+                japanese: "大人 入場券（16歳以上 / 高校生以上） 2,700円",
+                pronunciation: "오토나 뉴-죠-켄 (쥬-로쿠사이 이죠-) 니센 나나햐쿠엔",
                 category: "ticket",
                 image: "/images/vocab/whale.svg",
-                situationTip: "입구 게이트 검표 직원에게 스마트폰 화면을 보여주세요.",
+                situationTip: "현장 매표소 또는 QR 교환 시 직원에게 보여주세요.",
               },
               {
                 id: "v2-3-2",
-                korean: "한국어 안내 리플릿 있나요?",
-                japanese: "韓国語のパンフレットはありますか？",
-                pronunciation: "칸코쿠고노 판후렛토와 아리마스카?",
-                category: "service",
+                korean: "어린이 입장권 (초·중학생 7~15세 1,400엔)",
+                japanese: "子ども 入場券（小・中学生 7〜15歳） 1,400円",
+                pronunciation: "코도모 뉴-죠-켄 (쇼-·츄-갓쿠세-) 센 욘햐쿠엔",
+                category: "ticket",
+                image: "/images/vocab/ticket.svg",
               },
               {
                 id: "v2-3-3",
-                korean: "고래상어 수조는 어디인가요?",
-                japanese: "ジンベエザメの水槽はどこですか？",
-                pronunciation: "진베-자메노 스이소-와 도코데스카?",
-                category: "general",
-                image: "/images/vocab/whale.svg",
+                korean: "유아 입장권 (3세 이상 700엔 / 2세 이하 무료)",
+                japanese: "幼児 入場券（3歳以上 700円 / 2歳以下 無料）",
+                pronunciation: "요-지 뉴-죠-켄 (산사이 이죠- 나나햐쿠엔 / 니사이 이하 무료-)",
+                category: "ticket",
+                image: "/images/vocab/ticket.svg",
+              },
+              {
+                id: "v2-3-4",
+                korean: "한국어 음성 가이드 대여 (600엔)",
+                japanese: "日本語/韓国語 音声ガイドの貸出（600円）",
+                pronunciation: "칸코쿠고 온세- 가이도노 카시다시 (롯퍄쿠엔)",
+                category: "service",
+                image: "/images/vocab/audio_guide.svg",
+                situationTip: "입구 에스컬레이터 옆 음성 가이드 카운터에서 신청하세요.",
+              },
+              {
+                id: "v2-3-5",
+                korean: "가이유칸 + 덴포잔 대관람차 세트권 (3,300엔)",
+                japanese: "海遊館＋天保山大観覧車 セット券（3,300円）",
+                pronunciation: "카이유-칸 토 텐포-잔 다이칸란샤 셋토켄",
+                category: "ticket",
+                image: "/images/vocab/ferriswheel.svg",
+              },
+              {
+                id: "v2-3-6",
+                korean: "재입장용 투명 손도장 찍어주세요.",
+                japanese: "再入場のハンドスタンプ（手の甲）をお願いします。",
+                pronunciation: "사이뉴-죠-노 한도스탄푸오 오네가이시마스",
+                category: "service",
+                situationTip: "식사를 위해 밖으로 나갔다가 당일 다시 수족관에 들어올 때 출구 직원에게 요청하세요.",
               },
             ]
           },
           {
-            categoryName: "🍦 가이유칸 시그니처 디저트 & 굿즈",
+            categoryName: "🍦 가이유칸 카페 & 기념품샵",
             items: [
               {
-                id: "v2-3-4",
+                id: "v2-3-7",
                 korean: "미즈타마리(물웅덩이) 소다 소프트 아이스크림 하나 주세요.",
                 japanese: "ミズタマリソフト（ソーダ味）を1つお願いします。",
                 pronunciation: "미즈타마리 소후토(소-다 아지)오 히토츠 오네가이시마스",
@@ -657,11 +736,20 @@ export const ITINERARY_DATA: DayItinerary[] = [
                 situationTip: "수족관 4층 카페에서 가이유칸 시그니처 아이스크림 주문 시 사용하세요.",
               },
               {
-                id: "v2-3-5",
+                id: "v2-3-8",
+                korean: "고래상어 바닐라&소다 믹스 소프트 아이스크림",
+                japanese: "ジンベエザメ プレミアムソフト（バニラ＆ソーダミックス）",
+                pronunciation: "진베-자메 푸레미아무 소후토 (바니라 앤도 소-다 믹쿠스)",
+                category: "order",
+                image: "/images/vocab/icecream.svg",
+              },
+              {
+                id: "v2-3-9",
                 korean: "고래상어 봉제인형 선물용 포장 부탁드립니다.",
                 japanese: "ジンベエザメのぬいぐるみをプレゼント包装でお願いします。",
                 pronunciation: "진베-자메노 누이구루미오 푸레젠토 호-소-데 오네가이시마스",
                 category: "shopping",
+                image: "/images/vocab/whale.svg",
               },
             ]
           }
@@ -681,7 +769,145 @@ export const ITINERARY_DATA: DayItinerary[] = [
           "레트로 골목 콘셉트의 '나니와 쿠이신보 요코초'에서 오코노미야키 & 꼬치튀김 식사",
           "세계 최대급 덴포잔 대관람차(시스루 곤돌라) 도전"
         ],
-        precautions: ["점심 피크 타임에는 유명 식당 대기가 있을 수 있음"]
+        precautions: ["점심 피크 타임에는 유명 식당 대기가 있을 수 있음"],
+        vocabCategories: [
+          {
+            categoryName: "🐙 원조 타코야키 '아이즈야(会津屋)' 메뉴",
+            items: [
+              {
+                id: "v2-4-1",
+                korean: "원조 타코야키 (소스 없이 먹는 1935년 원조 국물맛)",
+                japanese: "元祖たこ焼き（ソースなし・出汁の旨味）",
+                pronunciation: "간소 타코야키 (소-스 나시 · 다시노 우마미)",
+                category: "order",
+                image: "/images/vocab/takoyaki.svg",
+                situationTip: "반죽에 가쓰오/다시 국물 간이 배어있어 소스 없이 먹는 것이 정통입니다.",
+              },
+              {
+                id: "v2-4-2",
+                korean: "원조 라디오야키 (소고기 힘줄+곤약 들어간 타코야키의 원조)",
+                japanese: "元祖ラヂオ焼き（牛すじ・こんにゃく入り）",
+                pronunciation: "간소 라지오야키 (규-스지 · 콘냐쿠 이리)",
+                category: "order",
+                image: "/images/vocab/takoyaki.svg",
+              },
+              {
+                id: "v2-4-3",
+                korean: "파 듬뿍 타코야키 (네기 타코야키)",
+                japanese: "ネギ入りたこ焼き",
+                pronunciation: "네기이리 타코야키",
+                category: "order",
+                image: "/images/vocab/takoyaki.svg",
+              },
+              {
+                id: "v2-4-4",
+                korean: "타코야키 3종 세트 (원조+라디오+치즈 18개)",
+                japanese: "たこ焼き3種盛り合わせセット（18個入り）",
+                pronunciation: "타코야키 산슈- 모리아와세 셋토 (쥬-핫코 이리)",
+                category: "order",
+                image: "/images/vocab/takoyaki.svg",
+              },
+            ]
+          },
+          {
+            categoryName: "🍛 오사카 명물 카레 '자유켄(自由軒)' 메뉴",
+            items: [
+              {
+                id: "v2-4-5",
+                korean: "명물 카레 (날계란 비빔 카레, 우스터 소스 뿌려 비벼먹기)",
+                japanese: "名物カレー（生卵入り・混ぜカレー）",
+                pronunciation: "메-부츠 카레- (나마타마고 이리 · 마제 카레-)",
+                category: "order",
+                image: "/images/vocab/curry.svg",
+                situationTip: "가운데 날계란을 터뜨리고 테이블 위의 우스터 소스를 2~3방울 뿌려 비벼 드세요.",
+              },
+              {
+                id: "v2-4-6",
+                korean: "돈까스 카레 (바삭한 카츠 토핑)",
+                japanese: "カツカレー（ロースカツトッピング）",
+                pronunciation: "카츠 카레- (로-스 카츠 톳핀구)",
+                category: "order",
+                image: "/images/vocab/curry.svg",
+              },
+              {
+                id: "v2-4-7",
+                korean: "하이라이스 (달콤하고 진한 데미글라스 소스)",
+                japanese: "ハイシライス（ハヤシライス）",
+                pronunciation: "하이시라이스 (하야시라이스)",
+                category: "order",
+                image: "/images/vocab/curry.svg",
+              },
+            ]
+          },
+          {
+            categoryName: "🥢 오코노미야키 & 야키소바 '보테쥬 / 후게츠'",
+            items: [
+              {
+                id: "v2-4-8",
+                korean: "부타타마 (돼지고기 오코노미야키 - 가장 기본 인기메뉴)",
+                japanese: "豚玉 お好み焼き（定番人気）",
+                pronunciation: "부타타마 오코노미야키 (테-반 닌키)",
+                category: "order",
+                image: "/images/vocab/okonomiyaki.svg",
+                situationTip: "바삭하고 고소한 삼겹살이 들어간 가장 대표적인 오코노미야키입니다.",
+              },
+              {
+                id: "v2-4-9",
+                korean: "믹스 오코노미야키 (돼지고기 + 오징어 + 새우 푸짐한 모둠)",
+                japanese: "ミックスお好み焼き（豚・いか・えび入り）",
+                pronunciation: "믹쿠스 오코노미야키 (부타 · 이카 · 에비 이리)",
+                category: "order",
+                image: "/images/vocab/okonomiyaki.svg",
+              },
+              {
+                id: "v2-4-10",
+                korean: "모던야키 (오코노미야키 속에 볶은 야키소바 면 추가)",
+                japanese: "モダン焼き（焼きそば麺入りお好み焼き）",
+                pronunciation: "모단야키 (야키소바 멘 이리 오코노미야키)",
+                category: "order",
+                image: "/images/vocab/okonomiyaki.svg",
+              },
+              {
+                id: "v2-4-11",
+                korean: "해물 야키소바 (철판 볶음면)",
+                japanese: "海鮮ソース焼きそば",
+                pronunciation: "카이센 소-스 야키소바",
+                category: "order",
+                image: "/images/vocab/okonomiyaki.svg",
+              },
+            ]
+          },
+          {
+            categoryName: "🎡 덴포잔 대관람차 & 푸드코트 디저트",
+            items: [
+              {
+                id: "v2-4-12",
+                korean: "덴포잔 대관람차 일반 곤돌라 승차권 (900엔)",
+                japanese: "天保山大観覧車 一般キャビン乗車券 1枚（900円）",
+                pronunciation: "텐포-잔 다이칸란샤 잇판 캬빈 조-샤켄 이치마이",
+                category: "ticket",
+                image: "/images/vocab/ferriswheel.svg",
+              },
+              {
+                id: "v2-4-13",
+                korean: "바닥이 투명한 시스루(크리스탈) 곤돌라로 탈게요!",
+                japanese: "シースルーキャビン（床面透明）に乗りたいです！",
+                pronunciation: "시-스루- 캬빈 (유카멘 토-메-)니 노리타이데스!",
+                category: "ticket",
+                image: "/images/vocab/ferriswheel.svg",
+                situationTip: "대기줄이 일반 곤돌라와 시스루 곤돌라로 나뉘어 있으니 직원에게 보여주세요.",
+              },
+              {
+                id: "v2-4-14",
+                korean: "멜론소다 플로트 (바닐라 아이스크림 얹음)",
+                japanese: "メロンソーダフロート（アイスのせ）",
+                pronunciation: "메론소-다 후로-토 (아이스 노세)",
+                category: "order",
+                image: "/images/vocab/icecream.svg",
+              },
+            ]
+          }
+        ]
       },
       {
         id: "d2-5",
@@ -849,10 +1075,27 @@ export const ITINERARY_DATA: DayItinerary[] = [
         ],
         vocabCategories: [
           {
-            categoryName: "🎟️ USJ 입장 & 어트랙션 표현",
+            categoryName: "🎟️ USJ 티켓 종류 & 우선 입장권",
             items: [
               {
                 id: "v3-3-1",
+                korean: "1일 스튜디오 패스 (성인 1일 자유이용권)",
+                japanese: "1デイ・スタジオ・パス（大人）",
+                pronunciation: "완데이 스타지오 파스 (오토나)",
+                category: "ticket",
+                image: "/images/vocab/ticket.svg",
+              },
+              {
+                id: "v3-3-2",
+                korean: "유니버설 익스프레스 패스 7 / 4 (우선 탑승권)",
+                japanese: "ユニバーサル・エクスプレス・パス 7 / 4",
+                pronunciation: "유니바-사루 에쿠스푸레스 파스 세븐 / 포-",
+                category: "ticket",
+                image: "/images/vocab/express_pass.svg",
+                situationTip: "익스프레스 전용 라인 입장 시 QR코드를 보여주세요.",
+              },
+              {
+                id: "v3-3-3",
                 korean: "슈퍼 닌텐도 월드 e정리권(타임슬롯) 보여주기",
                 japanese: "スーパー・ニンテンドー・ワールド エリア入場整理券です。",
                 pronunciation: "스-파- 닌텐도- 와-루도 에리아 뉴-조- 세-리켄데스",
@@ -861,7 +1104,7 @@ export const ITINERARY_DATA: DayItinerary[] = [
                 situationTip: "닌텐도 월드 입구 토관 앞에서 직원에게 앱 QR코드를 보여주세요.",
               },
               {
-                id: "v3-3-2",
+                id: "v3-3-4",
                 korean: "싱글라이더(Single Rider) 이용 가능한가요?",
                 japanese: "シングルライダーで乗れますか？",
                 pronunciation: "신구루 라이다-데 노레마스카?",
@@ -871,10 +1114,40 @@ export const ITINERARY_DATA: DayItinerary[] = [
             ]
           },
           {
-            categoryName: "🍺 USJ 테마 파크 푸드 & 굿즈",
+            categoryName: "🍄 키노피오 카페 (Kinopio's Cafe) 추천 메뉴",
             items: [
               {
-                id: "v3-3-3",
+                id: "v3-3-5",
+                korean: "슈퍼버섯 피자볼 (베이컨&토마토 소스 들어간 바삭한 빵)",
+                japanese: "大人気！スーパーキノコ・ピッツァボウル",
+                pronunciation: "다이닌키! 스-파- 키노코 핏차 보-루",
+                category: "order",
+                image: "/images/vocab/nintendo.svg",
+                situationTip: "키노피오 카페의 대표 시그니처 메뉴입니다.",
+              },
+              {
+                id: "v3-3-6",
+                korean: "마리오 베이컨 치즈 버거",
+                japanese: "マリオ・バーガー（ベーコン＆チーズ）",
+                pronunciation: "마리오 바-가- (베-콘 앤도 치-즈)",
+                category: "order",
+                image: "/images/vocab/nintendo.svg",
+              },
+              {
+                id: "v3-3-7",
+                korean: "피치공주 케이크 (딸기 생크림 디저트)",
+                japanese: "プリンセスピーチ・ショートケーキ",
+                pronunciation: "푸린세스 피-치 쇼-토케-키",
+                category: "order",
+                image: "/images/vocab/icecream.svg",
+              },
+            ]
+          },
+          {
+            categoryName: "🍺 해리포터 버터맥주 & 파크 스낵",
+            items: [
+              {
+                id: "v3-3-8",
                 korean: "버터맥주(무알콜) 1잔 주세요 🍺",
                 japanese: "バタービール（ノンアルコール）を1つお願いします。",
                 pronunciation: "바타-비-루(논아루코-루)오 히토츠 오네가이시마스",
@@ -883,7 +1156,7 @@ export const ITINERARY_DATA: DayItinerary[] = [
                 situationTip: "해리포터 존 오크통 가판대에서 주문 시 사용하세요.",
               },
               {
-                id: "v3-3-4",
+                id: "v3-3-9",
                 korean: "기념품 컵 포함 버터맥주로 주세요.",
                 japanese: "プレミアムマグカップ付きでお願いします。",
                 pronunciation: "푸레미아무 마구캇푸 츠키데 오네가이시마스",
@@ -891,7 +1164,7 @@ export const ITINERARY_DATA: DayItinerary[] = [
                 image: "/images/vocab/butterbeer.svg",
               },
               {
-                id: "v3-3-5",
+                id: "v3-3-10",
                 korean: "미니언즈 팝콘통 하나 주세요 🍿",
                 japanese: "ミニオンのポップコーンバケツを1つください。",
                 pronunciation: "미니온노 폿푸코-누 바케츠오 히토츠 쿠다사이",
@@ -1026,6 +1299,60 @@ export const ITINERARY_DATA: DayItinerary[] = [
         precautions: [
           "천수각 엘리베이터 대기 줄이 길면 계단 이용 고려",
           "지하철 다니마치욘초메역 또는 모리노미야역 이용"
+        ],
+        vocabCategories: [
+          {
+            categoryName: "🎟️ 오사카성 티켓 종류 & 매표",
+            items: [
+              {
+                id: "v4-4-1",
+                korean: "천수각 입장권 어른 1장 (600엔 / 중학생 이하 무료)",
+                japanese: "天守閣 入場券 大人1枚（600円 / 中学生以下 無料）",
+                pronunciation: "텐슈카쿠 뉴-죠-켄 오토나 이치마이 (롯퍄쿠엔 / 츄-갓쿠세- 이하 무료-)",
+                category: "ticket",
+                image: "/images/vocab/castle_ticket.svg",
+                situationTip: "천수각 바로 앞 자동 발권기 또는 매표 창구에서 구매하세요.",
+              },
+              {
+                id: "v4-4-2",
+                korean: "고자부네 놀잇배(해자 유람선) 승선권 (어른 1,500엔)",
+                japanese: "大阪城御座船（お堀巡り）乗船券 大人1枚",
+                pronunciation: "오오사카죠- 고자부네 (오호리 메구리) 조-센켄 오토나 이치마이",
+                category: "ticket",
+                image: "/images/vocab/ferry.svg",
+              },
+              {
+                id: "v4-4-3",
+                korean: "로드트레인(공원 순환 꼬마열차) 탑승권 (어른 400엔)",
+                japanese: "ロードトレイン乗車券 大人1枚（400円）",
+                pronunciation: "로-도토레인 조-샤켄 오토나 이치마이",
+                category: "ticket",
+                image: "/images/vocab/ticket.svg",
+                situationTip: "역에서 천수각까지 걷기 힘들 때 타면 편리합니다.",
+              },
+            ]
+          },
+          {
+            categoryName: "🍵 오사카성 공원 명물 디저트",
+            items: [
+              {
+                id: "v4-4-4",
+                korean: "우지 말차 진한 소프트 아이스크림",
+                japanese: "宇治抹茶 濃厚ソフトクリーム",
+                pronunciation: "우지 맛챠 노-코- 소후토쿠리-무",
+                category: "order",
+                image: "/images/vocab/icecream.svg",
+              },
+              {
+                id: "v4-4-5",
+                korean: "금박 말차 소프트 아이스크림 (오사카성 한정)",
+                japanese: "金箔 抹茶ソフトクリーム（大阪城限定）",
+                pronunciation: "킨파쿠 맛챠 소후토쿠리-무 (오오사카죠- 겐테-)",
+                category: "order",
+                image: "/images/vocab/icecream.svg",
+              },
+            ]
+          }
         ]
       },
       {
@@ -1237,6 +1564,46 @@ export const ITINERARY_DATA: DayItinerary[] = [
         ],
         precautions: [
           "일부 가게의 해산물 가격이 다소 높을 수 있으므로 가격표와 양을 먼저 비교 후 구매!"
+        ],
+        vocabCategories: [
+          {
+            categoryName: "🐙 쿠로몬 시장 즉석 해산물 & 와규 메뉴",
+            items: [
+              {
+                id: "v5-2-1",
+                korean: "가리비 버터구이 하나 즉석에서 구워주세요.",
+                japanese: "ホタテバター焼きを1つ、今すぐ焼いてください。",
+                pronunciation: "호타테 바타-야키오 히토츠, 이마스구 야이테 쿠다사이",
+                category: "order",
+                image: "/images/vocab/scallop.svg",
+                situationTip: "가게 앞 그릴에서 숯불/토치로 구워줄 때 사용하세요.",
+              },
+              {
+                id: "v5-2-2",
+                korean: "참치 대뱃살(오도로) 스시 1팩 주세요 🍣",
+                japanese: "本マグロ大トロ寿司を1パックください。",
+                pronunciation: "혼마구로 오오토로 스시오 완팟쿠 쿠다사이",
+                category: "order",
+                image: "/images/vocab/sushi.svg",
+              },
+              {
+                id: "v5-2-3",
+                korean: "신선한 성게(생우니) 1개 먹고 갈게요.",
+                japanese: "生うに1つ、ここで食べていきます。",
+                pronunciation: "나마우니 히토츠, 코코데 타베테 이키마스",
+                category: "order",
+                image: "/images/vocab/sushi.svg",
+              },
+              {
+                id: "v5-2-4",
+                korean: "A5 흑모 와규 소고기 꼬치구이 하나 주세요.",
+                japanese: "A5黒毛和牛の牛串焼きを1本お願いします。",
+                pronunciation: "에-고 쿠로게와규-노 규-쿠시야키오 잇폰 오네가이시마스",
+                category: "order",
+                image: "/images/vocab/kushikatsu.svg",
+              },
+            ]
+          }
         ]
       },
       {
@@ -1294,6 +1661,38 @@ export const ITINERARY_DATA: DayItinerary[] = [
         ],
         precautions: [
           "★ 신세카이 쿠시카츠 전문점 이용 시 '튀김 소스는 처음 1회만 찍기' 위생 규칙 엄수!"
+        ],
+        vocabCategories: [
+          {
+            categoryName: "🗼 츠텐카쿠 전망대 & 타워 슬라이더 티켓",
+            items: [
+              {
+                id: "v5-6-1",
+                korean: "츠텐카쿠 일반 전망대 입장권 (어른 1,000엔)",
+                japanese: "通天閣 一般展望台 大人入場券 1枚（1,000円）",
+                pronunciation: "츠-텐카쿠 잇판 텐보-다이 오토나 뉴-죠-켄 이치마이",
+                category: "ticket",
+                image: "/images/vocab/ticket.svg",
+              },
+              {
+                id: "v5-6-2",
+                korean: "60m 타워 슬라이더(미끄럼틀) 탑승권 (1,000엔)",
+                japanese: "タワースライダー（滑り台）利用券 1枚（1,000円）",
+                pronunciation: "타와- 스라이다- (스베리다이) 리요-켄 이치마이",
+                category: "ticket",
+                image: "/images/vocab/slider.svg",
+                situationTip: "츠텐카쿠 3층에서 1층까지 10초 만에 내려오는 스릴 만점 미끄럼틀입니다.",
+              },
+              {
+                id: "v5-6-3",
+                korean: "특별 야외 전망대 (팁 오브 츠텐카쿠 공중 전망) 세트",
+                japanese: "特別屋外展望台（展望パラダイス）セット券",
+                pronunciation: "토쿠베츠 오쿠가이 텐보-다이 셋토켄",
+                category: "ticket",
+                image: "/images/vocab/ticket.svg",
+              },
+            ]
+          }
         ]
       },
       {
@@ -1488,6 +1887,38 @@ export const ITINERARY_DATA: DayItinerary[] = [
         recommendations: ["넓은 라피트 좌석에서 편안하게 휴식 및 여행 사진 정리"],
         precautions: [
           "★ 라피트는 전좌석 지정석이므로 출발 시각과 호차/좌석 번호 꼭 확인!"
+        ],
+        vocabCategories: [
+          {
+            categoryName: "🚅 라피트(Rapi:t) 티켓 종류 & 승차",
+            items: [
+              {
+                id: "v6-5-1",
+                korean: "라피트 레귤러 시트(일반 지정석) 승차권 1장",
+                japanese: "特急ラピート レギュラーシート乗車券 1枚",
+                pronunciation: "톳큐- 라피-토 레규라- 시-토 조-샤켄 이치마이",
+                category: "ticket",
+                image: "/images/vocab/rapit.svg",
+                situationTip: "난카이 난바역 2층/3층 서비스 센터에서 티켓 교환/구매 시 보여주세요.",
+              },
+              {
+                id: "v6-5-2",
+                korean: "라피트 슈퍼 시트(넓은 우등 좌석) 승차권 1장",
+                japanese: "特急ラピート スーパーシート乗車券 1枚",
+                pronunciation: "톳큐- 라피-토 스-파- 시-토 조-샤켄 이치마이",
+                category: "ticket",
+                image: "/images/vocab/rapit.svg",
+              },
+              {
+                id: "v6-5-3",
+                korean: "이 승차권으로 타는 승강장이 몇 번 플랫폼인가요?",
+                japanese: "この切符の乗り場は何番ホームですか？",
+                pronunciation: "코노 킷푸노 노리바와 난반 호-무데스카?",
+                category: "transport",
+                image: "/images/vocab/rapit.svg",
+              },
+            ]
+          }
         ]
       },
       {
@@ -1507,6 +1938,47 @@ export const ITINERARY_DATA: DayItinerary[] = [
         precautions: [
           "★ 간사이 공항 국제선 출국장 보안검색대 대기줄이 매우 길 수 있으므로 3시간 전 공항 도착 필수!",
           "로이스 초콜릿 보냉백(약 100엔) 추가 권장"
+        ],
+        vocabCategories: [
+          {
+            categoryName: "🍫 간사이 공항 면세점 인기 과자 & 결제",
+            items: [
+              {
+                id: "v6-6-1",
+                korean: "로이스 생초콜릿 오레(밀크맛) 1개 주세요 🍫",
+                japanese: "ロイズ生チョコレート（オーレ味）を1つください。",
+                pronunciation: "로이즈 나마쵸코레-토 (오-레 아지)오 히토츠 쿠다사이",
+                category: "shopping",
+                image: "/images/vocab/royce.svg",
+              },
+              {
+                id: "v6-6-2",
+                korean: "로이스 생초콜릿 말차(녹차맛) 1개 주세요 🍵",
+                japanese: "ロイズ生チョコレート（抹茶味）を1つください。",
+                pronunciation: "로이즈 나마쵸코레-토 (맛챠 아지)오 히토츠 쿠다사이",
+                category: "shopping",
+                image: "/images/vocab/royce.svg",
+              },
+              {
+                id: "v6-6-3",
+                korean: "보냉백(아이스팩 포장) 추가해 주세요. (100엔)",
+                japanese: "保冷バッグ（ドライアイス付き）を追加してください。",
+                pronunciation: "호레- 박구 (도라이 아이스 츠키)오 츠이카 시테 쿠다사이",
+                category: "shopping",
+                image: "/images/vocab/royce.svg",
+                situationTip: "한국까지 초콜릿이 녹지 않고 신선하게 유지되도록 필수 추가하세요.",
+              },
+              {
+                id: "v6-6-4",
+                korean: "남은 동전(현금) 먼저 다 쓰고, 나머지 금액은 카드로 결제할게요!",
+                japanese: "小銭（現金）を使い切って、残りをカードで払います！",
+                pronunciation: "코제니(겐킨)오 츠카이킷테, 노코리오 카-도데 하라이마스!",
+                category: "shopping",
+                image: "/images/vocab/taxfree.svg",
+                situationTip: "남은 엔화 동전을 한 푼도 남기지 않고 모두 털어내는 꿀팁 결제 방식입니다.",
+              },
+            ]
+          }
         ]
       }
     ],

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <rect width="100" height="100" rx="20" fill="#FEF3C7"/>
+  <!-- Scallop Shell -->
+  <path d="M50 78 C 20 78, 15 48, 25 32 C 35 22, 65 22, 75 32 C 85 48, 80 78, 50 78 Z" fill="#FED7AA" stroke="#1E293B" stroke-width="2.5"/>
+  <!-- Scallop Meat in Butter -->
+  <ellipse cx="50" cy="50" rx="20" ry="14" fill="#FFFFFF" stroke="#EA580C" stroke-width="2"/>
+  <rect x="44" y="44" width="12" height="10" rx="2" fill="#FDE047" stroke="#CA8A04" stroke-width="1.5"/>
+  <!-- Soy sauce steam -->
+  <path d="M42 30 Q 45 22 40 16 M58 30 Q 55 22 60 16" stroke="#EA580C" stroke-width="2" stroke-linecap="round"/>
+  <text x="50" y="86" font-family="sans-serif" font-size="7.5" font-weight="900" fill="#9A3412" text-anchor="middle">ホタテバター焼き</text>
+</svg>
