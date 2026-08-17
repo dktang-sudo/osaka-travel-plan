@@ -13,6 +13,13 @@ import {
   Train,
   Car,
   Layers,
+  WifiOff,
+  Wifi,
+  Compass,
+  Map,
+  Languages,
+  Smartphone,
+  CheckCircle2,
 } from 'lucide-react';
 
 interface RouteMapModalProps {
@@ -37,8 +44,26 @@ export const RouteMapModal: React.FC<RouteMapModalProps> = ({
   nextItem,
 }) => {
   const [copied, setCopied] = useState(false);
-  const [viewMode, setViewMode] = useState<'directions' | 'destination' | 'origin'>('directions');
+  const [copiedJapanese, setCopiedJapanese] = useState(false);
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [viewMode, setViewMode] = useState<'directions' | 'offline' | 'destination' | 'origin'>('directions');
   const [activeRouteIndex, setActiveRouteIndex] = useState(0);
+
+  // 온라인/오프라인 네트워크 상태 리스너
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => {
+      setIsOnline(false);
+      setViewMode('offline'); // 오프라인 감지 시 자동 전환
+    };
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   // 사용 가능한 동선 리스트 계산
   const currentRoutes: RouteOption[] = React.useMemo(() => {
@@ -51,15 +76,12 @@ export const RouteMapModal: React.FC<RouteMapModalProps> = ({
   useEffect(() => {
     if (selectedRoute && currentRoutes.length > 0) {
       const idx = currentRoutes.findIndex((r) => r.id === selectedRoute.id);
-      if (idx !== -1) {
-        setActiveRouteIndex(idx);
-      } else {
-        setActiveRouteIndex(0);
-      }
+      setActiveRouteIndex(idx !== -1 ? idx : 0);
     } else {
       setActiveRouteIndex(0);
     }
-    setViewMode('directions');
+    // 오프라인 상태이면 기본 offline 뷰, 아니면 directions 뷰
+    setViewMode(navigator.onLine ? 'directions' : 'offline');
   }, [selectedRoute, currentRoutes, isOpen]);
 
   if (!isOpen) return null;
@@ -118,6 +140,12 @@ export const RouteMapModal: React.FC<RouteMapModalProps> = ({
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleCopyJapanese = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedJapanese(true);
+    setTimeout(() => setCopiedJapanese(false), 2000);
+  };
+
   const renderTransportIcon = (mode?: string) => {
     switch (mode) {
       case 'walking':
@@ -149,6 +177,15 @@ export const RouteMapModal: React.FC<RouteMapModalProps> = ({
                     {currentRoute.badge}
                   </span>
                 )}
+                {isOnline ? (
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1">
+                    <Wifi size={10} /> 온라인
+                  </span>
+                ) : (
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-800 border border-rose-300 flex items-center gap-1">
+                    <WifiOff size={10} /> 오프라인 모드
+                  </span>
+                )}
               </div>
               <h3 className="text-base sm:text-lg font-extrabold text-slate-900 truncate mt-0.5">
                 {locationTitle}
@@ -178,7 +215,8 @@ export const RouteMapModal: React.FC<RouteMapModalProps> = ({
                     key={route.id}
                     onClick={() => {
                       setActiveRouteIndex(idx);
-                      setViewMode('directions');
+                      if (viewMode === 'offline') setViewMode('offline');
+                      else setViewMode('directions');
                     }}
                     className={`p-2.5 rounded-xl border-2 border-slate-900 text-left transition text-xs flex items-center justify-between gap-2 ${
                       activeRouteIndex === idx
@@ -201,37 +239,48 @@ export const RouteMapModal: React.FC<RouteMapModalProps> = ({
             </div>
           )}
 
-          {/* Route Info Banner */}
+          {/* Route Header Info Card */}
           {currentRoute && (
-            <div className="bg-white p-3.5 sm:p-4 rounded-2xl border-2 border-slate-900 shadow-[3px_3px_0px_#1e293b] space-y-2.5">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <div className="flex items-center gap-2 text-xs font-extrabold text-slate-900 flex-1">
+            <div className="bg-white p-3.5 sm:p-4 rounded-2xl border-2 border-slate-900 shadow-[3px_3px_0px_#1e293b] space-y-3">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-2.5">
+                <div className="flex items-center gap-2 text-xs font-extrabold text-slate-900 flex-1 overflow-hidden">
                   <div className="flex items-center gap-1.5 bg-blue-100 px-2.5 py-1 rounded-lg border border-slate-900 truncate">
-                    <span className="text-[10px] bg-blue-600 text-white px-1 rounded">출발</span>
+                    <span className="text-[10px] bg-blue-600 text-white px-1 rounded flex-shrink-0">출발</span>
                     <span className="truncate">{originLabel}</span>
                   </div>
                   <ArrowRight size={16} className="text-slate-500 flex-shrink-0" />
                   <div className="flex items-center gap-1.5 bg-emerald-100 px-2.5 py-1 rounded-lg border border-slate-900 truncate">
-                    <span className="text-[10px] bg-emerald-600 text-white px-1 rounded">도착</span>
+                    <span className="text-[10px] bg-emerald-600 text-white px-1 rounded flex-shrink-0">도착</span>
                     <span className="truncate">{destLabel}</span>
                   </div>
                 </div>
 
-                {/* View Mode Tabs */}
-                <div className="flex items-center gap-1 self-end sm:self-auto">
+                {/* View Mode Tabs (오프라인 동선 탭 포함 ⭐) */}
+                <div className="flex items-center gap-1 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
                   <button
                     onClick={() => setViewMode('directions')}
-                    className={`px-2.5 py-1 rounded-lg text-xs font-extrabold border border-slate-900 transition ${
+                    className={`px-2.5 py-1 rounded-lg text-xs font-extrabold border border-slate-900 transition flex items-center gap-1 flex-shrink-0 ${
                       viewMode === 'directions'
                         ? 'bg-slate-900 text-white'
                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                     }`}
                   >
-                    🚗 길찾기 동선
+                    🚗 구글 동선
+                  </button>
+                  <button
+                    onClick={() => setViewMode('offline')}
+                    className={`px-2.5 py-1 rounded-lg text-xs font-extrabold border border-slate-900 transition flex items-center gap-1 flex-shrink-0 ${
+                      viewMode === 'offline'
+                        ? 'bg-amber-400 text-slate-900 shadow-[1px_1px_0px_#1e293b]'
+                        : 'bg-amber-100 text-amber-900 hover:bg-amber-200'
+                    }`}
+                  >
+                    <Map size={13} />
+                    <span>📱 오프라인 동선 맵</span>
                   </button>
                   <button
                     onClick={() => setViewMode('destination')}
-                    className={`px-2.5 py-1 rounded-lg text-xs font-extrabold border border-slate-900 transition ${
+                    className={`px-2 py-1 rounded-lg text-xs font-extrabold border border-slate-900 transition flex-shrink-0 ${
                       viewMode === 'destination'
                         ? 'bg-slate-900 text-white'
                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
@@ -241,7 +290,7 @@ export const RouteMapModal: React.FC<RouteMapModalProps> = ({
                   </button>
                   <button
                     onClick={() => setViewMode('origin')}
-                    className={`px-2.5 py-1 rounded-lg text-xs font-extrabold border border-slate-900 transition ${
+                    className={`px-2 py-1 rounded-lg text-xs font-extrabold border border-slate-900 transition flex-shrink-0 ${
                       viewMode === 'origin'
                         ? 'bg-slate-900 text-white'
                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
@@ -260,18 +309,122 @@ export const RouteMapModal: React.FC<RouteMapModalProps> = ({
             </div>
           )}
 
-          {/* Map Frame Container */}
-          <div className="relative w-full h-[260px] sm:h-[380px] rounded-xl sm:rounded-2xl overflow-hidden border-2 border-slate-900 shadow-[3px_3px_0px_#1e293b] bg-slate-100">
-            <iframe
-              title={locationTitle}
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              loading="lazy"
-              allowFullScreen
-              src={embedUrl}
-            />
-          </div>
+          {/* VIEW MODE 1: 오프라인 동선 맵 & 가이드 뷰 (인터넷 없이 100% 동작) */}
+          {viewMode === 'offline' && currentRoute ? (
+            <div className="space-y-4 animate-fade-in">
+              {/* Visual Offline Route Diagram Card */}
+              <div className="bg-gradient-to-br from-amber-100 to-amber-50 p-5 rounded-2xl border-2 border-slate-900 shadow-[4px_4px_0px_#1e293b]">
+                <div className="flex items-center justify-between gap-2 mb-4 border-b border-amber-300/80 pb-3">
+                  <div className="flex items-center gap-2">
+                    <Map size={18} className="text-amber-700" />
+                    <h4 className="text-sm sm:text-base font-extrabold text-slate-900">
+                      오프라인 동선 로드맵 (데이터 없이 확인 가능)
+                    </h4>
+                  </div>
+                  <span className="text-[10px] font-extrabold bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded-full border border-slate-900">
+                    💾 기기 저장됨
+                  </span>
+                </div>
+
+                {/* Step Flow Diagram */}
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-4 rounded-xl border-2 border-slate-900 shadow-[2px_2px_0px_#1e293b] mb-4">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-9 h-9 rounded-xl bg-blue-100 border border-slate-900 flex items-center justify-center font-extrabold text-blue-900 flex-shrink-0">
+                      A
+                    </div>
+                    <div>
+                      <span className="text-[10px] text-slate-500 font-bold">출발 장소</span>
+                      <p className="text-xs font-extrabold text-slate-900">{currentRoute.originTitle}</p>
+                      <p className="text-[10px] text-slate-600 truncate max-w-[180px]">{currentRoute.originLocation}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex sm:flex-col items-center justify-center gap-1 py-1 sm:py-0 border-y sm:border-y-0 sm:border-x border-slate-200 px-3">
+                    <span className="text-[11px] font-extrabold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-md border border-amber-300">
+                      {currentRoute.badge || '이동'}
+                    </span>
+                    <ArrowRight size={16} className="text-slate-400 rotate-90 sm:rotate-0" />
+                  </div>
+
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-9 h-9 rounded-xl bg-emerald-100 border border-slate-900 flex items-center justify-center font-extrabold text-emerald-900 flex-shrink-0">
+                      B
+                    </div>
+                    <div>
+                      <span className="text-[10px] text-slate-500 font-bold">도착 목적지</span>
+                      <p className="text-xs font-extrabold text-slate-900">{currentRoute.destinationTitle}</p>
+                      <p className="text-[10px] text-slate-600 truncate max-w-[180px]">{currentRoute.destinationLocation}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Offline Turn-by-Turn Steps */}
+                {currentRoute.offlineSteps && currentRoute.offlineSteps.length > 0 && (
+                  <div className="space-y-2 mb-3">
+                    <h5 className="text-xs font-extrabold text-slate-900 flex items-center gap-1.5">
+                      <Compass size={14} className="text-slate-700" />
+                      <span>단계별 상세 도보/환승 경로 가이드:</span>
+                    </h5>
+                    <div className="space-y-1.5 bg-white p-3.5 rounded-xl border-2 border-slate-900">
+                      {currentRoute.offlineSteps.map((step, sIdx) => (
+                        <div key={sIdx} className="flex items-start gap-2 text-xs font-medium text-slate-800">
+                          <CheckCircle2 size={14} className="text-amber-500 flex-shrink-0 mt-0.5" />
+                          <span>{step}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Japanese Local Show Card for Taxi/Locals */}
+                {currentRoute.destinationJapanese && (
+                  <div className="bg-white p-3.5 rounded-xl border-2 border-slate-900 space-y-1.5 shadow-[2px_2px_0px_#1e293b]">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-[11px] font-extrabold text-rose-800 flex items-center gap-1">
+                        <Languages size={13} />
+                        <span>🚕 현지인/택시 기사님에게 보여주기 (일본어 표기):</span>
+                      </span>
+                      <button
+                        onClick={() => handleCopyJapanese(currentRoute.destinationJapanese!)}
+                        className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 border border-slate-900"
+                      >
+                        {copiedJapanese ? '복사됨!' : '일본어 복사'}
+                      </button>
+                    </div>
+                    <p className="text-sm font-extrabold text-slate-900 bg-amber-50 p-2.5 rounded-lg border border-amber-200">
+                      「{currentRoute.destinationJapanese}」
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* Google Maps Offline App Tip Banner */}
+              <div className="bg-indigo-50 border-2 border-slate-900 rounded-2xl p-4 shadow-[2px_2px_0px_#1e293b] flex items-start gap-3">
+                <Smartphone size={22} className="text-indigo-600 flex-shrink-0 mt-0.5" />
+                <div className="text-xs space-y-1">
+                  <h5 className="font-extrabold text-indigo-950">
+                    💡 구글맵 앱 '오프라인 지도'와 함께 쓰면 200% 완벽!
+                  </h5>
+                  <p className="text-slate-700 font-medium leading-relaxed">
+                    한국 출발 전 스마트폰 <strong>구글 지도 앱 ➔ 프로필 ➔ '오프라인 지도' ➔ '오사카' 구역을 미리 다운로드</strong>해 두시면, 로밍/데이터가 전혀 안 터지는 오프라인 상태에서도 스마트폰 GPS로 실시간 내 위치와 길찾기가 작동합니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+          ) : (
+            /* VIEW MODE 2: 구글 지도 실시간 Iframe 맵 */
+            <div className="relative w-full h-[260px] sm:h-[380px] rounded-xl sm:rounded-2xl overflow-hidden border-2 border-slate-900 shadow-[3px_3px_0px_#1e293b] bg-slate-100">
+              <iframe
+                title={locationTitle}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                loading="lazy"
+                allowFullScreen
+                src={embedUrl}
+              />
+            </div>
+          )}
 
           {/* Action Buttons Row */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl border-2 border-slate-900 shadow-[2px_2px_0px_#1e293b]">

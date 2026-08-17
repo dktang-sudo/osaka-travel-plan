@@ -111,6 +111,27 @@ export const TipsAndChecklist: React.FC = () => {
             여권 + 웹 쿠폰 제시
           </span>
         </div>
+
+        <div className="paper-card p-6 bg-blue-100/90 border-2 border-slate-900 shadow-[4px_4px_0px_#1e293b] md:col-span-2 lg:col-span-3">
+          <div className="flex items-center gap-2 text-slate-900 font-extrabold text-base mb-2">
+            <Lightbulb size={20} className="text-indigo-600" />
+            <span>📱 오프라인 대비 필수! '구글 오프라인 지도' 사전 다운로드법</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs text-slate-800 font-medium leading-relaxed">
+            <div className="bg-white p-3 rounded-xl border-2 border-slate-900">
+              <strong className="text-indigo-900 block mb-1">1단계: 구글맵 앱 열기</strong>
+              스마트폰에서 Google Maps 앱 실행 ➔ 우측 상단 내 프로필 사진 터치
+            </div>
+            <div className="bg-white p-3 rounded-xl border-2 border-slate-900">
+              <strong className="text-indigo-900 block mb-1">2단계: 오프라인 지도 선택</strong>
+              '오프라인 지도' ➔ '내 맞춤 지도 설정' 선택 ➔ 오사카 전역 사각형 영역 지정
+            </div>
+            <div className="bg-white p-3 rounded-xl border-2 border-slate-900">
+              <strong className="text-indigo-900 block mb-1">3단계: 다운로드 완료!</strong>
+              '다운로드' 터치 (약 150MB). 비행기 모드에서도 스마트폰 GPS로 실시간 길찾기 작동!
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Daily Interactive Checklists */}

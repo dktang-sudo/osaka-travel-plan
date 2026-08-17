@@ -6,10 +6,12 @@ export interface RouteOption {
   originLocation: string;
   destinationTitle: string;
   destinationLocation: string;
+  destinationJapanese?: string; // 현지인/택시 기사에게 보여줄 일본어 명칭
   originQuery?: string;
   destinationQuery?: string;
   transportMode?: 'walking' | 'transit' | 'driving';
   description?: string;
+  offlineSteps?: string[]; // 오프라인에서도 볼 수 있는 턴바이턴 도보/환승 안내
   isPrimary?: boolean;
 }
 
@@ -83,6 +85,11 @@ export const getItemRoutes = (
         destinationQuery: `${nextItem.title} ${nextItem.location} Osaka`,
         transportMode: 'transit',
         description: `${item.title}에서 ${nextItem.title}로 이동하는 추천 동선입니다.`,
+        offlineSteps: [
+          `[출발] ${item.location}에서 출발 준비`,
+          `[이동] ${nextItem.location} 방향 표지판 또는 내비게이션 경로 확인`,
+          `[도착] ${nextItem.title} 도착 및 일정 진행`,
+        ],
         isPrimary: true,
       },
     ];
@@ -101,6 +108,7 @@ export const getItemRoutes = (
       originQuery: `${item.title} ${item.location} Osaka`,
       destinationQuery: `${item.title} ${item.location} Osaka`,
       description: `${item.title}의 상세 위치 및 주변 지도입니다.`,
+      offlineSteps: [`[위치] ${item.location}`, `[안내] ${item.description}`],
       isPrimary: true,
     },
   ];
@@ -272,10 +280,17 @@ export const ITINERARY_DATA: DayItinerary[] = [
             originLocation: "Hotel Kintetsu Universal City",
             destinationTitle: "유니버설 시티포트 선착장 (캡틴라인 탑승)",
             destinationLocation: "Universal City Port Osaka",
+            destinationJapanese: "キャプテンライン ユニバーサルシティポート (大阪市此花区桜島1-1)",
             originQuery: "Hotel Kintetsu Universal City Osaka",
             destinationQuery: "Captain Line Universal City Port Osaka",
             transportMode: "walking",
             description: "호텔에서 유니버설 시티포트 선착장까지 도보로 약 5분 이동하는 동선입니다.",
+            offlineSteps: [
+              "1단계: 호텔 로비 정문으로 나와 유니버설 시티워크 방면으로 직진 (약 1분)",
+              "2단계: USJ 입구 방면 계단/에스컬레이터 옆 'Captain Line / 선착장' 안내 표지판 확인",
+              "3단계: 강변(아지강) 테라스 산책로를 따라 우측으로 도보 3분 이동",
+              "4단계: '유니버설 시티포트(Captain Line)' 매표소 부스 도착 후 승선권 구매 (09:40 출항 10분 전 대기)"
+            ],
             isPrimary: true,
           },
           {
@@ -286,10 +301,18 @@ export const ITINERARY_DATA: DayItinerary[] = [
             originLocation: "Universal City Station Osaka",
             destinationTitle: "오사카코역 / 가이유칸 수족관",
             destinationLocation: "Osaka Aquarium Kaiyukan",
+            destinationJapanese: "海遊館 / 大阪港駅 (大阪市港区海岸通1-1-10)",
             originQuery: "Universal City Station Osaka",
             destinationQuery: "Osaka Aquarium Kaiyukan",
             transportMode: "transit",
             description: "기상 악화나 결항 시 JR 사쿠라지마선 → 니시쿠조 → 벤텐초 → 오사카메트로 주오선(오사카코역)으로 이동하는 전철 우회 동선입니다.",
+            offlineSteps: [
+              "1단계: 호텔에서 도보 2분 거리의 JR 유니버설시티역 승강장 이동",
+              "2단계: JR 유메사키선(사쿠라지마선) 탑승 ➔ 2정거장 뒤 '니시쿠조역' 하차 (5분 소요)",
+              "3단계: JR 오사카 순환선으로 환승 ➔ 1정거장 뒤 '벤텐초역' 하차 (3분 소요)",
+              "4단계: 오사카 메트로 주오선(녹색 라인) 환승 ➔ '오사카코역' 하차 (5분 소요)",
+              "5단계: 오사카코역 1번 또는 2번 출구로 나와 가이유칸 방면 직진 도보 5분 도착"
+            ],
           },
         ]
       },
@@ -320,10 +343,16 @@ export const ITINERARY_DATA: DayItinerary[] = [
             originLocation: "Captain Line Kaiyukan Port Osaka",
             destinationTitle: "가이유칸 (해유관 수족관)",
             destinationLocation: "Osaka Aquarium Kaiyukan",
+            destinationJapanese: "海遊館 メインエントランス (大阪市港区海岸通1-1-10)",
             originQuery: "Captain Line Kaiyukan Port Osaka",
             destinationQuery: "Osaka Aquarium Kaiyukan",
             transportMode: "walking",
             description: "선착장 하선 후 가이유칸 정문 매표소까지 도보로 3분 이동하는 동선입니다.",
+            offlineSteps: [
+              "1단계: 캡틴라인 페리 하선 후 덴포잔 부두 광장으로 이동",
+              "2단계: 바다를 등지고 우측의 거대한 가이유칸 수족관 건물(빨강/파랑 유리 외관) 방향 확인",
+              "3단계: 광장 통로를 따라 도보 2분 직진 ➔ 가이유칸 메인 에스컬레이터 입구 도착"
+            ],
             isPrimary: true,
           },
           {
@@ -334,10 +363,15 @@ export const ITINERARY_DATA: DayItinerary[] = [
             originLocation: "Captain Line Kaiyukan Port Osaka",
             destinationTitle: "덴포잔 마켓플레이스 & 관람차",
             destinationLocation: "Tempozan Marketplace Osaka",
+            destinationJapanese: "天保山マーケットプレース / 大観覧車",
             originQuery: "Captain Line Kaiyukan Port Osaka",
             destinationQuery: "Tempozan Marketplace Osaka",
             transportMode: "walking",
             description: "선착장에서 바로 쇼핑몰 및 대관람차로 이동하는 동선입니다.",
+            offlineSteps: [
+              "1단계: 선착장 하선 후 좌측 정면에 보이는 쇼핑몰 덴포잔 마켓플레이스 입구로 진입 (도보 1분)",
+              "2단계: 2층 푸드코트(나니와 쿠이신보 요코초) 또는 대관람차 탑승 게이트로 이동"
+            ],
           },
         ]
       },

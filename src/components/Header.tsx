@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, MapPin, Sparkles, Compass, CheckSquare, Clock, Heart } from 'lucide-react';
+import { Calendar, Sparkles, Compass, CheckSquare, Clock, Wifi, WifiOff } from 'lucide-react';
 
 interface HeaderProps {
   activeTab: 'overview' | 'day1' | 'day2' | 'day3' | 'day4' | 'day5' | 'day6' | 'checklist';
@@ -8,6 +8,19 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
   const [dDayStr, setDDayStr] = useState<string>('');
+  const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine);
+
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   useEffect(() => {
     const targetDate = new Date('2026-10-04T00:00:00');
@@ -53,13 +66,22 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
               <span className="bg-emerald-200 text-slate-900 font-bold text-[11px] sm:text-xs px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full border border-slate-900 shadow-[2px_2px_0px_#1e293b] flex items-center gap-1">
                 <Calendar size={12} /> 10/4 (토) ~ 10/9 (금)
               </span>
+              {isOnline ? (
+                <span className="bg-blue-100 text-blue-950 font-bold text-[11px] sm:text-xs px-2 py-0.5 rounded-full border border-slate-900 flex items-center gap-1">
+                  <Wifi size={11} className="text-blue-700" /> 오프라인 저장됨
+                </span>
+              ) : (
+                <span className="bg-rose-100 text-rose-950 font-bold text-[11px] sm:text-xs px-2 py-0.5 rounded-full border border-rose-900 flex items-center gap-1 animate-pulse">
+                  <WifiOff size={11} className="text-rose-700" /> 오프라인 모드 동작 중
+                </span>
+              )}
             </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 mb-1.5 font-[var(--font-cute)] leading-tight">
               🇯🇵 오사카 5박 6일 <span className="bg-amber-300 px-2 py-0.5 rounded-lg border-2 border-slate-900 shadow-[2px_2px_0px_#1e293b] inline-block mt-1 sm:mt-0">여행 안내서</span>
             </h1>
             <p className="text-slate-700 text-xs sm:text-sm lg:text-base font-medium max-w-2xl font-[var(--font-cute)]">
-              시간표 $\cdot$ 구글 지도 길찾기 $\cdot$ 현지 꿀팁 & 주의사항 모음
+              시간표 · 구글 지도 길찾기 · 오프라인 동선 맵 · 현지 꿀팁 & 주의사항 모음
             </p>
           </div>
 
@@ -70,8 +92,8 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
               <div className="text-xs sm:text-base font-extrabold text-indigo-600">5박 6일</div>
             </div>
             <div className="bg-white border-2 border-slate-900 rounded-xl sm:rounded-2xl p-2 sm:p-3 text-center shadow-[2px_2px_0px_#1e293b]">
-              <div className="text-[10px] sm:text-xs text-slate-500 font-bold">주요 거점</div>
-              <div className="text-xs sm:text-base font-extrabold text-teal-600">유니버설/난바</div>
+              <div className="text-[10px] sm:text-xs text-slate-500 font-bold">오프라인 지원</div>
+              <div className="text-xs sm:text-base font-extrabold text-teal-600">100% PWA</div>
             </div>
             <div className="bg-white border-2 border-slate-900 rounded-xl sm:rounded-2xl p-2 sm:p-3 text-center shadow-[2px_2px_0px_#1e293b]">
               <div className="text-[10px] sm:text-xs text-slate-500 font-bold">교통 패스</div>
