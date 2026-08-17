@@ -1,3 +1,18 @@
+export interface RouteOption {
+  id: string;
+  label: string; // 버튼 표시 텍스트 (예: "캡틴라인 선착장 동선 (도보 5분)")
+  badge?: string; // 예: "도보 5분", "직행 70분", "지하철 35분"
+  originTitle: string;
+  originLocation: string;
+  destinationTitle: string;
+  destinationLocation: string;
+  originQuery?: string;
+  destinationQuery?: string;
+  transportMode?: 'walking' | 'transit' | 'driving';
+  description?: string;
+  isPrimary?: boolean;
+}
+
 export interface ScheduleItem {
   id: string;
   time: string;
@@ -10,6 +25,7 @@ export interface ScheduleItem {
   description: string;
   recommendations: string[];
   precautions: string[];
+  routes?: RouteOption[];
 }
 
 export interface DayChecklist {
@@ -37,6 +53,58 @@ export interface DayItinerary {
   checklist: DayChecklist[];
   generalTips: string[];
 }
+
+/**
+ * 특정 일정 아이템의 동선 목록을 반환합니다.
+ * 명시적 routes가 등록되어 있다면 해당 routes를 반환하고,
+ * 별도 등록이 없으면 다음 목적지(nextItem)로 향하는 기본 동선을 자동 생성합니다.
+ */
+export const getItemRoutes = (
+  item: ScheduleItem,
+  nextItem?: ScheduleItem | null,
+  dayTitle?: string
+): RouteOption[] => {
+  if (item.routes && item.routes.length > 0) {
+    return item.routes;
+  }
+
+  if (nextItem) {
+    const cleanNextTitle = nextItem.title.replace(/[\u{1F300}-\u{1F9FF}]/gu, '').trim();
+    return [
+      {
+        id: `${item.id}-to-${nextItem.id}`,
+        label: `👉 다음 목적지(${cleanNextTitle}) 동선 보기`,
+        badge: '다음 이동',
+        originTitle: item.title,
+        originLocation: item.location,
+        destinationTitle: nextItem.title,
+        destinationLocation: nextItem.location,
+        originQuery: `${item.title} ${item.location} Osaka`,
+        destinationQuery: `${nextItem.title} ${nextItem.location} Osaka`,
+        transportMode: 'transit',
+        description: `${item.title}에서 ${nextItem.title}로 이동하는 추천 동선입니다.`,
+        isPrimary: true,
+      },
+    ];
+  }
+
+  // 마지막 일정 등 다음 일정이 없는 경우 현재 장소 안내
+  return [
+    {
+      id: `${item.id}-location`,
+      label: `📍 ${item.title} 위치 구글 지도 보기`,
+      badge: '현재 위치',
+      originTitle: item.title,
+      originLocation: item.location,
+      destinationTitle: item.title,
+      destinationLocation: item.location,
+      originQuery: `${item.title} ${item.location} Osaka`,
+      destinationQuery: `${item.title} ${item.location} Osaka`,
+      description: `${item.title}의 상세 위치 및 주변 지도입니다.`,
+      isPrimary: true,
+    },
+  ];
+};
 
 export const ITINERARY_DATA: DayItinerary[] = [
   {
@@ -90,6 +158,35 @@ export const ITINERARY_DATA: DayItinerary[] = [
         ],
         precautions: [
           "주말 간사이 공항 열차 티켓 창구 줄이 길 수 있으므로 클룩/티켓큐 사전 구매권 준비"
+        ],
+        routes: [
+          {
+            id: "r1-2-1",
+            label: "🚌 공항 리무진 버스 직행 동선",
+            badge: "직행 70분",
+            originTitle: "간사이 국제공항 제1터미널",
+            originLocation: "Kansai International Airport Terminal 1",
+            destinationTitle: "유니버설 스튜디오 버스정류장",
+            destinationLocation: "Universal Studios Japan Bus Stop",
+            originQuery: "Kansai International Airport Terminal 1",
+            destinationQuery: "Universal Studios Japan Bus Stop",
+            transportMode: "transit",
+            description: "환승 없이 가장 편리하게 유니버설 시티로 직행하는 공항 리무진 버스 경로입니다.",
+            isPrimary: true,
+          },
+          {
+            id: "r1-2-2",
+            label: "🚅 라피트 + JR 환승 동선",
+            badge: "환승 55분",
+            originTitle: "간사이공항역 (난카이 라피트)",
+            originLocation: "Kansai Airport Station",
+            destinationTitle: "JR 유니버설시티역",
+            destinationLocation: "Universal City Station Osaka",
+            originQuery: "Kansai Airport Station",
+            destinationQuery: "Universal City Station Osaka",
+            transportMode: "transit",
+            description: "난카이 라피트 특급을 타고 신이마미야역에서 JR 오사카 순환선/사쿠라지마선으로 환승하는 경로입니다.",
+          },
         ]
       },
       {
@@ -161,11 +258,40 @@ export const ITINERARY_DATA: DayItinerary[] = [
         title: "기상 & 조식 🍳",
         category: "hotel",
         icon: "Coffee",
-        location: "호텔 조식당",
+        location: "호텔 조식당 (유니버설 시티)",
         coordinates: { lat: 34.6675, lng: 135.4372 },
-        description: "여유롭게 기상하여 든든한 조식 식사",
+        description: "여유롭게 기상하여 든든한 조식 식사 및 외출 준비",
         recommendations: ["수족관 이동 전 카메라 & 폰 배터리 완충 확인"],
-        precautions: ["배 탑승 시각(09:40) 10분 전까지 선착장 도착 준비"]
+        precautions: ["배 탑승 시각(09:40) 10분 전까지 선착장 도착 준비"],
+        routes: [
+          {
+            id: "r2-1-1",
+            label: "🚢 캡틴라인 선착장 이동 동선 (추천)",
+            badge: "도보 5분",
+            originTitle: "유니버설 시티 호텔",
+            originLocation: "Hotel Kintetsu Universal City",
+            destinationTitle: "유니버설 시티포트 선착장 (캡틴라인 탑승)",
+            destinationLocation: "Universal City Port Osaka",
+            originQuery: "Hotel Kintetsu Universal City Osaka",
+            destinationQuery: "Captain Line Universal City Port Osaka",
+            transportMode: "walking",
+            description: "호텔에서 유니버설 시티포트 선착장까지 도보로 약 5분 이동하는 동선입니다.",
+            isPrimary: true,
+          },
+          {
+            id: "r2-1-2",
+            label: "🚇 가이유칸 전철 대체 동선",
+            badge: "전철 35분",
+            originTitle: "JR 유니버설시티역",
+            originLocation: "Universal City Station Osaka",
+            destinationTitle: "오사카코역 / 가이유칸 수족관",
+            destinationLocation: "Osaka Aquarium Kaiyukan",
+            originQuery: "Universal City Station Osaka",
+            destinationQuery: "Osaka Aquarium Kaiyukan",
+            transportMode: "transit",
+            description: "기상 악화나 결항 시 JR 사쿠라지마선 → 니시쿠조 → 벤텐초 → 오사카메트로 주오선(오사카코역)으로 이동하는 전철 우회 동선입니다.",
+          },
+        ]
       },
       {
         id: "d2-2",
@@ -184,6 +310,35 @@ export const ITINERARY_DATA: DayItinerary[] = [
         precautions: [
           "★ 오사카 주유패스 적용 안 됨! 현장에서 별도 티켓 구매 필요 (성인 왕복 약 1,700엔)",
           "날씨/풍랑에 따라 출항 시각이 변동될 수 있으므로 운항 시간표 미리 확인"
+        ],
+        routes: [
+          {
+            id: "r2-2-1",
+            label: "🐋 덴포잔 선착장 → 가이유칸 수족관 동선",
+            badge: "도보 3분",
+            originTitle: "덴포잔 캡틴라인 선착장",
+            originLocation: "Captain Line Kaiyukan Port Osaka",
+            destinationTitle: "가이유칸 (해유관 수족관)",
+            destinationLocation: "Osaka Aquarium Kaiyukan",
+            originQuery: "Captain Line Kaiyukan Port Osaka",
+            destinationQuery: "Osaka Aquarium Kaiyukan",
+            transportMode: "walking",
+            description: "선착장 하선 후 가이유칸 정문 매표소까지 도보로 3분 이동하는 동선입니다.",
+            isPrimary: true,
+          },
+          {
+            id: "r2-2-2",
+            label: "🎡 덴포잔 마켓플레이스 & 대관람차 동선",
+            badge: "도보 2분",
+            originTitle: "덴포잔 캡틴라인 선착장",
+            originLocation: "Captain Line Kaiyukan Port Osaka",
+            destinationTitle: "덴포잔 마켓플레이스 & 관람차",
+            destinationLocation: "Tempozan Marketplace Osaka",
+            originQuery: "Captain Line Kaiyukan Port Osaka",
+            destinationQuery: "Tempozan Marketplace Osaka",
+            transportMode: "walking",
+            description: "선착장에서 바로 쇼핑몰 및 대관람차로 이동하는 동선입니다.",
+          },
         ]
       },
       {
@@ -417,7 +572,36 @@ export const ITINERARY_DATA: DayItinerary[] = [
         googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Namba+Station+Osaka",
         description: "JR 라인 및 지하철을 이용하여 난바 도심으로 이동",
         recommendations: ["ICOCA 교통카드 수시 충전"],
-        precautions: ["출근/오전 지하철 승객 혼잡 주의"]
+        precautions: ["출근/오전 지하철 승객 혼잡 주의"],
+        routes: [
+          {
+            id: "r4-2-1",
+            label: "🚃 JR + 한신선 환승 동선 (추천)",
+            badge: "약 30분",
+            originTitle: "JR 유니버설시티역",
+            originLocation: "Universal City Station Osaka",
+            destinationTitle: "오사카난바역 (난바 숙소)",
+            destinationLocation: "Osaka-Namba Station",
+            originQuery: "Universal City Station Osaka",
+            destinationQuery: "Osaka-Namba Station",
+            transportMode: "transit",
+            description: "JR 유니버설시티역 → 니시쿠조역 환승 → 한신 난바선으로 오사카난바역까지 쾌적하게 이동하는 동선입니다.",
+            isPrimary: true,
+          },
+          {
+            id: "r4-2-2",
+            label: "🚕 택시 / 다이렉트 이동 동선",
+            badge: "약 20분",
+            originTitle: "유니버설 시티 호텔",
+            originLocation: "Hotel Kintetsu Universal City",
+            destinationTitle: "난바 숙소",
+            destinationLocation: "Namba Osaka Hotel",
+            originQuery: "Hotel Kintetsu Universal City Osaka",
+            destinationQuery: "Namba Station Osaka",
+            transportMode: "driving",
+            description: "캐리어가 많을 경우 택시로 한 번에 난바 숙소까지 직행하는 동선입니다 (예상 요금 약 3,500~4,500엔).",
+          },
+        ]
       },
       {
         id: "d4-3",

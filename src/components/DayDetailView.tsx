@@ -1,17 +1,51 @@
 import React, { useState } from 'react';
-import { DayItinerary, ScheduleItem } from '../data/itineraryData';
+import { DayItinerary, ScheduleItem, RouteOption, getItemRoutes } from '../data/itineraryData';
 import {
-  Clock, MapPin, Navigation, Lightbulb, AlertTriangle, ChevronLeft, ChevronRight,
-  Plane, Train, Hotel, Utensils, Ship, Fish, Bug, Bed, Ticket, Sparkles, Home,
-  LogOut, Briefcase, Castle, Gamepad2, Swords, Sun, ShoppingBag, Landmark,
-  Store, PackageCheck, Footprints, PlaneTakeoff, ExternalLink, CheckCircle2, Star
+  Clock,
+  MapPin,
+  Navigation,
+  Lightbulb,
+  AlertTriangle,
+  ChevronLeft,
+  ChevronRight,
+  Plane,
+  Train,
+  Hotel,
+  Utensils,
+  Ship,
+  Fish,
+  Bug,
+  Bed,
+  Ticket,
+  Sparkles,
+  Home,
+  LogOut,
+  Briefcase,
+  Castle,
+  Gamepad2,
+  Swords,
+  Sun,
+  ShoppingBag,
+  Landmark,
+  Store,
+  PackageCheck,
+  Footprints,
+  PlaneTakeoff,
+  ExternalLink,
+  CheckCircle2,
+  Star,
+  Coffee,
+  AlarmClock,
+  Key,
+  Route,
+  ArrowRight,
 } from 'lucide-react';
 
 interface DayDetailViewProps {
   day: DayItinerary;
   onPrevDay: () => void;
   onNextDay: () => void;
-  onOpenItemMap: (item: ScheduleItem, dayTitle: string) => void;
+  onOpenItemMap: (item: ScheduleItem, dayTitle: string, route?: RouteOption, allRoutes?: RouteOption[], nextItem?: ScheduleItem | null) => void;
   onOpenDayMap: (day: DayItinerary) => void;
 }
 
@@ -25,7 +59,7 @@ export const DayDetailView: React.FC<DayDetailViewProps> = ({
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   const renderIcon = (iconName: string) => {
-    const props = { size: 18, className: "flex-shrink-0 text-slate-900" };
+    const props = { size: 18, className: 'flex-shrink-0 text-slate-900' };
     switch (iconName) {
       case 'Plane': return <Plane {...props} />;
       case 'Train': return <Train {...props} />;
@@ -51,6 +85,9 @@ export const DayDetailView: React.FC<DayDetailViewProps> = ({
       case 'PackageCheck': return <PackageCheck {...props} />;
       case 'Footprints': return <Footprints {...props} />;
       case 'PlaneTakeoff': return <PlaneTakeoff {...props} />;
+      case 'Coffee': return <Coffee {...props} />;
+      case 'AlarmClock': return <AlarmClock {...props} />;
+      case 'Key': return <Key {...props} />;
       default: return <MapPin {...props} />;
     }
   };
@@ -82,14 +119,14 @@ export const DayDetailView: React.FC<DayDetailViewProps> = ({
       <div className="flex items-center justify-between gap-4 paper-card p-4">
         <button
           onClick={onPrevDay}
-          className="flex items-center gap-1 text-sm font-extrabold text-slate-900 bg-white hover:bg-amber-100 px-3.5 py-2 rounded-2xl transition border-2 border-slate-900 shadow-[2px_2px_0px_#1e293b]"
+          className="flex items-center gap-1 text-sm font-extrabold text-slate-900 bg-white hover:bg-amber-100 px-3.5 py-2 rounded-2xl transition border-2 border-slate-900 shadow-[2px_2px_0px_#1e293b] active:scale-95"
         >
           <ChevronLeft size={18} /> 이전 일자
         </button>
 
         <div className="text-center">
           <span className="text-xs font-bold text-amber-600 uppercase tracking-widest">
-            DAY {day.dayNumber} $\cdot$ {day.dateStr} ({day.dayOfWeek})
+            DAY {day.dayNumber} · {day.dateStr} ({day.dayOfWeek})
           </span>
           <h2 className="text-lg sm:text-xl font-extrabold text-slate-900">
             {day.title}
@@ -98,7 +135,7 @@ export const DayDetailView: React.FC<DayDetailViewProps> = ({
 
         <button
           onClick={onNextDay}
-          className="flex items-center gap-1 text-sm font-extrabold text-slate-900 bg-white hover:bg-amber-100 px-3.5 py-2 rounded-2xl transition border-2 border-slate-900 shadow-[2px_2px_0px_#1e293b]"
+          className="flex items-center gap-1 text-sm font-extrabold text-slate-900 bg-white hover:bg-amber-100 px-3.5 py-2 rounded-2xl transition border-2 border-slate-900 shadow-[2px_2px_0px_#1e293b] active:scale-95"
         >
           다음 일자 <ChevronRight size={18} />
         </button>
@@ -131,7 +168,7 @@ export const DayDetailView: React.FC<DayDetailViewProps> = ({
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             <button
               onClick={() => onOpenDayMap(day)}
-              className="px-5 py-3 bg-amber-400 hover:bg-amber-300 text-slate-900 font-extrabold rounded-2xl text-sm transition flex items-center justify-center gap-2 border-2 border-slate-900 shadow-[3px_3px_0px_#1e293b]"
+              className="px-5 py-3 bg-amber-400 hover:bg-amber-300 text-slate-900 font-extrabold rounded-2xl text-sm transition flex items-center justify-center gap-2 border-2 border-slate-900 shadow-[3px_3px_0px_#1e293b] active:scale-95"
             >
               <Navigation size={18} className="text-slate-900" />
               <span>전체 동선 구글 지도 보기</span>
@@ -168,94 +205,150 @@ export const DayDetailView: React.FC<DayDetailViewProps> = ({
 
       {/* Timeline Schedule Items */}
       <div className="timeline-container-cute space-y-6 relative pl-4 sm:pl-6">
-        {filteredSchedule.map((item) => (
-          <div
-            key={item.id}
-            className="paper-card p-5 sm:p-6 relative group border-2 border-slate-900 hover:shadow-[6px_6px_0px_#1e293b] transition-all"
-          >
-            {/* Timeline Dot Icon */}
-            <div className="absolute -left-[1.85rem] sm:-left-[2.35rem] top-6 w-8 h-8 rounded-full bg-amber-300 border-2 border-slate-900 flex items-center justify-center shadow-[2px_2px_0px_#1e293b] z-10">
-              {renderIcon(item.icon)}
-            </div>
+        {filteredSchedule.map((item, index) => {
+          // 다음 일정 찾기 (전체 schedule 기준)
+          const fullIndex = day.schedule.findIndex(s => s.id === item.id);
+          const nextItem = fullIndex >= 0 && fullIndex < day.schedule.length - 1
+            ? day.schedule[fullIndex + 1]
+            : null;
 
-            <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
-              <div className="space-y-2.5 flex-1">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="font-mono text-sm font-extrabold text-slate-900 bg-amber-200 px-3 py-0.5 rounded-lg border-2 border-slate-900 shadow-[1px_1px_0px_#1e293b] flex items-center gap-1">
-                    <Clock size={13} /> {item.time}
-                  </span>
-                  {getCategoryBadge(item.category)}
-                  {item.location && (
-                    <span className="text-xs text-slate-700 font-bold flex items-center gap-1">
-                      <MapPin size={13} className="text-rose-500" /> {item.location}
+          const routes = getItemRoutes(item, nextItem, day.title);
+          const hasMultipleRoutes = routes.length > 1;
+
+          return (
+            <div
+              key={item.id}
+              className="paper-card p-5 sm:p-6 relative group border-2 border-slate-900 hover:shadow-[6px_6px_0px_#1e293b] transition-all"
+            >
+              {/* Timeline Dot Icon */}
+              <div className="absolute -left-[1.85rem] sm:-left-[2.35rem] top-6 w-8 h-8 rounded-full bg-amber-300 border-2 border-slate-900 flex items-center justify-center shadow-[2px_2px_0px_#1e293b] z-10">
+                {renderIcon(item.icon)}
+              </div>
+
+              <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+                <div className="space-y-2.5 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="font-mono text-sm font-extrabold text-slate-900 bg-amber-200 px-3 py-0.5 rounded-lg border-2 border-slate-900 shadow-[1px_1px_0px_#1e293b] flex items-center gap-1">
+                      <Clock size={13} /> {item.time}
                     </span>
+                    {getCategoryBadge(item.category)}
+                    {item.location && (
+                      <span className="text-xs text-slate-700 font-bold flex items-center gap-1">
+                        <MapPin size={13} className="text-rose-500" /> {item.location}
+                      </span>
+                    )}
+                  </div>
+
+                  <h3 className="text-lg sm:text-xl font-extrabold text-slate-900">
+                    {item.title}
+                  </h3>
+
+                  <p className="text-sm text-slate-800 leading-relaxed font-medium">
+                    {item.description}
+                  </p>
+
+                  {/* Recommendations (💡 꿀팁/추천 Sticky Note) */}
+                  {item.recommendations && item.recommendations.length > 0 && (
+                    <div className="bg-indigo-50 border-2 border-slate-900 rounded-2xl p-3.5 text-xs shadow-[2px_2px_0px_#1e293b] space-y-1.5">
+                      <div className="font-extrabold text-indigo-900 flex items-center gap-1.5">
+                        <Lightbulb size={15} className="text-amber-500" />
+                        <span>💡 꿀팁 & 추천사항:</span>
+                      </div>
+                      <ul className="space-y-1 pl-4 list-disc text-slate-800 font-medium">
+                        {item.recommendations.map((rec, idx) => (
+                          <li key={idx}>{rec}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {/* Precautions (⚠️ 주의사항 Sticky Note) */}
+                  {item.precautions && item.precautions.length > 0 && (
+                    <div className="bg-rose-50 border-2 border-slate-900 rounded-2xl p-3.5 text-xs shadow-[2px_2px_0px_#1e293b] space-y-1.5">
+                      <div className="font-extrabold text-rose-900 flex items-center gap-1.5">
+                        <AlertTriangle size={15} className="text-rose-600" />
+                        <span>⚠️ 주의사항:</span>
+                      </div>
+                      <ul className="space-y-1 pl-4 list-disc text-slate-800 font-medium">
+                        {item.precautions.map((pre, idx) => (
+                          <li key={idx}>{pre}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {/* Next Destination Hint Indicator */}
+                  {nextItem && !hasMultipleRoutes && (
+                    <div className="pt-1 flex items-center gap-1.5 text-xs font-bold text-slate-600">
+                      <Route size={14} className="text-amber-600" />
+                      <span>다음 목적지:</span>
+                      <span className="text-slate-900 font-extrabold underline decoration-amber-400">
+                        {nextItem.title}
+                      </span>
+                    </div>
                   )}
                 </div>
 
-                <h3 className="text-lg sm:text-xl font-extrabold text-slate-900">
-                  {item.title}
-                </h3>
-
-                <p className="text-sm text-slate-800 leading-relaxed font-medium">
-                  {item.description}
-                </p>
-
-                {/* Recommendations (💡 꿀팁/추천 Sticky Note) */}
-                {item.recommendations && item.recommendations.length > 0 && (
-                  <div className="bg-indigo-50 border-2 border-slate-900 rounded-2xl p-3.5 text-xs shadow-[2px_2px_0px_#1e293b] space-y-1.5">
-                    <div className="font-extrabold text-indigo-900 flex items-center gap-1.5">
-                      <Lightbulb size={15} className="text-amber-500" />
-                      <span>💡 꿀팁 & 추천사항:</span>
-                    </div>
-                    <ul className="space-y-1 pl-4 list-disc text-slate-800 font-medium">
-                      {item.recommendations.map((rec, idx) => (
-                        <li key={idx}>{rec}</li>
+                {/* Map Action Buttons Container */}
+                <div className="flex flex-col gap-2 pt-2 md:pt-0 w-full md:w-auto md:min-w-[220px]">
+                  {/* 이동 동선이 2개 이상인 경우: 버튼을 각각 2개로 분리 렌더링 */}
+                  {hasMultipleRoutes ? (
+                    <div className="space-y-2">
+                      <div className="text-[11px] font-extrabold text-slate-700 flex items-center gap-1">
+                        <Route size={13} className="text-amber-500" />
+                        <span>이동 동선 ({routes.length}개 옵션):</span>
+                      </div>
+                      {routes.map((route, rIdx) => (
+                        <button
+                          key={route.id}
+                          onClick={() => onOpenItemMap(item, day.title, route, routes, nextItem)}
+                          className={`w-full px-3.5 py-2.5 rounded-xl text-xs font-extrabold transition border-2 border-slate-900 shadow-[2px_2px_0px_#1e293b] flex items-center justify-between gap-2 active:scale-95 text-left ${
+                            route.isPrimary || rIdx === 0
+                              ? 'bg-amber-300 hover:bg-amber-400 text-slate-900'
+                              : 'bg-indigo-100 hover:bg-indigo-200 text-indigo-950'
+                          }`}
+                        >
+                          <div className="flex items-center gap-1.5 truncate">
+                            <Navigation size={13} className="flex-shrink-0" />
+                            <span className="truncate">{route.label}</span>
+                          </div>
+                          {route.badge && (
+                            <span className="text-[10px] bg-white border border-slate-900 px-1.5 py-0.5 rounded font-extrabold flex-shrink-0">
+                              {route.badge}
+                            </span>
+                          )}
+                        </button>
                       ))}
-                    </ul>
-                  </div>
-                )}
-
-                {/* Precautions (⚠️ 주의사항 Sticky Note) */}
-                {item.precautions && item.precautions.length > 0 && (
-                  <div className="bg-rose-50 border-2 border-slate-900 rounded-2xl p-3.5 text-xs shadow-[2px_2px_0px_#1e293b] space-y-1.5">
-                    <div className="font-extrabold text-rose-900 flex items-center gap-1.5">
-                      <AlertTriangle size={15} className="text-rose-600" />
-                      <span>⚠️ 주의사항:</span>
                     </div>
-                    <ul className="space-y-1 pl-4 list-disc text-slate-800 font-medium">
-                      {item.precautions.map((pre, idx) => (
-                        <li key={idx}>{pre}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
+                  ) : (
+                    /* 단일 동선 버튼 */
+                    <button
+                      onClick={() => onOpenItemMap(item, day.title, routes[0], routes, nextItem)}
+                      className="w-full px-4 py-2.5 bg-amber-300 hover:bg-amber-400 text-slate-900 border-2 border-slate-900 rounded-xl text-xs font-extrabold transition shadow-[2px_2px_0px_#1e293b] flex items-center justify-center gap-1.5 active:scale-95"
+                    >
+                      <Navigation size={14} className="text-slate-900" />
+                      <span>{routes[0]?.label || '지도 동선 보기'}</span>
+                    </button>
+                  )}
 
-              {/* Map Action Buttons */}
-              <div className="flex md:flex-col items-center gap-2 pt-2 md:pt-0">
-                <button
-                  onClick={() => onOpenItemMap(item, day.title)}
-                  className="w-full md:w-auto px-4 py-2.5 bg-amber-300 hover:bg-amber-400 text-slate-900 border-2 border-slate-900 rounded-xl text-xs font-extrabold transition shadow-[2px_2px_0px_#1e293b] flex items-center justify-center gap-1.5"
-                >
-                  <MapPin size={14} className="text-slate-900" />
-                  <span>지도 동선 보기</span>
-                </button>
-
-                {item.googleMapsUrl && (
-                  <a
-                    href={item.googleMapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full md:w-auto px-3 py-2.5 bg-white hover:bg-slate-100 text-slate-900 border-2 border-slate-900 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1 shadow-[2px_2px_0px_#1e293b]"
-                  >
-                    <ExternalLink size={13} />
-                    <span>구글맵 앱</span>
-                  </a>
-                )}
+                  {/* 단독 구글맵 장소 링크 */}
+                  {item.googleMapsUrl && (
+                    <a
+                      href={item.googleMapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full px-3 py-2 bg-white hover:bg-slate-100 text-slate-800 border-2 border-slate-900 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1 shadow-[2px_2px_0px_#1e293b]"
+                    >
+                      <MapPin size={13} className="text-rose-500" />
+                      <span>현재 위치 단독 검색</span>
+                      <ExternalLink size={12} className="text-slate-400" />
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* General Day Tips */}

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { ITINERARY_DATA, DayItinerary, ScheduleItem } from './data/itineraryData';
+import { ITINERARY_DATA, DayItinerary, ScheduleItem, RouteOption } from './data/itineraryData';
 import { Header } from './components/Header';
 import { OverviewGrid } from './components/OverviewGrid';
 import { DayDetailView } from './components/DayDetailView';
 import { RouteMapModal } from './components/RouteMapModal';
 import { TipsAndChecklist } from './components/TipsAndChecklist';
-import { Heart, Compass, MapPin } from 'lucide-react';
+import { Heart } from 'lucide-react';
 
 export const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<
@@ -17,17 +17,37 @@ export const App: React.FC = () => {
   const [modalTitle, setModalTitle] = useState('');
   const [selectedMapItem, setSelectedMapItem] = useState<ScheduleItem | null>(null);
   const [selectedMapDay, setSelectedMapDay] = useState<DayItinerary | null>(null);
+  const [selectedRoute, setSelectedRoute] = useState<RouteOption | null>(null);
+  const [selectedRoutes, setSelectedRoutes] = useState<RouteOption[]>([]);
+  const [selectedNextItem, setSelectedNextItem] = useState<ScheduleItem | null>(null);
 
-  const handleOpenItemMap = (item: ScheduleItem, dayTitle: string) => {
+  const handleOpenItemMap = (
+    item: ScheduleItem,
+    dayTitle: string,
+    route?: RouteOption,
+    allRoutes?: RouteOption[],
+    nextItem?: ScheduleItem | null
+  ) => {
     setSelectedMapItem(item);
     setSelectedMapDay(null);
-    setModalTitle(`${dayTitle} - ${item.title}`);
+    setSelectedRoute(route || null);
+    setSelectedRoutes(allRoutes || []);
+    setSelectedNextItem(nextItem || null);
+
+    if (route) {
+      setModalTitle(`${route.originTitle} ➔ ${route.destinationTitle}`);
+    } else {
+      setModalTitle(`${dayTitle} - ${item.title}`);
+    }
     setIsMapModalOpen(true);
   };
 
   const handleOpenDayMap = (day: DayItinerary) => {
     setSelectedMapItem(null);
     setSelectedMapDay(day);
+    setSelectedRoute(null);
+    setSelectedRoutes([]);
+    setSelectedNextItem(null);
     setModalTitle(`${day.dateStr} (${day.dayOfWeek}) ${day.title} 전체 동선`);
     setIsMapModalOpen(true);
   };
@@ -36,6 +56,9 @@ export const App: React.FC = () => {
     setIsMapModalOpen(false);
     setSelectedMapItem(null);
     setSelectedMapDay(null);
+    setSelectedRoute(null);
+    setSelectedRoutes([]);
+    setSelectedNextItem(null);
   };
 
   const currentDayIndex = activeTab.startsWith('day')
@@ -91,7 +114,7 @@ export const App: React.FC = () => {
             <Heart size={14} className="text-rose-500 fill-rose-500" />
           </p>
           <p className="text-slate-500">
-            시간대별 동선 $\cdot$ 구글 지도 $\cdot$ 꿀팁 & 주의사항 완벽 내비게이션
+            시간대별 동선 · 구글 지도 · 꿀팁 & 주의사항 완벽 내비게이션
           </p>
         </footer>
       </div>
@@ -103,6 +126,9 @@ export const App: React.FC = () => {
         title={modalTitle}
         item={selectedMapItem}
         day={selectedMapDay}
+        selectedRoute={selectedRoute}
+        routes={selectedRoutes}
+        nextItem={selectedNextItem}
       />
     </div>
   );
