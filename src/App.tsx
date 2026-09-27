@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { ITINERARY_DATA, DayItinerary, ScheduleItem, RouteOption } from './data/itineraryData';
+import { ITINERARY_DATA, DayItinerary, ScheduleItem, RouteOption, VoucherData } from './data/itineraryData';
 import { Header } from './components/Header';
 import { OverviewGrid } from './components/OverviewGrid';
 import { DayDetailView } from './components/DayDetailView';
 import { RouteMapModal } from './components/RouteMapModal';
 import { JapaneseVocabModal } from './components/JapaneseVocabModal';
+import { VoucherModal } from './components/VoucherModal';
 import { TipsAndChecklist } from './components/TipsAndChecklist';
 import { Heart } from 'lucide-react';
 
@@ -26,6 +27,10 @@ export const App: React.FC = () => {
   const [isVocabModalOpen, setIsVocabModalOpen] = useState(false);
   const [selectedVocabItem, setSelectedVocabItem] = useState<ScheduleItem | null>(null);
   const [selectedVocabDayTitle, setSelectedVocabDayTitle] = useState('');
+
+  // Voucher QR Modal state
+  const [isVoucherModalOpen, setIsVoucherModalOpen] = useState(false);
+  const [selectedVoucher, setSelectedVoucher] = useState<VoucherData | null>(null);
 
   const handleOpenItemMap = (
     item: ScheduleItem,
@@ -78,6 +83,16 @@ export const App: React.FC = () => {
     setSelectedVocabItem(null);
   };
 
+  const handleOpenVoucherModal = (voucher: VoucherData) => {
+    setSelectedVoucher(voucher);
+    setIsVoucherModalOpen(true);
+  };
+
+  const handleCloseVoucherModal = () => {
+    setIsVoucherModalOpen(false);
+    setSelectedVoucher(null);
+  };
+
   const currentDayIndex = activeTab.startsWith('day')
     ? parseInt(activeTab.replace('day', ''), 10) - 1
     : 0;
@@ -119,6 +134,7 @@ export const App: React.FC = () => {
               onOpenItemMap={handleOpenItemMap}
               onOpenDayMap={handleOpenDayMap}
               onOpenVocabModal={handleOpenVocabModal}
+              onOpenVoucherModal={handleOpenVoucherModal}
             />
           )}
 
@@ -155,6 +171,13 @@ export const App: React.FC = () => {
         onClose={handleCloseVocabModal}
         item={selectedVocabItem}
         dayTitle={selectedVocabDayTitle}
+      />
+
+      {/* Global Reservation & Ticket QR Voucher Modal */}
+      <VoucherModal
+        isOpen={isVoucherModalOpen}
+        onClose={handleCloseVoucherModal}
+        voucher={selectedVoucher}
       />
     </div>
   );

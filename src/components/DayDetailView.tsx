@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DayItinerary, ScheduleItem, RouteOption, getItemRoutes } from '../data/itineraryData';
+import { DayItinerary, ScheduleItem, RouteOption, VoucherData, getItemRoutes } from '../data/itineraryData';
 import {
   Clock,
   MapPin,
@@ -39,6 +39,7 @@ import {
   Key,
   Route,
   ArrowRight,
+  QrCode,
 } from 'lucide-react';
 
 interface DayDetailViewProps {
@@ -48,6 +49,7 @@ interface DayDetailViewProps {
   onOpenItemMap: (item: ScheduleItem, dayTitle: string, route?: RouteOption, allRoutes?: RouteOption[], nextItem?: ScheduleItem | null) => void;
   onOpenDayMap: (day: DayItinerary) => void;
   onOpenVocabModal: (item: ScheduleItem, dayTitle: string) => void;
+  onOpenVoucherModal: (voucher: VoucherData) => void;
 }
 
 export const DayDetailView: React.FC<DayDetailViewProps> = ({
@@ -57,6 +59,7 @@ export const DayDetailView: React.FC<DayDetailViewProps> = ({
   onOpenItemMap,
   onOpenDayMap,
   onOpenVocabModal,
+  onOpenVoucherModal,
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
@@ -283,7 +286,7 @@ export const DayDetailView: React.FC<DayDetailViewProps> = ({
                   )}
 
                   {/* ★ 필요 용어란 (현지 일본어 / 입장권 종류 / 메뉴명 / 발음 팝업) */}
-                  <div className="pt-1">
+                  <div className="pt-1 flex flex-wrap gap-2">
                     <button
                       onClick={() => onOpenVocabModal(item, day.title)}
                       className="w-full sm:w-auto px-4 py-2.5 bg-gradient-to-r from-amber-100 to-orange-100 hover:from-amber-200 hover:to-orange-200 text-slate-900 border-2 border-slate-900 rounded-xl text-xs font-black transition shadow-[2px_2px_0px_#1e293b] flex items-center justify-between sm:justify-start gap-2.5 active:scale-95 group"
@@ -292,12 +295,28 @@ export const DayDetailView: React.FC<DayDetailViewProps> = ({
                         <div className="w-5 h-5 rounded-lg bg-amber-400 border border-slate-900 flex items-center justify-center text-[10px] font-black">
                           あ
                         </div>
-                        <span>🗣️ <strong>필요 용어 & 현지 일본어</strong> (입장권 · 메뉴 · 주문)</span>
+                        <span>🗣️ <strong>필요 용어 & 현지 일본어</strong></span>
                       </div>
                       <span className="text-[10px] bg-white text-slate-800 font-extrabold px-2 py-0.5 rounded-md border border-slate-900 group-hover:bg-amber-300">
                         단어장 열기 ➔
                       </span>
                     </button>
+
+                    {/* ★ QR 바우처 / 예약 티켓 버튼 (해당 일정이 있을 시) */}
+                    {item.voucher && (
+                      <button
+                        onClick={() => onOpenVoucherModal(item.voucher!)}
+                        className="w-full sm:w-auto px-4 py-2.5 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white border-2 border-slate-900 rounded-xl text-xs font-black transition shadow-[3px_3px_0px_#1e293b] flex items-center justify-between sm:justify-start gap-2.5 active:scale-95 animate-pulse hover:animate-none"
+                      >
+                        <div className="flex items-center gap-2">
+                          <QrCode size={16} className="text-white" />
+                          <span>📱 <strong>{item.voucher.title}</strong></span>
+                        </div>
+                        <span className="text-[10px] bg-white text-rose-700 font-black px-2 py-0.5 rounded-md border border-slate-900 shadow-sm">
+                          QR 바로보기 ➔
+                        </span>
+                      </button>
+                    )}
                   </div>
 
                   {/* Next Destination Hint Indicator */}

@@ -30,6 +30,21 @@ export interface VocabularyCategory {
   items: VocabItem[];
 }
 
+export interface VoucherData {
+  id: string;
+  title: string;
+  subtitle: string;
+  bookingNo?: string;
+  travelerName?: string;
+  date?: string;
+  time?: string;
+  location?: string;
+  image: string; // public 경로 (예: '/images/vouchers/innn_pickup_qr.jpg')
+  badge: string;
+  usageGuide: string;
+  note?: string;
+}
+
 export interface ScheduleItem {
   id: string;
   time: string;
@@ -44,6 +59,7 @@ export interface ScheduleItem {
   precautions: string[];
   routes?: RouteOption[];
   vocabCategories?: VocabularyCategory[];
+  voucher?: VoucherData;
 }
 
 export interface DayChecklist {
@@ -399,7 +415,21 @@ export const ITINERARY_DATA: DayItinerary[] = [
         ],
         precautions: [
           "INNN 카운터에서 예약 바우처 번호 확인 후 차량 안내받기"
-        ]
+        ],
+        voucher: {
+          id: "voucher-innn",
+          title: "INNN 공항 픽업 바우처 & QR",
+          subtitle: "간사이공항 KIX ➔ 더 싱귤러리 호텔 전용 합승차",
+          bookingNo: "26KK261404511 (P2026090917400001)",
+          travelerName: "JIIN SEO (대인 3명)",
+          date: "2026-10-04 (일)",
+          time: "18:30 도착 (운영 07:00~21:00)",
+          location: "간사이 국제공항 T1 도착층 INNN 카운터",
+          image: "/images/vouchers/innn_pickup_qr.jpg",
+          badge: "Agoda 픽업 확정",
+          usageGuide: "간사이공항 1층 도착층 INNN 카운터에서 이 QR코드와 예약번호를 제시하세요.",
+          note: "하차 장소: THE SINGULARI HOTEL & SKYSPA AT UNIVERSAL STUDIOS JAPAN"
+        }
       },
       {
         id: "d1-4",
@@ -1072,12 +1102,26 @@ export const ITINERARY_DATA: DayItinerary[] = [
         location: "CAPCOM / 몬스터헌터 카페 (West)",
         coordinates: { lat: 34.6732, lng: 135.5008 },
         googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=CAPCOM+STORE+OSAKA",
-        description: "예약 시간 12:00! 몬헌 테마 메뉴 & 굿즈 구경 (테이블 차지/예약비는 현장 확인)",
+        description: "예약 시간 12:00! 몬헌 테마 메뉴 & 굿즈 구경 (파세라리조츠 난바 도톤보리점 4F, 예약 ID: J5Z5NL)",
         recommendations: [
           "시그니처 고기 메뉴와 캐릭터 테마 드링크 주문",
           "아이루/가루크 굿즈 구경"
         ],
         precautions: ["12:00 예약 10분 전 도착 필수"],
+        voucher: {
+          id: "voucher-monhan",
+          title: "MONHAN BAR WEST (몬헌주점) 예약 티켓",
+          subtitle: "파세라리조츠 난바 도톤보리점 4F",
+          bookingNo: "J5Z5NL",
+          travelerName: "3명 예약 확정",
+          date: "2026년 10월 7일 (수)",
+          time: "12:00",
+          location: "〒542-0071 大阪市中央区道頓堀1丁目4-27 4F (0120-718-759)",
+          image: "/images/vouchers/monhan_bar_ticket.jpg",
+          badge: "TableCheck 예약 확정",
+          usageGuide: "12:00 매장 도착 후 카운터 직원에게 예약 화면(예약 ID: J5Z5NL)을 보여주세요.",
+          note: "예약 시간 10분 전 매장 도착 필수!"
+        },
         vocabCategories: [
           {
             categoryName: "🎮 몬스터헌터 카페 주문 & 문의",
@@ -1103,12 +1147,26 @@ export const ITINERARY_DATA: DayItinerary[] = [
         location: "오사카성 천수각 & 신사이바시 상점가",
         coordinates: { lat: 34.6873, lng: 135.5262 },
         googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Osaka+Castle",
-        description: "각자의 취향에 맞춘 자유 분리 일정!\n• [남편 + 아들]: 오사카성 관람 (천수각 관람, 클룩 or 공식 사이트 예매)\n• [지인님]: 신사이바시 주변 쇼핑 & 카페 자유시간 (혼자 여유롭게!)",
+        description: "각자의 취향에 맞춘 자유 분리 일정!\n• [남편 + 아들]: 오사카성 관람 (천수각 1회 입장 QR 바우처)\n• [지인님]: 신사이바시 주변 쇼핑 & 카페 자유시간 (혼자 여유롭게!)",
         recommendations: [
           "남편+아들 팀: 오사카성 천수각 전망대 & 말차 소프트 아이스크림",
           "지인님 팀: 다이마루 백화점 & 트렌디한 잡화 쇼핑"
         ],
         precautions: ["17:30에 난바/도톤보리에서 다시 만나기! (카카오톡/라인 연락)"],
+        voucher: {
+          id: "voucher-osaka-castle",
+          title: "오사카성 천수각 입장 QR 바우처",
+          subtitle: "2026 大阪城天守閣 ＆ 豊臣石垣館 1회 입관권",
+          bookingNo: "TRIPLE-20260915-KQYA",
+          travelerName: "DAEKYU PARK (대인 x 1)",
+          date: "2026-10-07 이용 (유효기한 ~10/14)",
+          time: "09:00 ~ 17:30 (마지막 입장 17:00)",
+          location: "오사카성 천수각 입구 게이트 (1-1 Osakajo, Chuo-ku)",
+          image: "/images/vouchers/osaka_castle_qr.jpg",
+          badge: "NOL UNIVERSE 확정 QR",
+          usageGuide: "매표소 줄을 서지 않고 천수각 입장 게이트에서 이 QR 코드를 바로 스캔하고 입장하세요!",
+          note: "천수각 1회 입관권 + 도요토미 석벽관 1회 입관권 포함 (중학생 이하 무료)"
+        },
         vocabCategories: [
           {
             categoryName: "🎟️ 오사카성 티켓 & 디저트",

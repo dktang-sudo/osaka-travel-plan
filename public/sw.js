@@ -1,4 +1,4 @@
-const CACHE_NAME = 'osaka-travel-v4';
+const CACHE_NAME = 'osaka-travel-v5';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -30,6 +30,9 @@ const STATIC_ASSETS = [
   '/images/vocab/pokemon.svg',
   '/images/vocab/capcom.svg',
   '/images/vocab/donkeykong.svg',
+  '/images/vouchers/innn_pickup_qr.jpg',
+  '/images/vouchers/osaka_castle_qr.jpg',
+  '/images/vouchers/monhan_bar_ticket.jpg',
 ];
 
 // 설치 시 정적 에셋 캐싱
