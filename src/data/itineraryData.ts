@@ -1,7 +1,7 @@
 export interface RouteOption {
   id: string;
-  label: string; // 버튼 표시 텍스트 (예: "캡틴라인 선착장 동선 (도보 5분)")
-  badge?: string; // 예: "도보 5분", "직행 70분", "지하철 35분"
+  label: string; // 버튼 표시 텍스트
+  badge?: string; // 예: "도보 5분", "직행 10분", "지하철 35분"
   originTitle: string;
   originLocation: string;
   destinationTitle: string;
@@ -17,16 +17,16 @@ export interface RouteOption {
 
 export interface VocabItem {
   id: string;
-  korean: string;        // 한국어 뜻 (예: "성인 왕복 승선권")
-  japanese: string;      // 일본어 한자/가나 (예: "大人 往復乗船券")
-  pronunciation: string; // 한국어 발음 (예: "오토나 오-후쿠 조-센켄")
+  korean: string;        // 한국어 뜻
+  japanese: string;      // 일본어 한자/가나
+  pronunciation: string; // 한국어 발음
   category: 'ticket' | 'order' | 'shopping' | 'transport' | 'service' | 'general';
-  image?: string;        // 시각 자료 이미지 경로 (예: "/images/vocab/ticket.svg")
-  situationTip?: string; // 현지 사용 팁 (예: "매표소 직원에게 손가락 2개와 함께 화면을 보여주세요")
+  image?: string;        // 시각 자료 이미지 경로
+  situationTip?: string; // 현지 사용 팁
 }
 
 export interface VocabularyCategory {
-  categoryName: string; // 카테고리 명칭 (예: "🎟️ 매표 & 입장권 용어", "🍜 메뉴 주문 & 요청")
+  categoryName: string; // 카테고리 명칭
   items: VocabItem[];
 }
 
@@ -95,28 +95,31 @@ export const TRIP_INFO: TripOverviewInfo = {
   dates: "2026. 10. 4 (일) ~ 10. 9 (금) 5박 6일",
   members: "엄마 + 아빠 + 아들 3명 가족 여행 👨‍👩‍👦",
   flights: {
-    departure: "가는 편: 10/4 (일) OZ114 16:40 인천 출발 ➔ 18:30 간사이공항 도착",
-    return: "오는 편: 10/9 (금) OZ111 10:30 간사이공항 출발 ➔ 12:30 인천 도착",
+    departure: "가는 편: 10/4 (일) 아시아나 OZ114 16:40 인천(T2) ➔ 18:30 간사이(KIX)",
+    return: "오는 편: 10/9 (금) 아시아나 OZ111 10:30 간사이(KIX) ➔ 14:20 인천(ICN)",
   },
   hotels: {
     hotel1: {
       name: "더 싱귤러리 호텔 & 스카이스파 (The Singulari Hotel)",
       period: "10/4 ~ 10/7 (3박)",
-      note: "USJ 바로 앞! JR 유니버설시티역 직결 & 전망 온천 대욕장",
+      note: "USJ 도보 바로 앞! 6-2-25 Shimaya, Konohana-ku, Osaka",
     },
     hotel2: {
-      name: "사쿠라가와 호텔 난바 (Hotel Sakura River Namba)",
+      name: "사쿠라가와 호텔 난바 (Sakuragawa Hotel Nanba)",
       period: "10/7 ~ 10/9 (2박)",
-      note: "난바/신사이바시/도톤보리 인근 쾌적한 도심 숙소",
+      note: "난바/신사이바시/도톤보리 인근 숙소 (체크인 15:00 / 체크아웃 10:00)",
     },
   },
   reservations: [
-    "항공권 (아시아나 OZ114 / OZ111)",
-    "숙소 2곳 (더 싱귤러리 3박 + 사쿠라가와 난바 2박)",
-    "USJ 입장권 + 익스프레스 패스 (10/6 확정)",
-    "가이유칸 (10/5 10:30 입장) & 캡틴라인 왕복",
-    "몬스터헌터 카페 웨스트 런치 (10/7 12:00)",
-    "도톤보리 리버크루즈 (10/7 20:00 예약 완료)",
+    "아시아나 항공권 (OZ114 / OZ111)",
+    "공항 픽업 INNN (Agoda 52,844원 성인2+아동1)",
+    "더 싱귤러리 호텔 3박 (10/4~10/7)",
+    "사쿠라가와 호텔 난바 2박 (10/7~10/9)",
+    "가이유칸 입장권 (10/5 10:30 예매 완료)",
+    "캡틴라인 왕복권 (10/5 이용 확정)",
+    "USJ 입장권 + 익스프레스 패스 (10/6 10:00미니언, 12:20닌텐도/마리오, 12:50동키콩)",
+    "몬스터헌터 카페 West 런치 예약 (10/7 12:00)",
+    "도톤보리 리버크루즈 예약 (10/7 20:00 하나투어패스)",
     "오사카성 입장권 / eSIM / Visit Japan Web QR",
   ],
 };
@@ -317,89 +320,107 @@ export const getItemVocabs = (item: ScheduleItem): VocabularyCategory[] => {
 };
 
 export const ITINERARY_DATA: DayItinerary[] = [
-  // ==========================================
-  // DAY 1 (10/4 일): 간사이공항 도착 ➔ USJ 이동
-  // ==========================================
+  // =========================================================================
+  // DAY 1 (10/4 일): 간사이공항 도착 ➔ USJ 이동 [설레는 첫날! 즐거운 오사카 여행 시작 ❤️]
+  // =========================================================================
   {
     dayNumber: 1,
     dateStr: "10/4",
     dayOfWeek: "일",
     title: "간사이공항 도착 ➔ USJ 이동",
-    tagline: "설레는 오사카 3명 가족 여행의 시작! ✨",
-    hotelInfo: "더 싱귤러리 호텔 (USJ 앞)",
+    tagline: "설레는 첫날! 즐거운 오사카 여행 시작 ❤️",
+    hotelInfo: "더 싱귤러리 호텔 & 스카이스파 (USJ 앞)",
     themeColor: "#3B82F6",
     gradient: "from-blue-500 to-cyan-500",
     badge: {
-      text: "OZ114 항공편 & 공항 픽업",
+      text: "OZ114 16:40 & INNN 픽업",
       type: "info"
     },
     summaryItems: [
-      "16:40 인천 출발 (OZ114)",
-      "18:30 간사이공항 도착",
-      "19:00 공항 픽업 (INNN)",
-      "20:00 더 싱귤러리 호텔 체크인",
-      "20:30 시티워크 저녁 & 쇼핑",
-      "22:00 호텔 복귀 & 휴식"
+      "13:30 인천공항 T2 도착 (수속 & 면세점)",
+      "16:40 인천 출발 (OZ114 아시아나)",
+      "18:30 간사이공항 도착 (입국수속 & QR)",
+      "19:00 공항 픽업 (INNN 전용차량 40~50분)",
+      "19:50 더 싱귤러리 호텔 체크인",
+      "20:30 시티워크 저녁 식사 & 쇼핑",
+      "22:00 호텔 복귀 & 스카이스파 휴식"
     ],
-    dayRouteQuery: "Kansai+Airport+to+The+Singulari+Hotel+Osaka",
+    dayRouteQuery: "Incheon+Airport+Terminal+2+to+Kansai+Airport+to+The+Singulari+Hotel+Osaka",
     googleEmbedMapUrl: "https://maps.google.com/maps?q=The+Singulari+Hotel+and+Skyspa+at+Universal+Studios+Japan&t=&z=14&ie=UTF8&iwloc=&output=embed",
     schedule: [
       {
         id: "d1-1",
-        time: "16:40 ~ 18:30",
-        title: "인천공항 출발 ✈️ 간사이공항 도착 (OZ114)",
+        time: "13:30",
+        title: "인천공항 제2터미널 도착 🧳",
         category: "transport",
         icon: "Plane",
-        location: "인천국제공항 ➔ 간사이국제공항 T1",
-        coordinates: { lat: 34.432, lng: 135.2304 },
-        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Kansai+International+Airport",
-        description: "아시아나 OZ114편으로 16:40 인천 출발 후 18:30 간사이공항 도착, 입국 수속 진행",
+        location: "인천국제공항 제2여객터미널 (ICN T2)",
+        coordinates: { lat: 37.4602, lng: 126.4407 },
+        description: "탑승 수속 및 수하물 위탁, 출국 심사 진행 후 면세점 쇼핑 여유롭게 즐기기",
         recommendations: [
-          "Visit Japan Web QR코드(입국/세관) 사전 캡처본 미리 열어두기",
-          "비행기 착륙 직후 eSIM 데이터 로밍 켜기"
+          "아시아나항공 카운터에서 모바일 체크인 수하물 전용 라인 이용",
+          "출국 전 포켓 와이파이 / eSIM 세팅 및 환전 수령"
         ],
         precautions: [
-          "입국 심사 및 수하물 수령 후 19:00 픽업 기사님 미팅 포인트로 이동"
+          "출국 2~3시간 전 도착 추천! 16:40 출발이므로 13:30 도착 완료"
         ]
       },
       {
         id: "d1-2",
-        time: "19:00 ~ 20:00",
-        title: "공항 픽업(INNN) 🚗 ➔ USJ 이동 (약 40~50분)",
+        time: "16:40 ~ 18:30",
+        title: "인천 출발 ✈️ (OZ114) ➔ 간사이공항 도착 (KIX)",
         category: "transport",
-        icon: "Car",
-        location: "간사이공항 ➔ 더 싱귤러리 호텔",
-        coordinates: { lat: 34.6678, lng: 135.4386 },
-        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=The+Singulari+Hotel+and+Skyspa",
-        description: "사전 예약된 공항 픽업 차량(INNN)을 타고 편안하게 USJ 앞 더 싱귤러리 호텔로 직행",
+        icon: "Plane",
+        location: "인천공항 T2 ➔ 간사이국제공항 T1",
+        coordinates: { lat: 34.432, lng: 135.2304 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Kansai+International+Airport",
+        description: "아시아나항공 OZ114편 탑승 (비행시간 약 1시간 50분), 18:30 간사이공항 도착 후 입국 수속 진행",
         recommendations: [
-          "무거운 캐리어를 들고 환승할 필요 없이 호텔 로비 앞까지 바로 도착!",
-          "차량 이동 중 창밖으로 오사카만 야경 감상"
+          "기내에서 착륙 전 Visit Japan Web QR코드(입국심사 + 세관신고) 화면 띄워두기",
+          "착륙 직후 휴대폰 eSIM 데이터 로밍 켜기"
         ],
         precautions: [
-          "픽업 기사님 연락(카톡/라인) 확인 및 미팅 장소 엄수"
+          "입국 심사(QR) ➔ 수하물 수령 ➔ 세관 통과 후 1층 도착 로비 INNN 카운터로 이동"
         ]
       },
       {
         id: "d1-3",
-        time: "20:00",
-        title: "더 싱귤러리 호텔 체크인 🏨 (USJ 앞)",
-        category: "hotel",
-        icon: "Hotel",
-        location: "더 싱귤러리 호텔 & 스카이스파 (The Singulari Hotel)",
+        time: "19:00 ~ 19:50",
+        title: "공항 픽업 (INNN) 🚐 ➔ USJ 이동 (약 40~50분)",
+        category: "transport",
+        icon: "Car",
+        location: "간사이공항 도착층 INNN 카운터 ➔ 더 싱귤러리 호텔",
         coordinates: { lat: 34.6678, lng: 135.4386 },
         googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=The+Singulari+Hotel+and+Skyspa",
-        description: "USJ 및 유니버설시티역 바로 앞 특급 호텔 체크인 (10/4~10/7 3박 연박)",
+        description: "INNN 카운터에서 예약번호 제시 후 전용차량 탑승, 편안하게 더 싱귤러리 호텔로 직행 (Agoda 예약 52,844원 성인 2명+아동 1명 무료)",
         recommendations: [
-          "14층 전망 스카이스파(대욕장/노천탕) 운영 시간(15:00~익일 11:00) 확인",
-          "내일 아침 조식 뷔페 시간 및 캡틴라인 선착장 동선 확인"
+          "★ 리무진 버스는 17:00 막차로 이용 불가하므로 사전 예약한 INNN 전용 픽업 차량으로 편안하게 이동!",
+          "무거운 캐리어를 싣고 호텔 정문 로비 앞까지 바로 도착"
         ],
         precautions: [
-          "여권 3명 전원 제시 및 룸 키 수령"
+          "INNN 카운터에서 예약 바우처 번호 확인 후 차량 안내받기"
         ]
       },
       {
         id: "d1-4",
+        time: "19:50",
+        title: "더 싱귤러리 호텔 체크인 🏨 (USJ 앞)",
+        category: "hotel",
+        icon: "Hotel",
+        location: "더 싱귤러리 호텔 & 스카이스파 앳 유니버설 스튜디오 재팬",
+        coordinates: { lat: 34.6678, lng: 135.4386 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=The+Singulari+Hotel+and+Skyspa",
+        description: "USJ 도보 바로 앞 특급 호텔 체크인! (주소: 6-2-25 Shimaya, Konohana-ku, Osaka 554-0024, 체크인 15:00 / 체크아웃 10/7 10:00)",
+        recommendations: [
+          "체크인 후 방에 짐 정리 및 잠시 휴식",
+          "14층 스카이스파(전망 온천 대욕장/노천탕) 이용 안내 확인"
+        ],
+        precautions: [
+          "여권 3명 전원 제시 및 객실 키 수령"
+        ]
+      },
+      {
+        id: "d1-5",
         time: "20:30 ~ 22:00",
         title: "유니버설 시티워크 저녁 식사 & 쇼핑 🍜",
         category: "food",
@@ -407,114 +428,110 @@ export const ITINERARY_DATA: DayItinerary[] = [
         location: "유니버설 시티워크 오사카 (Universal Citywalk)",
         coordinates: { lat: 34.668, lng: 135.4375 },
         googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Universal+Citywalk+Osaka",
-        description: "호텔 바로 앞 화려한 시티워크 거리에서 타코야키 파크(TAKOPA) 또는 맛있는 저녁 식사 및 간식 쇼핑",
+        description: "호텔 바로 앞 화려한 시티워크 레스토랑에서 맛있는 저녁 식사, 간단한 쇼핑, 내일 USJ를 위한 사전 분위기 즐기기!",
         recommendations: [
-          "TAKOPA (타코야키 파크): 5대 유명 타코야키(쿠쿠루, 주하치반) 맛 비교",
+          "TAKOPA (타코야키 파크): 쿠쿠루, 주하치반 타코야키 비교 맛보기",
           "풍월(후게츠) 오코노미야키 또는 놀부/모스버거 등 다양한 맛집"
         ],
         precautions: [
-          "내일 가이유칸 일정을 위해 무리하지 않고 편안하게 식사"
+          "내일 가이유칸 & 곤충샵 일정을 위해 가볍게 식사 후 조기 휴식"
         ]
       },
       {
-        id: "d1-5",
+        id: "d1-6",
         time: "22:00",
-        title: "호텔 복귀 & 휴식 🌙",
+        title: "호텔 복귀 & 휴식 🛌 (내일부터는 USJ에서 신나게!)",
         category: "hotel",
         icon: "Home",
-        location: "더 싱귤러리 호텔 객실 & 스카이스파",
+        location: "더 싱귤러리 호텔 객실 & 14층 스카이스파",
         coordinates: { lat: 34.6678, lng: 135.4386 },
-        description: "더 싱귤러리 호텔 14층 스카이스파 온천욕 후 편안한 취침",
-        recommendations: ["온천 대욕장에서 비행 피로 풀고 내일 09:00 출발 대비"],
-        precautions: ["스카이스파 이용 시 객실 가운 및 전용 슬리퍼 착용 가능"]
+        description: "더 싱귤러리 호텔 14층 스카이스파 대욕장에서 온천욕 후 충분히 휴식하기 ❤️",
+        recommendations: ["온천으로 비행 피로 풀고 내일 09:30 출발 대비"],
+        precautions: ["스카이스파 이용 시 객실 내 비치된 관내복 착용 가능"]
       }
     ],
     checklist: [
-      { id: "c1-1", text: "여권 3인분 & 항공권 E-티켓 (OZ114)", isImportant: true },
-      { id: "c1-2", text: "Visit Japan Web 입국/세관 QR코드 캡처", isImportant: true },
-      { id: "c1-3", text: "공항 픽업 (INNN) 예약 바우처 & 기사님 연락처", isImportant: true },
-      { id: "c1-4", text: "더 싱귤러리 호텔 예약 확인서 (3박)" }
+      { id: "c1-1", text: "여권, 항공권 (모바일 E-티켓)", isImportant: true },
+      { id: "c1-2", text: "수하물, 충전기, 보조배터리", isImportant: true },
+      { id: "c1-3", text: "Visit Japan Web QR코드 (입국/세관 캡처)", isImportant: true },
+      { id: "c1-4", text: "INNN 공항 픽업 예약번호", isImportant: true },
+      { id: "c1-5", text: "eSIM / 데이터 확인" },
+      { id: "c1-6", text: "호텔 예약 확인서 (더 싱귤러리 3박)" },
+      { id: "c1-7", text: "간단한 저녁 식사비, 교통카드(필요 시)" }
     ],
     generalTips: [
-      "첫날은 공항 픽업 차로 호텔에 도착 후 시티워크에서 맛있는 저녁을 먹고 스카이스파에서 푹 쉬는 힐링 코스입니다!",
-      "호텔 1층 편의점(세븐일레븐)에서 생수와 간식을 미리 구매해두면 편리합니다."
+      "인천공항 제2터미널 아시아나항공 탑승 (출국 2~3시간 전 도착 추천)",
+      "간사이공항 도착 후: 입국심사(QR) ➔ 수하물 수령 ➔ 세관 ➔ 1층 도착층 INNN 카운터 이동",
+      "USJ 가는 날: 리무진 버스는 17:00 막차로 이용 불가하여 INNN 전용 픽업 차량으로 편안하게 이동합니다!"
     ]
   },
 
-  // ==========================================
-  // DAY 2 (10/5 월): 가이유칸 & 곤충샵
-  // ==========================================
+  // =========================================================================
+  // DAY 2 (10/5 월): 가이유칸 & 곤충샵 탐방 DAY [바다를 보고, 신기한 곤충을 만나고, 여유롭게 즐기는 하루 ❤️]
+  // =========================================================================
   {
     dayNumber: 2,
     dateStr: "10/5",
     dayOfWeek: "월",
-    title: "가이유칸 & 곤충샵",
-    tagline: "바다를 건너 고래상어와 희귀 곤충을 만나러 가는 날! 🚢",
-    hotelInfo: "더 싱귤러리 호텔 (USJ 앞)",
+    title: "가이유칸 & 곤충샵 탐방 DAY",
+    tagline: "바다를 보고, 신기한 곤충을 만나고, 여유롭게 즐기는 하루 ❤️",
+    hotelInfo: "더 싱귤러리 호텔 & 스카이스파 (USJ 앞)",
     themeColor: "#0D9488",
     gradient: "from-teal-500 to-emerald-600",
     badge: {
-      text: "가이유칸 10:30 입장 예약",
+      text: "가이유칸 10:30 & 캡틴라인 왕복",
       type: "warning"
     },
     summaryItems: [
-      "09:00 호텔 조식 후 출발",
-      "09:30 캡틴라인 승선 (USJ ➔ 덴포잔 10분)",
-      "10:00 덴포잔 도착",
-      "10:30 가이유칸 수족관 관람",
-      "12:30 점심 식사 (덴포잔 주변)",
-      "13:30 INSECTSHOP KMY 곤충샵",
-      "16:00 덴포잔 선착장 이동",
-      "16:30 캡틴라인 복귀 승선",
-      "17:00 USJ 시티워크 자유시간 & 저녁"
+      "09:30 호텔 출발 (USJ 피어 도보 5~10분)",
+      "10:00 캡틴라인 탑승 (USJ 피어 ➔ 덴포잔 10분)",
+      "10:10 덴포잔 도착 ➔ 가이유칸 이동 (도보 5분)",
+      "10:30 가이유칸 수족관 관람 (예매 완료)",
+      "12:30 점심 식사 (덴포잔 마켓플레이스)",
+      "13:30 INSECTSHOP KMY 곤충샵 (관찰&체험)",
+      "15:30 캡틴라인 승선 (덴포잔 ➔ USJ 피어)",
+      "15:45 USJ 피어 도착 ➔ 호텔 복귀 후 휴식",
+      "저녁 저녁 식사 & 자유 시간 (시티워크)"
     ],
-    dayRouteQuery: "Universal+Cityport+to+Kaiyukan+to+Tempozan+Marketplace",
+    dayRouteQuery: "The+Singulari+Hotel+to+Universal+Cityport+to+Osaka+Aquarium+Kaiyukan+to+INSECTSHOP+KMY",
     googleEmbedMapUrl: "https://maps.google.com/maps?q=Osaka+Aquarium+Kaiyukan&t=&z=15&ie=UTF8&iwloc=&output=embed",
     schedule: [
       {
         id: "d2-1",
-        time: "09:00",
-        title: "호텔 조식 후 출발 🥞",
-        category: "hotel",
-        icon: "Utensils",
-        location: "더 싱귤러리 호텔 조식당",
-        coordinates: { lat: 34.6678, lng: 135.4386 },
-        description: "호텔에서 든든한 조식 식사 후 캡틴라인 선착장으로 이동 준비",
-        recommendations: ["호텔 바로 앞 유니버설 시티포트 선착장까지 도보 3분"],
-        precautions: ["09:30 캡틴라인 출발 시각 10분 전 선착장 도착"]
+        time: "09:30",
+        title: "호텔에서 출발 🚶 (USJ 피어로 이동)",
+        category: "transport",
+        icon: "Footprints",
+        location: "더 싱귤러리 호텔 ➔ USJ 피어 선착장",
+        coordinates: { lat: 34.6661, lng: 135.4367 },
+        description: "더 싱귤러리 호텔에서 USJ 피어 선착장으로 도보 이동 (도보 약 5~10분), 캡틴라인 승선 준비",
+        recommendations: ["호텔 로비에서 선착장 방향 표지판 확인 후 이동"],
+        precautions: ["10:00 출발 캡틴라인 배를 타기 위해 09:45까지 선착장 도착"]
       },
       {
         id: "d2-2",
-        time: "09:30 ~ 10:00",
-        title: "캡틴라인 승선 🚢 (USJ → 덴포잔, 약 10분)",
+        time: "10:00",
+        title: "캡틴라인 탑승 🚢 (USJ 피어 출발)",
         category: "transport",
         icon: "Ship",
-        location: "유니버설 시티포트 선착장",
+        location: "유니버설 시티포트 (USJ 피어)",
         coordinates: { lat: 34.6661, lng: 135.4367 },
         googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Captain+Line+Universal+City+Port",
-        description: "유니버설시티에서 덴포잔(가이유칸)으로 바다를 건너 직행하는 쾌속선 페리",
+        description: "캡틴라인으로 바다를 가로질러 덴포잔(가이유칸 앞)까지 이동! 소요시간 약 10분 (왕복권 10/5 이용 확정)",
         recommendations: [
-          "야외 2층 덱 좌석에서 시원한 바닷바람과 오사카만 풍경 촬영",
-          "왕복 승선권 구매 (돌아오는 16:30 티켓 확보)"
+          "야외 2층 덱 좌석에서 시원한 바닷바람과 오사카만 전경 감상",
+          "왕복 승선권은 돌아올 때(15:30)도 사용하므로 잘 보관!"
         ],
-        precautions: ["출항 10분 전 승선 게이트 대기"],
+        precautions: ["승선 10분 전 게이트 대기"],
         vocabCategories: [
           {
-            categoryName: "🎟️ 캡틴라인 티켓 종류 & 매표",
+            categoryName: "🎟️ 캡틴라인 티켓 & 탑승",
             items: [
               {
                 id: "v2-2-1",
-                korean: "대인(중학생 이상) 왕복 승선권 (1,700엔)",
-                japanese: "大人（中学生以上） 往復乗船券 1枚",
-                pronunciation: "오토나(츄-갓쿠세- 이죠-) 오-후쿠 조-센켄 이치마이",
-                category: "ticket",
-                image: "/images/vocab/ticket.svg",
-              },
-              {
-                id: "v2-2-3",
-                korean: "소인(초등학생) 왕복 승선권 (850엔)",
-                japanese: "小人（小学生） 往復乗船券 1枚",
-                pronunciation: "쇼-닌(쇼-갓쿠세-) 오-후쿠 조-센켄 이치마이",
+                korean: "대인 왕복 승선권 2장, 소인 1장입니다.",
+                japanese: "大人往復2枚、小人往復1枚のチケットです。",
+                pronunciation: "오토나 오-후쿠 니마이, 코도모 오-후쿠 이치마이노 치켓토데스",
                 category: "ticket",
                 image: "/images/vocab/ticket.svg",
               },
@@ -532,40 +549,40 @@ export const ITINERARY_DATA: DayItinerary[] = [
       },
       {
         id: "d2-3",
-        time: "10:00 ~ 10:30",
-        title: "덴포잔 도착 & 가이유칸 광장 산책 🎡",
-        category: "sightseeing",
-        icon: "MapPin",
-        location: "덴포잔 하버빌리지 광장",
+        time: "10:10 ~ 10:30",
+        title: "덴포잔 도착 ➔ 가이유칸 이동 (도보 약 5분) 🎡",
+        category: "transport",
+        icon: "Navigation",
+        location: "덴포잔 선착장 ➔ 가이유칸 정문",
         coordinates: { lat: 34.6548, lng: 135.4285 },
-        description: "덴포잔 선착장 하선 후 가이유칸 정문 광장 이동, 대관람차 배경 사진 촬영",
-        recommendations: ["10:30 예약 입장 시간 전 여유롭게 포토존 즐기기"],
-        precautions: ["모바일 QR 입장권 화면 사전 준비"]
+        description: "하선 후 가이유칸 정문 광장으로 도보 약 5분 이동, 대관람차 배경 사진 촬영 및 10:30 입장 준비",
+        recommendations: ["모바일 QR 입장권 화면 사전 준비"],
+        precautions: ["10:30 지정 시간 정시 입장"]
       },
       {
         id: "d2-4",
         time: "10:30 ~ 12:30",
-        title: "가이유칸 수족관 관람 🐋 (입장 10:30)",
+        title: "가이유칸 수족관 관람 🐋 (입장 10:30 예매 완료)",
         category: "sightseeing",
         icon: "Fish",
         location: "가이유칸 (Osaka Aquarium Kaiyukan)",
         coordinates: { lat: 34.6545, lng: 135.429 },
         googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Osaka+Aquarium+Kaiyukan",
-        description: "세계 최대 규모 태평양 수조의 거대 고래상어, 펭귄, 물범, 해파리 환상 관람",
+        description: "신비로운 바다 속 세계! 세계 최대급 태평양 수조의 거대 고래상어, 물범, 펭귄, 해파리 관람 (약 1시간 30분~2시간)",
         recommendations: [
-          "거대 고래상어가 지나갈 때 메인 수조 앞에서 가족 인생샷 촬영",
-          "가이유칸 한정 '미즈타마리 소다 소프트 아이스크림' 맛보기"
+          "거대 고래상어 수조 앞에서 가족 인생샷 촬영",
+          "가이유칸 시그니처 '미즈타마리 소다 소프트 아이스크림' 맛보기"
         ],
         precautions: ["수조 플래시 촬영 금지 구역 준수"],
         vocabCategories: [
           {
-            categoryName: "🎟️ 가이유칸 티켓 & 시설 용어",
+            categoryName: "🎟️ 가이유칸 입장 & 굿즈",
             items: [
               {
                 id: "v2-3-1",
-                korean: "모바일 예약 QR 티켓입니다 (10:30 입장).",
-                japanese: "ウェブ予約のQRチケットです（10:30入場）。",
-                pronunciation: "웨부 요야쿠노 큐-아-루 치켓토데스",
+                korean: "10시 30분 예매 QR 티켓입니다.",
+                japanese: "10時30分予約のQRチケットです。",
+                pronunciation: "쥬-지 산짓푼 요야쿠노 큐-아-루 치켓토데스",
                 category: "ticket",
                 image: "/images/vocab/whale.svg",
               },
@@ -577,14 +594,6 @@ export const ITINERARY_DATA: DayItinerary[] = [
                 category: "order",
                 image: "/images/vocab/icecream.svg",
               },
-              {
-                id: "v2-3-9",
-                korean: "고래상어 봉제인형 선물 포장 부탁드립니다 🎁",
-                japanese: "ジンベエザメのぬいぐるみをプレゼント包装でお願いします。",
-                pronunciation: "진베-자메노 누이구루미오 푸레젠토 호-소-데 오네가이시마스",
-                category: "shopping",
-                image: "/images/vocab/whale.svg",
-              },
             ]
           }
         ]
@@ -592,25 +601,26 @@ export const ITINERARY_DATA: DayItinerary[] = [
       {
         id: "d2-5",
         time: "12:30 ~ 13:30",
-        title: "점심 식사 🍴 (덴포잔 주변 / 나니와 쿠이신보 요코초)",
+        title: "점심 식사 🍴 (덴포잔 마켓플레이스 또는 주변)",
         category: "food",
         icon: "Utensils",
-        location: "덴포잔 마켓플레이스 2층 푸드코트",
+        location: "덴포잔 마켓플레이스 (Tempozan Marketplace)",
         coordinates: { lat: 34.6558, lng: 135.4308 },
         googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Tempozan+Marketplace",
-        description: "레트로 먹거리 골목 '나니와 쿠이신보 요코초'에서 원조 타코야키(아이즈야), 자유켄 카레, 오코노미야키 식사",
+        description: "맛집과 쇼핑이 가득한 덴포잔 마켓플레이스 또는 가이유칸 주변 맛집에서 자유롭게 식사 (나니와 쿠이신보 요코초 등)",
         recommendations: [
-          "아이즈야: 1935년 원조 타코야키 & 라디오야키",
-          "자유켄: 날계란 비빔 명물 카레"
+          "아이즈야 원조 타코야키 & 라디오야키",
+          "자유켄 날계란 비빔 카레 또는 오코노미야키/라멘",
+          "디저트: 스타벅스, 블루실 아이스크림"
         ],
-        precautions: ["점심 피크 타임 대기 고려하여 식사 진행"],
+        precautions: ["13:30 곤충샵 이동을 고려하여 여유롭게 식사"],
         vocabCategories: [
           {
             categoryName: "🐙 덴포잔 마켓플레이스 맛집 메뉴",
             items: [
               {
                 id: "v2-4-1",
-                korean: "원조 타코야키 (소스 없이 먹는 원조 국물맛)",
+                korean: "원조 타코야키 (소스 없이 먹는 1935년 원조)",
                 japanese: "元祖たこ焼き（ソースなし・出汁の旨味）",
                 pronunciation: "간소 타코야키 (소-스 나시 · 다시노 우마미)",
                 category: "order",
@@ -618,19 +628,11 @@ export const ITINERARY_DATA: DayItinerary[] = [
               },
               {
                 id: "v2-4-5",
-                korean: "명물 카레 (날계란 비빔 카레, 우스터 소스 뿌려먹기)",
+                korean: "명물 카레 (날계란 비빔 카레)",
                 japanese: "名物カレー（生卵入り・混ぜカレー）",
                 pronunciation: "메-부츠 카레- (나마타마고 이리 · 마제 카레-)",
                 category: "order",
                 image: "/images/vocab/curry.svg",
-              },
-              {
-                id: "v2-4-8",
-                korean: "부타타마 (돼지고기 오코노미야키)",
-                japanese: "豚玉 お好み焼き（定番人気）",
-                pronunciation: "부타타마 오코노미야키 (테-반 닌키)",
-                category: "order",
-                image: "/images/vocab/okonomiyaki.svg",
               },
             ]
           }
@@ -638,20 +640,21 @@ export const ITINERARY_DATA: DayItinerary[] = [
       },
       {
         id: "d2-6",
-        time: "13:30 ~ 15:30",
-        title: "INSECTSHOP KMY (곤충샵) 방문 🐞",
+        time: "13:30 ~ 15:00",
+        title: "INSECTSHOP KMY (곤충샵) 탐방 🐞 (신기한 곤충들의 세계!)",
         category: "shopping",
         icon: "Bug",
-        location: "INSECTSHOP KMY OSAKA",
+        location: "INSECTSHOP KMY OSAKA (현장 방문, 별도 예약 불필요)",
         coordinates: { lat: 34.6565, lng: 135.433 },
         googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=INSECTSHOP+KMY+OSAKA",
-        description: "덴포잔 인근의 유명 곤충 전문샵 KMY 방문! 희귀 장수풍뎅이, 사슴벌레, 표본, 피규어 구경",
+        description: "해외 희귀 곤충 전시 & 판매! 살아있는 장수풍뎅이/사슴벌레 관찰 및 만져보기 체험 (체험 시간 약 1시간~1시간 30분)",
         recommendations: [
-          "아들과 함께 살아있는 헤라클레스 장수풍뎅이 실물 관람",
-          "소장용 표본 상자 및 곤충 피규어 굿즈 쇼핑"
+          "아들이 가장 좋아하는 코스! 헤라클레스 장수풍뎅이와 멋진 사슴벌레 실물 관람",
+          "표본 상자 및 곤충 피규어 굿즈 구매"
         ],
         precautions: [
-          "★ 살아있는 생체 곤충은 검역법상 한국 반입이 불가하므로 표본/피규어 위주 구매!"
+          "★ 살아있는 생체 곤충은 한국 반입 불가이므로 표본 및 기념품 위주 구매!",
+          "15:30 캡틴라인 배 시간을 위해 15:10에 매장에서 출발"
         ],
         vocabCategories: [
           {
@@ -662,14 +665,6 @@ export const ITINERARY_DATA: DayItinerary[] = [
                 korean: "헤라클레스 장수풍뎅이 표본 있나요?",
                 japanese: "ヘラクレスオオカブトの標本はありますか？",
                 pronunciation: "헤라쿠레스 오오카부토노 효-혼와 아리마스카?",
-                category: "shopping",
-                image: "/images/vocab/beetle.svg",
-              },
-              {
-                id: "v2-5-2",
-                korean: "사슴벌레 피규어 / 굿즈 어디 있나요?",
-                japanese: "クワガタのフィギュアやグッズはどこですか？",
-                pronunciation: "쿠와가타노 피규아야 굿즈와 도코데스카?",
                 category: "shopping",
                 image: "/images/vocab/beetle.svg",
               },
@@ -686,161 +681,154 @@ export const ITINERARY_DATA: DayItinerary[] = [
       },
       {
         id: "d2-7",
-        time: "16:00 ~ 16:30",
-        title: "덴포잔 선착장 이동 🚶",
+        time: "15:30",
+        title: "캡틴라인 탑승 🚢 (덴포잔 출발 ➔ USJ 피어로 이동)",
         category: "transport",
-        icon: "Navigation",
-        location: "덴포잔 캡틴라인 선착장",
+        icon: "Ship",
+        location: "덴포잔 선착장 ➔ USJ 피어",
         coordinates: { lat: 34.6548, lng: 135.4285 },
-        description: "곤충샵에서 덴포잔 선착장으로 이동하여 16:30 복귀 페리 탑승 준비",
-        recommendations: ["선착장 앞 기념품 숍 또는 대관람차 배경 가족사진"],
-        precautions: ["16:30 배 놓치지 않도록 16:15까지 선착장 도착"]
+        description: "왕복 승선권을 이용하여 덴포잔에서 USJ 피어로 복귀 탑승 (약 10분 소요)",
+        recommendations: ["하버 뷰를 감상하며 돌아오기"],
+        precautions: ["15:30 출발 10분 전 선착장 도착 필수"]
       },
       {
         id: "d2-8",
-        time: "16:30 ~ 17:00",
-        title: "캡틴라인 승선 🚢 (덴포잔 → USJ, 약 10분)",
-        category: "transport",
-        icon: "Ship",
-        location: "덴포잔 선착장 ➔ 유니버설 시티포트",
-        coordinates: { lat: 34.6661, lng: 135.4367 },
-        description: "캡틴라인 복귀 편 탑승하여 유니버설 시티로 귀환",
-        recommendations: ["석양빛으로 물드는 오사카만 해안 뷰 감상"],
-        precautions: ["하선 시 소지품(쇼핑백, 곤충 표본) 잘 챙기기"]
+        time: "15:45",
+        title: "USJ 피어 도착 ➔ 호텔로 이동 (도보 약 5~10분) 🏨",
+        category: "hotel",
+        icon: "Hotel",
+        location: "USJ 피어 ➔ 더 싱귤러리 호텔",
+        coordinates: { lat: 34.6678, lng: 135.4386 },
+        description: "더 싱귤러리 호텔로 도보 복귀 후 방에서 잠시 휴식 및 짐 정리",
+        recommendations: ["호텔에서 다리 피로 풀고 저녁 일정 준비"],
+        precautions: ["쇼핑한 곤충 굿즈 안전하게 보관"]
       },
       {
         id: "d2-9",
-        time: "17:00 ~ 저녁",
-        title: "USJ 도착 후 자유시간 (시티워크, 쇼핑 등) 🛍️",
-        category: "sightseeing",
-        icon: "ShoppingBag",
-        location: "유니버설 시티워크 & 호텔 주변",
+        time: "저녁",
+        title: "저녁 식사 & 자유 시간 🍕 (다시 돌아오는 즐거운 길 ❤️)",
+        category: "food",
+        icon: "Utensils",
+        location: "유니버설 시티워크 또는 호텔 주변",
         coordinates: { lat: 34.668, lng: 135.4375 },
-        description: "호텔에 짐을 두고 시티워크에서 저녁 식사 및 쇼핑, 내일 USJ 대비",
+        description: "시티워크 또는 호텔 주변에서 맛있는 저녁 식사, 간단한 쇼핑, 기념품 구경 후 호텔에서 휴식",
         recommendations: [
-          "내일 USJ 올데이 일정을 위해 편의점에서 간식 및 음료 미리 구비",
-          "USJ 공식 앱에 입장권 등록 및 위치 권한 확인"
+          "내일 USJ 올데이 일정을 위해 편의점 간식/음료 구비",
+          "더 싱귤러리 스카이스파에서 따뜻한 온천욕"
         ],
-        precautions: ["내일 USJ 오픈런을 위해 밤 10시 이전 조기 취침"]
-      },
-      {
-        id: "d2-10",
-        time: "저녁 이후",
-        title: "호텔 복귀 후 휴식 🛌",
-        category: "hotel",
-        icon: "Home",
-        location: "더 싱귤러리 호텔 객실 & 스카이스파",
-        coordinates: { lat: 34.6678, lng: 135.4386 },
-        description: "더 싱귤러리 호텔 스카이스파에서 온천욕 후 취침",
-        recommendations: ["발바닥에 휴족시간 붙이고 편안하게 휴식"],
-        precautions: ["내일 아침 08:30 조식 후 입장 준비"]
+        precautions: ["내일 USJ 08:30 출발을 위해 밤 10시 이전 취침"]
       }
     ],
     checklist: [
-      { id: "c2-1", text: "가이유칸 모바일 예약 QR 티켓 (10:30)", isImportant: true },
-      { id: "c2-2", text: "캡틴라인 왕복 승선권 (09:30 / 16:30)", isImportant: true },
-      { id: "c2-3", text: "INSECTSHOP KMY 곤충샵 위치 지도 확인" },
-      { id: "c2-4", text: "내일 USJ 입장권 + 익스프레스 패스 바코드 사전 점검", isImportant: true }
+      { id: "c2-1", text: "가이유칸 티켓 (QR코드 10:30 예매 완료)", isImportant: true },
+      { id: "c2-2", text: "캡틴라인 왕복권 (QR코드 / 10/5 이용)", isImportant: true },
+      { id: "c2-3", text: "곤충카드 / 엔화 현금 (일부 매장용)" },
+      { id: "c2-4", text: "휴대폰 & 보조배터리", isImportant: true },
+      { id: "c2-5", text: "편한 신발, 카메라 or 스마트폰" },
+      { id: "c2-6", text: "아들 체험용 여유 시간 & 즐길 마음! 😊", isImportant: true }
     ],
     generalTips: [
-      "캡틴라인 배를 타면 USJ에서 가이유칸까지 전철 환승 없이 10분 만에 시원하게 바다를 건넙니다.",
-      "가이유칸 관람 후 덴포잔 마켓플레이스에서 맛있는 점심을 먹고 KMY 곤충샵까지 도보로 쾌적하게 이동할 수 있습니다."
+      "캡틴라인은 시간 맞춰 여유롭게 탑승!",
+      "가이유칸 관람 시간이 넉넉하니 천천히 고래상어와 인생샷 찍기!",
+      "곤충샵(KMY)은 아이가 정말 좋아하는 코스입니다.",
+      "날씨에 따라 우산 또는 우비 준비!"
     ]
   },
 
-  // ==========================================
-  // DAY 3 (10/6 화): USJ 종일! (익스프레스 확정)
-  // ==========================================
+  // =========================================================================
+  // DAY 3 (10/6 화): USJ 종일! (익스프레스 패스) [기다림은 짧게, 즐거움은 크게! 오늘은 USJ에서 신나게 놀아요! ❤️]
+  // =========================================================================
   {
     dayNumber: 3,
     dateStr: "10/6",
     dayOfWeek: "화",
-    title: "USJ 종일!",
-    tagline: "슈퍼 닌텐도 월드 & 동키콩 & 미니언즈 완전 정복! 🎪",
-    hotelInfo: "더 싱귤러리 호텔 (USJ 앞)",
+    title: "USJ 종일! (익스프레스 패스)",
+    tagline: "기다림은 짧게, 즐거움은 크게! 오늘은 USJ에서 신나게 놀아요! ❤️",
+    hotelInfo: "더 싱귤러리 호텔 & 스카이스파 (USJ 앞)",
     themeColor: "#EF4444",
     gradient: "from-red-500 to-amber-500",
     badge: {
-      text: "익스프레스 패스 시간표 확정!",
+      text: "익스프레스 확정: 10:00미니언, 12:20마리오, 12:50동키콩",
       type: "highlight"
     },
     summaryItems: [
-      "08:30 조식 후 입장 준비",
-      "09:00 USJ 입장 (익스프레스)",
-      "10:00 미니언 메이헴 (익스)",
-      "12:20 닌텐도 월드 입장 (12:20~13:20)",
-      "12:20 마리오카트 (12:20~12:50)",
-      "12:50 동키콩 (12:50~13:20)",
-      "13:30 워터월드 쇼 (또는 15:00)",
-      "오후 자유 어트랙션 & 쇼핑",
-      "20:00 파크 퇴장 및 저녁 식사",
-      "21:00 호텔 복귀 & 휴식"
+      "08:30 호텔에서 출발 (도보 약 5~10분)",
+      "09:00 USJ 입장 & 에어리어 맵 체크",
+      "10:00 [익스] 미니언 메이헴 (10:00~10:30)",
+      "12:20 [익스] 슈퍼 닌텐도 월드 입장 (12:20~13:20)",
+      "12:20 [익스] 마리오 카트: 쿠파의 도전장 (12:20~12:50)",
+      "12:50 [익스] 동키콩의 크레이지 트램카 (12:50~13:20)",
+      "13:30 워터월드 쇼 관람 (13:30 회차 추천)",
+      "14:00 점심 식사 (자유 식사 - 버거, 피자, 키노피오 등)",
+      "15:30 나머지 어트랙션 & 해리포터 존 & 쇼핑",
+      "20:00 저녁 식사 & 쇼핑 (시티워크)",
+      "21:00 호텔로 이동 & 휴식"
     ],
-    dayRouteQuery: "Universal+Studios+Japan",
+    dayRouteQuery: "The+Singulari+Hotel+to+Universal+Studios+Japan",
     googleEmbedMapUrl: "https://maps.google.com/maps?q=Universal+Studios+Japan&t=&z=15&ie=UTF8&iwloc=&output=embed",
     schedule: [
       {
         id: "d3-1",
         time: "08:30",
-        title: "호텔 조식 후 입장 준비 ⏰",
+        title: "호텔에서 출발 🚶 (도보 약 5~10분)",
         category: "hotel",
         icon: "AlarmClock",
-        location: "더 싱귤러리 호텔",
+        location: "더 싱귤러리 호텔 ➔ USJ 메인 게이트",
         coordinates: { lat: 34.6678, lng: 135.4386 },
-        description: "호텔에서 든든하게 조식을 먹고 보조배터리와 QR 티켓 준비 후 출발",
-        recommendations: ["호텔에서 USJ 파크 정문까지 도보 3분 초근접!"],
-        precautions: ["보조배터리 완충 및 편한 운동화 착용"]
+        description: "더 싱귤러리 호텔 ➔ 유니버설 스튜디오 재팬 도보 약 5~10분 이동, 입장 준비 (QR코드, 익스프레스 패스 확인)",
+        recommendations: ["호텔 정문 나서면 바로 USJ 파크 진입로!"],
+        precautions: ["보조배터리 완충 및 편한 운동화, 모자 착용"]
       },
       {
         id: "d3-2",
         time: "09:00",
-        title: "USJ 파크 입장 🎟️ (익스프레스 패스 지참)",
+        title: "USJ 입장 & 입장 준비 🎟️ (Today is USJ!)",
         category: "theme_park",
         icon: "Ticket",
         location: "USJ 메인 게이트",
         coordinates: { lat: 34.6654, lng: 135.4323 },
         googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Universal+Studios+Japan+Main+Gate",
-        description: "파크 입장 후 첫 번째 익스프레스 일정인 미니언 파크로 이동",
-        recommendations: ["파크 입장 직후 USJ 공식 앱에서 쇼 공연 시간표 확인"],
-        precautions: ["셀카봉 및 위험물 반입 불가 (게이트 보안검색)"]
+        description: "입장 게이트 통과, 익스프레스 패스 시간 재확인, 에어리어 맵 확인 및 첫 코스 미니언 파크로 이동",
+        recommendations: ["입장 직후 지구본 앞에서 가족 인증샷 촬영!"],
+        precautions: ["셀카봉 반입 금지 (보안검색 준수)"]
       },
       {
         id: "d3-3",
-        time: "10:00",
-        title: "⚡ [익스프레스] 미니언 메이헴 탑승 🍌",
+        time: "10:00 ~ 10:30",
+        title: "🍌 [익스프레스] 미니언 메이헴 (10:00~10:30)",
         category: "theme_park",
         icon: "Sparkles",
         location: "미니언 파크 (Minion Park)",
         coordinates: { lat: 34.666, lng: 135.431 },
-        description: "익스프레스 전용 라인으로 대기 없이 짜릿한 미니언 메이헴 탑승!",
+        description: "귀여운 미니언들과 신나는 3D 어트랙션! 익스프레스 전용 라인으로 대기 없이 쾌적 탑승",
         recommendations: [
-          "탑승 후 미니언 파크 가판대에서 미니언 팝콘통 구매",
-          "귀여운 미니언즈들과 기념사진 촬영"
+          "탑승 후 미니언 파크에서 귀여운 미니언즈와 사진 촬영",
+          "미니언 팝콘통 구매"
         ],
-        precautions: ["익스프레스 패스 QR코드 제시"]
+        precautions: ["지정 시간 10:00~10:30 준수하여 익스프레스 라인 진입"]
       },
       {
         id: "d3-4",
         time: "12:20 ~ 13:20",
-        title: "⭐ [익스프레스] 슈퍼 닌텐도 월드 에어리어 입장 🍄",
+        title: "🍄 [익스프레스] 슈퍼 닌텐도 월드 입장 (입장시간 12:20~13:20)",
         category: "theme_park",
         icon: "Sparkles",
         location: "슈퍼 닌텐도 월드 (Super Nintendo World)",
         coordinates: { lat: 34.6654, lng: 135.4323 },
         googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Super+Nintendo+World+USJ",
-        description: "초록색 거대 토관을 통과하여 꿈의 마리오 세상 슈퍼 닌텐도 월드 진입! (지정 입장시간 12:20 ~ 13:20)",
+        description: "마리오의 세계로! 초록색 토관을 통과해 마리오 월드 자유 관람, 마리오 카트 & 동키콩 연속 이용",
         recommendations: [
-          "파워업 밴드 착용 후 물음표 블록을 치며 코인 모으기",
-          "키노피오 카페에서 슈퍼버섯 피자볼 & 마리오 버거 점심 식사"
+          "물음표 블록을 터치하며 코인 소리 듣기",
+          "마리오/루이지/피치공주 포토존"
         ],
-        precautions: ["지정된 입장 시간(12:20) 엄수! 퇴장 후 재입장 불가"],
+        precautions: ["지정 입장시간 12:20 준수, 구역 밖으로 나가면 재입장 불가"],
         vocabCategories: [
           {
             categoryName: "🎟️ 닌텐도 월드 & 키노피오 카페",
             items: [
               {
                 id: "v3-3-1",
-                korean: "슈퍼 닌텐도 월드 익스프레스 입장 시간입니다 (12:20).",
+                korean: "슈퍼 닌텐도 월드 익스프레스 입장권입니다 (12:20).",
                 japanese: "スーパー・ニンテンドー・ワールド エリア入場時間です。",
                 pronunciation: "스-파- 닌텐도- 와-루도 에리아 뉴-조- 지칸데스",
                 category: "ticket",
@@ -848,17 +836,9 @@ export const ITINERARY_DATA: DayItinerary[] = [
               },
               {
                 id: "v3-3-5",
-                korean: "슈퍼버섯 피자볼 (베이컨&토마토 소스 들어간 바삭한 빵)",
-                japanese: "大人気！スーパーキノコ・ピッツァボウル",
-                pronunciation: "다이닌키! 스-파- 키노코 핏차 보-루",
-                category: "order",
-                image: "/images/vocab/nintendo.svg",
-              },
-              {
-                id: "v3-3-6",
-                korean: "마리오 베이컨 치즈 버거",
-                japanese: "マリオ・バーガー（ベーコン＆チーズ）",
-                pronunciation: "마리오 바-가- (베-콘 앤도 치-즈)",
+                korean: "슈퍼버섯 피자볼 (인기 시그니처 메뉴)",
+                japanese: "スーパーキノコ・ピッツァボウル",
+                pronunciation: "스-파- 키노코 핏차 보-루",
                 category: "order",
                 image: "/images/vocab/nintendo.svg",
               },
@@ -869,36 +849,33 @@ export const ITINERARY_DATA: DayItinerary[] = [
       {
         id: "d3-5",
         time: "12:20 ~ 12:50",
-        title: "🏎️ [익스프레스] 마리오 카트: 쿠파의 도전장",
+        title: "🏎️ [익스프레스] 마리오 카트: 쿠파의 도전장 (12:20~12:50)",
         category: "theme_park",
         icon: "Gamepad2",
-        location: "쿠파 성 (Bowser's Castle)",
+        location: "쿠파 성",
         coordinates: { lat: 34.6654, lng: 135.4323 },
-        description: "AR 안경을 쓰고 실제로 카트를 운전하며 등껍질을 던지는 최첨단 어트랙션!",
-        recommendations: ["쿠파 성 내부의 정교한 트로피와 연출 구경"],
-        precautions: ["익스프레스 패스 전용 게이트로 입장 (지정시간 12:20~12:50)"]
+        description: "실감나는 AR 레이싱 어트랙션! 등껍질을 던지며 쿠파 군단과의 레이스 대결",
+        recommendations: ["쿠파 성 내부의 황금 트로피 포토존 구경"],
+        precautions: ["지정 시간 12:20~12:50 익스프레스 라인 탑승"]
       },
       {
         id: "d3-6",
         time: "12:50 ~ 13:20",
-        title: "🦍 [익스프레스] 동키콩의 크레이지 트램 (신규 구역!)",
+        title: "🦍 [익스프레스] 동키콩의 크레이지 트램카 (12:50~13:20)",
         category: "theme_park",
         icon: "Sparkles",
-        location: "동키콩 컨트리 (Donkey Kong Country)",
+        location: "동키콩 컨트리 (신규 구역!)",
         coordinates: { lat: 34.6654, lng: 135.4323 },
-        description: "2024 신규 오픈 동키콩 구역에서 레일을 점프해 달리는 스릴 넘치는 롤러코스터!",
-        recommendations: [
-          "황금 바나나 신전 배경 기념사진",
-          "동키콩 시그니처 굿즈 및 배럴 스낵 맛보기"
-        ],
-        precautions: ["지정시간 12:50~13:20 준수하여 익스프레스 라인 탑승"],
+        description: "정글 속 스릴 넘치는 롤러코스터 어트랙션! 부서진 레일을 점프하며 달리는 짜릿함",
+        recommendations: ["황금 바나나 신전 앞에서 동키콩 포즈 사진"],
+        precautions: ["지정 시간 12:50~13:20 준수"],
         vocabCategories: [
           {
             categoryName: "🦍 동키콩 구역 표현",
             items: [
               {
                 id: "v3-dk-1",
-                korean: "동키콩 크레이지 트램 익스프레스 탑승권입니다.",
+                korean: "동키콩 크레이지 트램카 익스프레스 탑승권입니다.",
                 japanese: "ドンキーコングのクレイジー・トロッコです。",
                 pronunciation: "돈키-콘구노 쿠레이지- 토록코데스",
                 category: "ticket",
@@ -910,33 +887,42 @@ export const ITINERARY_DATA: DayItinerary[] = [
       },
       {
         id: "d3-7",
-        time: "13:30 (또는 15:00)",
-        title: "🌊 워터월드 라이브 스턴트 쇼 관람",
+        time: "13:30",
+        title: "🌊 워터월드 쇼 관람 (13:30 회차 추천!)",
         category: "sightseeing",
         icon: "Sparkles",
         location: "워터월드 스타디움",
         coordinates: { lat: 34.6665, lng: 135.4315 },
-        description: "영화 워터월드를 배경으로 펼쳐지는 초대형 수상 폭발 & 비행기 불시착 스턴트 쇼!",
-        recommendations: [
-          "젖지 않는 뒤쪽 좌석(갈색 시트)에 착석",
-          "압도적인 물 폭탄과 박진감 넘치는 액션 감상"
-        ],
-        precautions: ["앞쪽 파란색 좌석(Wet Zone)은 물이 많이 튀므로 주의"]
+        description: "짜릿한 워터월드 쇼! 박진감 넘치는 라이브 스턴트와 대형 폭발! (※ 15:00 회차도 있으니 시간 여유 시 한 번 더!)",
+        recommendations: ["젖지 않는 갈색 좌석에 앉아 편안하게 관람"],
+        precautions: ["앞쪽 파란색 시트는 물이 튀므로 주의"]
       },
       {
         id: "d3-8",
-        time: "오후 ~ 20:00",
-        title: "해리포터 존 & 자유 어트랙션 & 쇼핑 🧙‍♂️",
+        time: "14:00 ~ 15:30",
+        title: "점심 식사 🍔 (혼잡 시간 피해 자유 식사)",
+        category: "food",
+        icon: "Utensils",
+        location: "파크 내 레스토랑 (멜스 드라이브인 / 루이스 피자 등)",
+        coordinates: { lat: 34.6654, lng: 135.4323 },
+        description: "파크 내 레스토랑 이용 (멜스 드라이브인 버거, 루이스 NY 피자, 키노피오 카페, 스리 브룸스틱스, 터키 레그, 츄러스 등)",
+        recommendations: ["점심 피크(12~13시)를 지나 14:00에 여유롭게 식사"],
+        precautions: ["가족 취향에 맞춰 버거 또는 피자 선택"]
+      },
+      {
+        id: "d3-9",
+        time: "15:30 ~ 20:00",
+        title: "마법 같은 순간! 해리포터 존 & 나머지 어트랙션 & 쇼핑 🧙‍♂️",
         category: "theme_park",
         icon: "Sparkles",
-        location: "해리포터 존 & 할리우드 & 뉴욕 에어리어",
+        location: "위저딩 월드 오브 해리포터 & 할리우드 & 뉴욕 에어리어",
         coordinates: { lat: 34.6654, lng: 135.4323 },
-        description: "호그와트 성 포비든 저니, 버터맥주(무알콜) 시식, 기념품 쇼핑 및 야경 감상",
+        description: "해리포터 존 포비든 저니, 쥬라기 공원, 할리우드 등 쇼, 거리 공연, 포토 스팟, 파크 내 기념품숍 굿즈 쇼핑",
         recommendations: [
-          "해리포터 버터맥주(무알콜) 마시고 입술에 거품 수염 인증샷!",
-          "호그와트 성 앞 연못에 비치는 반영 사진 촬영"
+          "해리포터 버터맥주(무알콜) 시식 & 컵 기념품 챙기기",
+          "호그와트 성 앞 호수 반영 사진 촬영"
         ],
-        precautions: ["지친 아들을 위해 중간중간 벤치와 카페에서 수분 보충"],
+        precautions: ["중간중간 벤치에서 휴식"],
         vocabCategories: [
           {
             categoryName: "🍺 해리포터 버터맥주 & 파크 스낵",
@@ -949,73 +935,62 @@ export const ITINERARY_DATA: DayItinerary[] = [
                 category: "order",
                 image: "/images/vocab/butterbeer.svg",
               },
-              {
-                id: "v3-3-9",
-                korean: "기념품 컵 포함 버터맥주로 주세요.",
-                japanese: "プレミアムマグカップ付きでお願いします。",
-                pronunciation: "푸레미아무 마구캇푸 츠키데 오네가이시마스",
-                category: "order",
-                image: "/images/vocab/butterbeer.svg",
-              },
-              {
-                id: "v3-3-10",
-                korean: "미니언즈 팝콘통 하나 주세요 🍿",
-                japanese: "ミニオンのポップコーンバケツを1つください。",
-                pronunciation: "미니온노 폿푸코-누 바케츠오 히토츠 쿠다사이",
-                category: "order",
-                image: "/images/vocab/takoyaki.svg",
-              },
             ]
           }
         ]
       },
       {
-        id: "d3-9",
+        id: "d3-10",
         time: "20:00 ~ 21:00",
-        title: "파크 퇴장 & 시티워크 저녁 식사 🍕",
+        title: "저녁 식사 & 쇼핑 🛍️ (맛있는 저녁과 쇼핑까지!)",
         category: "food",
         icon: "Utensils",
-        location: "유니버설 시티워크",
+        location: "유니버설 시티워크 (시티워크 숍 & 레스토랑)",
         coordinates: { lat: 34.668, lng: 135.4375 },
-        description: "종일 신나게 즐긴 후 시티워크에서 맛있는 피자/파스타 또는 라멘으로 든든한 저녁 식사",
-        recommendations: ["식사 후 시티워크 기념품 숍에서 추가 굿즈 구경"],
-        precautions: ["내일 체크아웃(08:30) 및 난바 이동을 위해 짐 정리"]
+        description: "시티워크에서 맛있는 저녁 식사, 유니버설 스튜디오 스토어 기념품 쇼핑, 화려한 야경 즐기기!",
+        recommendations: ["USJ 공식 스토어에서 마리오/미니언/해리포터 굿즈 쇼핑"],
+        precautions: ["내일 체크아웃(07:30 짐정리)을 위해 밤 짐싸기"]
       },
       {
-        id: "d3-10",
+        id: "d3-11",
         time: "21:00",
-        title: "호텔 복귀 & 스카이스파 온천 휴식 🛌",
+        title: "호텔로 이동 & 휴식 🛌 (오늘 하루도 수고했어요! Today was a good day!)",
         category: "hotel",
         icon: "Home",
-        location: "더 싱귤러리 호텔",
+        location: "더 싱귤러리 호텔 객실 & 스카이스파",
         coordinates: { lat: 34.6678, lng: 135.4386 },
-        description: "더 싱귤러리 호텔 마지막 밤, 대욕장에서 피로를 싹 풀고 숙면",
-        recommendations: ["스카이스파 노천탕에서 USJ 야경 내려다보기"],
-        precautions: ["내일 08:30 체크아웃 준비 완료"]
+        description: "더 싱귤러리 호텔로 도보 이동 (약 5~10분), 스카이스파에서 피로 풀고 푹 쉬기 ❤️",
+        recommendations: ["14층 전망 온천에서 야경 보며 힐링"],
+        precautions: ["내일 아침 07:30 기상 및 08:30 난바 이동 준비"]
       }
     ],
     checklist: [
-      { id: "c3-1", text: "USJ 입장권 QR 바코드 3명분 확인", isImportant: true },
-      { id: "c3-2", text: "익스프레스 패스 시간표 (10:00 미니언 / 12:20 닌텐도&마리오 / 12:50 동키콩)", isImportant: true },
-      { id: "c3-3", text: "보조배터리 2개 완충 지참", isImportant: true },
-      { id: "c3-4", text: "편한 운동화 & 모자" }
+      { id: "c3-1", text: "USJ 입장권 & 익스프레스 패스 (QR코드 캡처)", isImportant: true },
+      { id: "c3-2", text: "모바일 배터리 & 충전기", isImportant: true },
+      { id: "c3-3", text: "편한 신발, 모자, 선크림" },
+      { id: "c3-4", text: "우비 or 접이식 우산 (날씨 확인)" },
+      { id: "c3-5", text: "물, 간식, 휴지" },
+      { id: "c3-6", text: "가족 사진 많이 찍기! & 즐길 준비 완료! 😊", isImportant: true }
     ],
     generalTips: [
-      "익스프레스 패스에 지정된 시간(10:00, 12:20, 12:50)에 맞춰 5분 전 해당 어트랙션 게이트에 도착하면 줄 서지 않고 바로 탑승합니다.",
-      "닌텐도 월드 안에는 동키콩 신규 구역과 키노피오 카페가 함께 있어 12:20~14:30 동안 집중적으로 즐기시면 완벽합니다!"
+      "익스프레스 패스 시간에 맞춰 여유롭게 이동! (10:00 미니언, 12:20 마리오, 12:50 동키콩)",
+      "USJ 공식 앱으로 실시간 대기시간 확인!",
+      "점심은 혼잡 시간(12~13시)을 피해 14시에 여유롭게 식사!",
+      "쇼 시간(워터월드 13:30)은 미리 도착해서 좋은 자리 확보!",
+      "저녁에는 시티워크에서 여유롭게 식사 & 쇼핑하고 야경 즐기기!"
     ]
   },
 
-  // ==========================================
-  // DAY 4 (10/7 수): 몬스터헌터 카페 & 오사카성 & 도톤보리
-  // ==========================================
+  // =========================================================================
+  // DAY 4 (10/7 수): USJ에서 난바로 이동하는 날 [몬스터헌터 카페에서 맛있는 점심! 오사카 도심에서 마지막 밤 즐겨요 ❤️]
+  // =========================================================================
   {
     dayNumber: 4,
     dateStr: "10/7",
     dayOfWeek: "수",
-    title: "몬스터헌터 카페 & 오사카성 & 도톤보리",
-    tagline: "난바 새 숙소 체크인 & 몬헌 카페 & 오사카성 & 리버크루즈! 🏯",
-    hotelInfo: "사쿠라가와 호텔 난바 (10/7~10/9)",
+    title: "USJ에서 난바로 이동하는 날",
+    tagline: "몬스터헌터 카페에서 맛있는 점심! 오사카 도심에서 마지막 밤 즐겨요 ❤️",
+    hotelInfo: "사쿠라가와 호텔 난바 (10/7~10/9 2박)",
     themeColor: "#8B5CF6",
     gradient: "from-purple-500 to-pink-500",
     badge: {
@@ -1023,97 +998,96 @@ export const ITINERARY_DATA: DayItinerary[] = [
       type: "highlight"
     },
     summaryItems: [
-      "08:30 더 싱귤러리 체크아웃 (짐 보관)",
-      "09:00 USJ ➔ 난바 이동 (30분)",
-      "12:00 몬스터헌터 카페(웨스트) 런치",
-      "13:30 [남편+아들] 오사카성 천수각 (2시간)",
-      "13:30 [지인님] 신사이바시 쇼핑 자유시간",
-      "15:00 난바 숙소 체크인 (사쿠라가와 호텔)",
-      "16:30 가족 합류 (쇼핑, 휴식)",
-      "17:00 저녁 식사 (신사이바시/도톤보리)",
-      "20:00 도톤보리 리버크루즈 (예약 완료)",
-      "21:00 숙소 복귀 & 휴식"
+      "07:30 더 싱귤러리 체크아웃 & 짐 정리 (캐리어 3개)",
+      "08:30 USJ 출발 ➔ 난바로 이동 (JR+지하철 30~40분)",
+      "10:00 난바 도착 & 사쿠라가와 호텔 짐 보관",
+      "10:30 신사이바시 이동 & 자유시간 (도보 10~15분)",
+      "12:00 몬스터헌터 카페(West) 예약 런치",
+      "13:30 [각자이동] 남편+아들 오사카성 / 지인님 신사이바시 쇼핑",
+      "17:30 다시 만나서 함께 도톤보리 이동",
+      "20:00 도톤보리 리버크루즈 탑승 (예약 완료)",
+      "20:30 저녁 식사 & 야경 산책",
+      "22:30 난바 숙소 체크인 & 휴식"
     ],
-    dayRouteQuery: "The+Singulari+Hotel+to+Hotel+Sakura+River+Namba+to+Osaka+Castle+to+Dotonbori",
+    dayRouteQuery: "The+Singulari+Hotel+to+Sakuragawa+Hotel+Nanba+to+Shinsaibashi+to+Osaka+Castle+to+Dotonbori",
     googleEmbedMapUrl: "https://maps.google.com/maps?q=Dotonbori+Osaka&t=&z=14&ie=UTF8&iwloc=&output=embed",
     schedule: [
       {
         id: "d4-1",
-        time: "08:30 ~ 09:00",
-        title: "호텔 체크아웃 (짐 보관 후 출발) 🧳",
+        time: "07:30",
+        title: "호텔 체크아웃 & 짐 정리 🧳",
         category: "hotel",
         icon: "LogOut",
-        location: "더 싱귤러리 호텔 로비",
+        location: "더 싱귤러리 호텔",
         coordinates: { lat: 34.6678, lng: 135.4386 },
-        description: "더 싱귤러리 호텔 체크아웃 완료 후 짐을 챙겨 난바로 이동 출발",
-        recommendations: ["객실에 두고 가는 소지품(충전기 등) 없는지 최종 확인"],
-        precautions: ["08:30 정시 체크아웃"]
+        description: "더 싱귤러리 호텔 체크아웃, 짐 정리 후 캐리어 이동 (캐리어 26인치 2개, 16~18인치 1개)",
+        recommendations: ["객실 내 충전기 및 소지품 잊지 않기"],
+        precautions: ["08:30 출발을 위해 정시 체크아웃"]
       },
       {
         id: "d4-2",
-        time: "09:00 ~ 09:30",
-        title: "USJ → 난바 이동 🚃 (약 30분 소요)",
+        time: "08:30 ~ 09:10",
+        title: "USJ 출발 ➔ 난바로 이동 🚃 (약 30~40분 소요)",
         category: "transport",
         icon: "Train",
-        location: "JR 유니버설시티역 ➔ 한신 오사카난바역 / 사쿠라가와역",
+        location: "유니버설시티역 ➔ 난바역 / 사쿠라가와역",
         coordinates: { lat: 34.6663, lng: 135.5015 },
         googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Namba+Station+Osaka",
-        description: "JR 유메사키선(니시쿠조 환승) ➔ 한신 난바선 탑승하여 사쿠라가와역/난바역으로 이동",
-        recommendations: [
-          "사쿠라가와역에 하차하면 사쿠라가와 호텔 난바까지 도보 3분 직결!",
-          "체크인 전 호텔 프런트에 캐리어 사전 보관"
-        ],
-        precautions: ["출근 시간대 이후 09:00 이동으로 쾌적"],
-        routes: [
-          {
-            id: "r4-2-1",
-            label: "🚃 JR + 한신선 환승 동선 (사쿠라가와역 직결)",
-            badge: "약 25분",
-            originTitle: "JR 유니버설시티역",
-            originLocation: "Universal City Station Osaka",
-            destinationTitle: "사쿠라가와역 / 사쿠라가와 호텔 난바",
-            destinationLocation: "Sakuragawa Station Osaka",
-            originQuery: "Universal City Station Osaka",
-            destinationQuery: "Sakuragawa Station Osaka",
-            transportMode: "transit",
-            description: "JR 유니버설시티역 ➔ 니시쿠조역 환승 ➔ 한신 난바선 사쿠라가와역 하차 (호텔 바로 앞)",
-            isPrimary: true,
-          },
-        ]
+        description: "유니버설시티역 ➔ JR 유메사키선(니시쿠조 환승) ➔ 오사카 메트로 / 한신선으로 난바역/사쿠라가와역 이동",
+        recommendations: ["사쿠라가와역 하차 시 호텔까지 도보 3분 직결"],
+        precautions: ["환승 시 엘리베이터 위치 확인하여 캐리어 편하게 이동"]
       },
       {
         id: "d4-3",
+        time: "10:00",
+        title: "난바 도착 & 짐 보관 🧳 (사쿠라가와 호텔 난바)",
+        category: "hotel",
+        icon: "Briefcase",
+        location: "사쿠라가와 호텔 난바 (Sakuragawa Hotel Nanba)",
+        coordinates: { lat: 34.666, lng: 135.492 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Sakuragawa+Hotel+Nanba",
+        description: "사쿠라가와 호텔 난바에 캐리어 사전 짐 보관 (체크인은 15:00부터이므로 먼저 짐 맡기고 가볍게 출발!)",
+        recommendations: ["짐 보관 번호표 수령 및 신사이바시 이동 준비"],
+        precautions: ["체크인 바우처 및 예약 확인"]
+      },
+      {
+        id: "d4-4",
+        time: "10:30 ~ 12:00",
+        title: "신사이바시 이동 & 자유시간 🚶 (도보 약 10~15분)",
+        category: "shopping",
+        icon: "ShoppingBag",
+        location: "신사이바시 상가 거리 (Shinsaibashi-suji)",
+        coordinates: { lat: 34.6738, lng: 135.5006 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Shinsaibashi-suji+Shopping+Street",
+        description: "도보 이동 (약 10~15분), 신사이바시 쇼핑 거리 구경, 카페, 드럭스토어 등 여유롭게 즐기기",
+        recommendations: ["아케이드 상가에서 몬스터헌터 카페 위치 미리 파악"],
+        precautions: ["12:00 몬헌 카페 예약 시간에 늦지 않도록 11:50 매장 앞 도착"]
+      },
+      {
+        id: "d4-5",
         time: "12:00 ~ 13:30",
-        title: "몬스터헌터 카페 (웨스트) 런치 🎮 🍖 (예약 확정)",
+        title: "몬스터헌터 카페 (West) 예약 런치 🍖 🎮 (예약 완료!)",
         category: "food",
         icon: "Swords",
-        location: "CAPCOM / 몬스터헌터 테마 카페",
+        location: "CAPCOM / 몬스터헌터 카페 (West)",
         coordinates: { lat: 34.6732, lng: 135.5008 },
         googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=CAPCOM+STORE+OSAKA",
-        description: "사전 예약 완료된 12:00 몬스터헌터 카페에서 테마 런치 식사 & 한정 굿즈 체험!",
+        description: "예약 시간 12:00! 몬헌 테마 메뉴 & 굿즈 구경 (테이블 차지/예약비는 현장 확인)",
         recommendations: [
-          "몬헌 시그니처 대형 고기 구이(잘 익은 고기!) & 테마 음료 주문",
-          "아이루/가루크 캐릭터 포토존에서 가족사진 촬영"
+          "시그니처 고기 메뉴와 캐릭터 테마 드링크 주문",
+          "아이루/가루크 굿즈 구경"
         ],
-        precautions: ["12:00 예약 시간 10분 전 매장 도착 필수"],
+        precautions: ["12:00 예약 10분 전 도착 필수"],
         vocabCategories: [
           {
-            categoryName: "🎮 몬스터헌터 카페 예약 & 주문",
+            categoryName: "🎮 몬스터헌터 카페 주문 & 문의",
             items: [
               {
                 id: "v4-mh-1",
-                korean: "12시 예약자 확인 부탁드립니다.",
+                korean: "12시 예약 확인 부탁드립니다.",
                 japanese: "12時予約の確認をお願いします。",
                 pronunciation: "쥬-니지 요야쿠노 카쿠닌오 오네가이시마스",
                 category: "service",
-                image: "/images/vocab/capcom.svg",
-              },
-              {
-                id: "v4-mh-2",
-                korean: "몬스터헌터 한정 굿즈는 어디에 있나요?",
-                japanese: "モンスターハンターの限定グッズはどこですか？",
-                pronunciation: "몬스타- 한타-노 겐테- 굿즈와 도코데스카?",
-                category: "shopping",
                 image: "/images/vocab/capcom.svg",
               },
             ]
@@ -1121,23 +1095,23 @@ export const ITINERARY_DATA: DayItinerary[] = [
         ]
       },
       {
-        id: "d4-4",
-        time: "13:30 ~ 15:30",
-        title: "⚔️ [일정 분리] 남편+아들 오사카성 천수각 / 지인님 신사이바시 쇼핑",
+        id: "d4-6",
+        time: "13:30 ~ 17:30",
+        title: "⚔️ 이후 일정 (각자 이동 - 약 4시간 자유 코스!)",
         category: "sightseeing",
-        icon: "Castle",
-        location: "오사카성 천수각 & 신사이바시 거리",
+        icon: "Users",
+        location: "오사카성 천수각 & 신사이바시 상점가",
         coordinates: { lat: 34.6873, lng: 135.5262 },
         googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Osaka+Castle",
-        description: "각자의 취향에 맞춘 자유로운 2시간 분리 일정! (15:30 사쿠라가와 호텔 집결)",
+        description: "각자의 취향에 맞춘 자유 분리 일정!\n• [남편 + 아들]: 오사카성 관람 (천수각 관람, 클룩 or 공식 사이트 예매)\n• [지인님]: 신사이바시 주변 쇼핑 & 카페 자유시간 (혼자 여유롭게!)",
         recommendations: [
-          "남편+아들 팀: 오사카성 천수각 최상층 전망대 관람 & 말차 아이스크림",
-          "지인님 팀: 다이마루 백화점 & 신사이바시 아케이드 쾌적한 쇼핑"
+          "남편+아들 팀: 오사카성 천수각 전망대 & 말차 소프트 아이스크림",
+          "지인님 팀: 다이마루 백화점 & 트렌디한 잡화 쇼핑"
         ],
-        precautions: ["15:00~15:30 사이 사쿠라가와 호텔에서 만나 체크인"],
+        precautions: ["17:30에 난바/도톤보리에서 다시 만나기! (카카오톡/라인 연락)"],
         vocabCategories: [
           {
-            categoryName: "🎟️ 오사카성 티켓 & 매표",
+            categoryName: "🎟️ 오사카성 티켓 & 디저트",
             items: [
               {
                 id: "v4-4-1",
@@ -1160,48 +1134,20 @@ export const ITINERARY_DATA: DayItinerary[] = [
         ]
       },
       {
-        id: "d4-5",
-        time: "15:00 ~ 16:30",
-        title: "난바 숙소 체크인 (사쿠라가와 호텔) & 휴식 🏨",
-        category: "hotel",
-        icon: "Hotel",
-        location: "사쿠라가와 호텔 난바 (Hotel Sakura River Namba)",
-        coordinates: { lat: 34.666, lng: 135.492 },
-        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Sakuragawa+Station+Osaka",
-        description: "새 숙소 체크인 완료, 보관했던 캐리어 수령 및 방에서 잠시 재충전",
-        recommendations: ["호텔 주변 편의시설 및 도톤보리 도보 동선 확인"],
-        precautions: ["체크인 시 여권 제시 및 객실 키 수령"]
-      },
-      {
-        id: "d4-6",
-        time: "16:30 ~ 17:00",
-        title: "가족 전원 합류 & 도톤보리 이동 🚶",
-        category: "sightseeing",
-        icon: "Users",
-        location: "난바 / 신사이바시",
-        coordinates: { lat: 34.6687, lng: 135.5013 },
-        description: "가족 모두 모여 활기찬 도톤보리 거리로 이동",
-        recommendations: ["글리코상 앞에서 가족 단체 사진 촬영"],
-        precautions: ["도톤보리 인파 유의하여 손잡고 이동"]
-      },
-      {
         id: "d4-7",
-        time: "17:00 ~ 19:30",
-        title: "도톤보리 저녁 식사 🍢 (쿠시카츠 / 라멘 / 오코노미야키)",
+        time: "17:30 ~ 19:45",
+        title: "다시 만나서 함께 이동 ➔ 도톤보리 저녁 식사 🍢",
         category: "food",
         icon: "Utensils",
-        location: "도톤보리 먹자골목",
+        location: "도톤보리 거리 (Dotonbori)",
         coordinates: { lat: 34.6687, lng: 135.5013 },
         googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Dotonbori+Glico+Sign",
-        description: "화려한 네온사인 아래 쿠시카츠 다루마 또는 이치란 라멘 등 맛있는 오사카 만찬",
-        recommendations: [
-          "쿠시카츠 다루마: 바삭한 꼬치튀김 모둠 세트 & 시원한 생맥주",
-          "소스는 처음 1번만 듬뿍 찍기!"
-        ],
+        description: "오사카성 관람 후 난바로 복귀하여 전원 합류! 도톤보리로 함께 이동하여 맛있는 쿠시카츠, 라멘 등 저녁 식사",
+        recommendations: ["쿠시카츠 다루마 또는 이치란 라멘 저녁 식사"],
         precautions: ["20:00 리버크루즈 탑승 15분 전 선착장 도착 필수"],
         vocabCategories: [
           {
-            categoryName: "🍢 쿠시카츠 & 도톤보리 맛집 주문",
+            categoryName: "🍢 쿠시카츠 맛집 주문",
             items: [
               {
                 id: "v4-9-1",
@@ -1225,25 +1171,25 @@ export const ITINERARY_DATA: DayItinerary[] = [
       },
       {
         id: "d4-8",
-        time: "20:00 ~ 20:30",
-        title: "도톤보리 리버크루즈 탑승 🛥️ (예약 완료!)",
+        time: "20:00 ~ 20:20",
+        title: "도톤보리 리버크루즈 탑승 🛥️ (예약 시간 20:00 확정!)",
         category: "sightseeing",
         icon: "Ship",
-        location: "도톤보리 돈키호테 앞 선착장",
+        location: "도톤보리 돈키호테 앞 선착장 (하나투어패스 구매완료)",
         coordinates: { lat: 34.6687, lng: 135.5013 },
         googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Tombori+River+Cruise",
-        description: "예약 완료된 20:00 편 탑승! 도톤보리 강물 위에서 네온사인과 글리코상을 둘러보는 환상 야경 크루즈",
+        description: "도톤보리의 화려한 네온사인과 글리코상을 둘러보는 환상 야경 크루즈 (탑승 시간 약 20분)",
         recommendations: [
-          "배가 글리코상 앞에 멈출 때 양팔을 벌리고 가족 단체 포즈 인증샷!"
+          "배가 글리코상 앞에 멈출 때 글리코 만세 포즈로 가족사진 촬영!"
         ],
-        precautions: ["19:45까지 선착장 승선 라인 대기"],
+        precautions: ["19:45까지 선착장 승선 대기"],
         vocabCategories: [
           {
             categoryName: "🛥️ 도톤보리 크루즈 & 글리코상 포토",
             items: [
               {
                 id: "v4-8-1",
-                korean: "20시 예약 크루즈 탑승권입니다.",
+                korean: "20시 예약 크루즈 승선권입니다.",
                 japanese: "20時予約のクルーズ乗船券です。",
                 pronunciation: "니쥬-지 요야쿠노 쿠루-즈 조-센켄데스",
                 category: "ticket",
@@ -1263,32 +1209,50 @@ export const ITINERARY_DATA: DayItinerary[] = [
       },
       {
         id: "d4-9",
-        time: "21:00",
-        title: "숙소 복귀 & 휴식 🌙",
+        time: "20:30 ~ 22:30",
+        title: "저녁 2차 & 도톤보리 야경 산책 🌃",
+        category: "food",
+        icon: "Utensils",
+        location: "도톤보리 / 신사이바시 야경 거리",
+        coordinates: { lat: 34.6687, lng: 135.5013 },
+        description: "도톤보리 맛집에서 타코야키/디저트 간식, 신사이바시 밤거리 구경 및 쇼핑",
+        recommendations: ["야경이 아름다운 에비스 다리에서 사진 촬영"],
+        precautions: ["밤 인파 속 소지품 주의"]
+      },
+      {
+        id: "d4-10",
+        time: "22:30",
+        title: "난바 숙소로 이동 & 휴식 🛌 (즐거운 하루 마무리! 내일도 기대돼요 :)",
         category: "hotel",
         icon: "Home",
-        location: "사쿠라가와 호텔 난바",
+        location: "사쿠라가와 호텔 난바 (체크인 15:00부터 가능)",
         coordinates: { lat: 34.666, lng: 135.492 },
-        description: "도톤보리에서 숙소로 복귀하여 편안한 휴식 및 내일 우메다 쇼핑 데이 준비",
-        recommendations: ["호텔 주변 한적한 거리 산책"],
-        precautions: ["내일 우메다 백화점 쇼핑을 위해 체력 안배"]
+        description: "사쿠라가와 호텔 난바 체크인 완료 및 방에서 편안한 휴식 (10/7~10/9 2박 연박)",
+        recommendations: ["내일 우메다 쇼핑 데이를 위해 푹 쉬기"],
+        precautions: ["체크인 완료 및 객실 키 수령"]
       }
     ],
     checklist: [
-      { id: "c4-1", text: "더 싱귤러리 체크아웃 & 난바 숙소 이동", isImportant: true },
-      { id: "c4-2", text: "몬스터헌터 카페 12:00 예약 확인서", isImportant: true },
-      { id: "c4-3", text: "도톤보리 리버크루즈 20:00 예약 티켓", isImportant: true },
-      { id: "c4-4", text: "사쿠라가와 호텔 난바 체크인 바우처", isImportant: true }
+      { id: "c4-1", text: "호텔 체크아웃 & 난바 숙소 짐 보관", isImportant: true },
+      { id: "c4-2", text: "몬스터헌터 카페 예약 확인 (12:00)", isImportant: true },
+      { id: "c4-3", text: "오사카성 티켓 (남편+아들)", isImportant: true },
+      { id: "c4-4", text: "도톤보리 리버크루즈 예약 확인 (20:00)", isImportant: true },
+      { id: "c4-5", text: "난바 숙소 체크인 (15:00부터)" },
+      { id: "c4-6", text: "쇼핑 예산 & 면세 쇼핑 리스트" },
+      { id: "c4-7", text: "편한 신발, 보조배터리, 우산(날씨 확인)" }
     ],
     generalTips: [
-      "낮 13:30에는 오사카성을 보고 싶은 아빠+아들과 쇼핑을 즐기고 싶은 지인님의 자유 일정을 나눈 뒤 15:30 새 숙소에서 만나면 모두가 만족하는 일정이 됩니다!",
-      "저녁 20:00 도톤보리 리버크루즈는 예약이 확정되어 있으므로 19:45까지 여유 있게 선착장에 도착하세요."
+      "난바는 도보 이동이 편리해요!",
+      "몬스터헌터 카페는 예약 시간 10분 전 도착 필수!",
+      "도톤보리 리버크루즈는 미리 도착해서 탑승장 위치 확인하기!",
+      "짐이 많을 땐 호텔 짐 보관 서비스를 적극 이용!",
+      "오사카 도심에서 맛있는 음식과 쇼핑 즐기기!"
     ]
   },
 
-  // ==========================================
-  // DAY 5 (10/8 목): 우메다 쇼핑 데이!
-  // ==========================================
+  // =========================================================================
+  // DAY 5 (10/8 목): 우메다 쇼핑 데이 [포켓몬센터 & 캡콤스토어 & 루쿠아 & 한큐백화점 완전 정복! 🛍️]
+  // =========================================================================
   {
     dayNumber: 5,
     dateStr: "10/8",
@@ -1304,16 +1268,16 @@ export const ITINERARY_DATA: DayItinerary[] = [
     },
     summaryItems: [
       "09:00 호텔 조식 후 출발",
-      "10:00 우메다 이동 (지하철 15분)",
+      "10:00 우메다 이동 (지하철 미도스지선 15분)",
       "10:30 포켓몬센터 오사카 (다이마루 13F)",
-      "11:30 CAPCOM STORE & CAFE UMEDA",
-      "12:30 점심 식사 (우메다 맛집)",
+      "11:30 CAPCOM STORE & CAFE UMEDA (다이마루 13F)",
+      "12:30 점심 식사 (우메다 주변 맛집)",
       "13:30 우메다 쇼핑 타임 (LUCUA, 그랜드프론트, 한큐)",
       "16:30 카페 타임 & 휴식",
       "17:00 저녁 식사 (우메다 맛집)",
       "19:00 이후 난바 복귀 (자유시간) & 호텔 휴식"
     ],
-    dayRouteQuery: "Hotel+Sakura+River+Namba+to+Daimaru+Umeda+to+LUCUA+Osaka+to+Hankyu+Umeda",
+    dayRouteQuery: "Sakuragawa+Hotel+Nanba+to+Daimaru+Umeda+to+LUCUA+Osaka+to+Hankyu+Umeda",
     googleEmbedMapUrl: "https://maps.google.com/maps?q=Daimaru+Umeda+Osaka&t=&z=15&ie=UTF8&iwloc=&output=embed",
     schedule: [
       {
@@ -1366,14 +1330,6 @@ export const ITINERARY_DATA: DayItinerary[] = [
                 japanese: "大阪限定のピカチュウのぬいぐるみはどこですか？",
                 pronunciation: "오오사카 겐테-노 피카츄-노 누이구루미와 도코데스카?",
                 category: "shopping",
-                image: "/images/vocab/pokemon.svg",
-              },
-              {
-                id: "v5-pk-2",
-                korean: "선물용 쇼핑백 하나 더 주실 수 있나요?",
-                japanese: "お土産用の小分け袋をもう1枚もらえますか？",
-                pronunciation: "오미야게요-노 코와케부쿠로오 모- 이치마이 모라에마스카?",
-                category: "service",
                 image: "/images/vocab/pokemon.svg",
               },
             ]
@@ -1456,14 +1412,6 @@ export const ITINERARY_DATA: DayItinerary[] = [
                 category: "shopping",
                 image: "/images/vocab/taxfree.svg",
               },
-              {
-                id: "v5-7-2",
-                korean: "선물용으로 포장해 주세요 🎁",
-                japanese: "プレゼント用にラッピングをお願いします。",
-                pronunciation: "푸레젠토요-니 랍핀구오 오네가이시마스",
-                category: "service",
-                image: "/images/vocab/taxfree.svg",
-              },
             ]
           }
         ]
@@ -1486,13 +1434,10 @@ export const ITINERARY_DATA: DayItinerary[] = [
         title: "저녁 식사 🥩 (우메다 맛집)",
         category: "food",
         icon: "Utensils",
-        location: "우메다 스카이빌딩 인근 또는 한큐 32번가",
+        location: "우메다 식당가 또는 한큐 32번가",
         coordinates: { lat: 34.7025, lng: 135.496 },
         description: "오사카 마지막 밤을 기념하는 우메다 최고급 와규 야키니쿠 또는 스키야키 저녁 식사",
-        recommendations: [
-          "야키니쿠 만노 또는 규카츠 모토무라",
-          "시원한 생맥주와 함께 가족 여행 완주 축하 건배!"
-        ],
+        recommendations: ["시원한 생맥주와 함께 가족 여행 완주 축하 건배!"],
         precautions: ["19:00 이후 숙소 난바로 복귀"]
       },
       {
@@ -1504,11 +1449,8 @@ export const ITINERARY_DATA: DayItinerary[] = [
         location: "사쿠라가와 호텔 난바",
         coordinates: { lat: 34.666, lng: 135.492 },
         description: "지하철로 난바 복귀 후 숙소에서 쇼핑한 물품 캐리어 패킹 및 내일 귀국 준비",
-        recommendations: [
-          "액체류(화장품, 젤리류)는 반드시 위탁 수하물 캐리어에 넣기",
-          "기내 수하물 무게 및 여권 재확인"
-        ],
-        precautions: ["내일 아침 07:30 기상 및 08:00 체크아웃 준비"]
+        recommendations: ["액체류(화장품, 젤리류)는 반드시 위탁 수하물 캐리어에 넣기"],
+        precautions: ["내일 아침 06:30 기상 및 07:00 체크아웃 준비"]
       }
     ],
     checklist: [
@@ -1523,71 +1465,88 @@ export const ITINERARY_DATA: DayItinerary[] = [
     ]
   },
 
-  // ==========================================
-  // DAY 6 (10/9 금): 오사카 출발 ➔ 한국 귀국
-  // ==========================================
+  // =========================================================================
+  // DAY 6 (10/9 금): 한국으로 돌아가는 날 [아쉬움은 잠시, 다음 여행을 기약하며... 좋은 추억 가득한 오사카 여행 또 가자! ❤️]
+  // =========================================================================
   {
     dayNumber: 6,
     dateStr: "10/9",
     dayOfWeek: "금",
-    title: "오사카 출발 ➔ 한국 귀국",
-    tagline: "즐거운 추억 가득 안고 안전하게 집으로! 다음에 또 만나요 ❤️",
+    title: "한국으로 돌아가는 날 (귀국)",
+    tagline: "아쉬움은 잠시, 다음 여행을 기약하며... 좋은 추억 가득한 오사카 여행 또 가자! ❤️",
     hotelInfo: "체크아웃 완료",
     themeColor: "#EC4899",
     gradient: "from-pink-500 to-rose-500",
     badge: {
-      text: "OZ111 10:30 간사이 출발",
+      text: "OZ111 10:30 간사이 출발 ➔ 14:20 인천 도착",
       type: "info"
     },
     summaryItems: [
-      "07:30 기상 & 짐 정리 (체크아웃)",
-      "08:00 호텔 체크아웃 & 출발",
-      "08:20 난바역 이동",
-      "08:40 난카이 공항급행/라피트 탑승 (40~45분)",
-      "09:30 간사이공항 도착 (여유롭게 수속)",
-      "10:30 간사이공항 출발 (OZ111)",
-      "12:30 인천공항 도착 (귀국 완료 ❤️)"
+      "06:30 기상 & 짐 정리 (마지막 날 짐 최종 정리)",
+      "07:00 난바 숙소 출발 (체크아웃, 짐 보관 없이 바로 이동)",
+      "07:10 난바역으로 이동 (도보 약 10분 내외)",
+      "07:30 난카이 공항급행 탑승 (약 45~50분, 자유석 성인 약 970엔)",
+      "08:20 간사이공항 도착 (비행기 출발 2시간 전 도착)",
+      "08:30 체크인 & 수하물 위탁 (아시아나항공 카운터)",
+      "09:00 출국 수속 (보안검색 & 출국심사 & 면세점)",
+      "10:00 탑승 전 대기 (탑승구 이동 & 탑승 준비)",
+      "10:30 오사카 출발 (OZ111) ➔ 14:20 인천공항 도착"
     ],
-    dayRouteQuery: "Hotel+Sakura+River+Namba+to+Nankai-Namba+Station+to+Kansai+Airport",
+    dayRouteQuery: "Sakuragawa+Hotel+Nanba+to+Nankai-Namba+Station+to+Kansai+Airport",
     googleEmbedMapUrl: "https://maps.google.com/maps?q=Kansai+International+Airport&t=&z=13&ie=UTF8&iwloc=&output=embed",
     schedule: [
       {
         id: "d6-1",
-        time: "07:30",
-        title: "기상 & 짐 정리 (체크아웃 준비) ⏰",
+        time: "06:30",
+        title: "기상 & 짐 정리 🧳 (마지막까지 꼼꼼하게!)",
         category: "hotel",
         icon: "AlarmClock",
         location: "사쿠라가와 호텔 난바",
         coordinates: { lat: 34.666, lng: 135.492 },
-        description: "마지막 짐 점검 및 여권, 항공권 확인",
-        recommendations: ["호텔 룸 키 반납 준비 및 빠진 소지품 없는지 확인"],
-        precautions: ["08:00 정시 체크아웃"]
+        description: "마지막 날 짐 최종 정리, 잊은 물건 없는지 체크, 사용한 충전기/어댑터 등 챙기기",
+        recommendations: ["객실 서랍과 콘센트에 두고 가는 물건 없는지 이중 확인"],
+        precautions: ["07:00 체크아웃 준비 완료"]
       },
       {
         id: "d6-2",
-        time: "08:00 ~ 08:20",
-        title: "호텔 체크아웃 🧳 ➔ 난바역 이동",
+        time: "07:00",
+        title: "난바 숙소 출발 (체크아웃) 🚪",
         category: "hotel",
         icon: "LogOut",
-        location: "사쿠라가와 호텔 ➔ 난카이 난바역",
-        coordinates: { lat: 34.6657, lng: 135.5023 },
-        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Nankai-Namba+Station",
-        description: "체크아웃 완료 후 난카이 난바역 3층 승강장으로 이동 (도보 또는 지하철 1정거장)",
-        recommendations: ["캐리어가 많을 경우 택시 이용 시 난카이 난바역까지 5분 (기본요금)"],
-        precautions: ["08:40 공항급행 열차 탑승을 위해 08:30까지 개찰구 도착"]
+        location: "사쿠라가와 호텔 난바 로비",
+        coordinates: { lat: 34.666, lng: 135.492 },
+        description: "체크아웃 완료! 캐리어 26인치 2개, 16~18인치 1개 챙겨 숙소에 짐 보관 없이 바로 이동",
+        recommendations: ["열쇠/카드키 반납"],
+        precautions: ["07:10까지 난바역 방향으로 출발"]
       },
       {
         id: "d6-3",
-        time: "08:40 ~ 09:25",
-        title: "난카이 공항급행 / 라피트 탑승 🚅 (약 40~45분)",
+        time: "07:10",
+        title: "난바역으로 이동 🚶 (난바역에서 출발! ❤️)",
+        category: "transport",
+        icon: "Footprints",
+        location: "사쿠라가와 호텔 ➔ 난카이 난바역",
+        coordinates: { lat: 34.6657, lng: 135.5023 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Nankai-Namba+Station",
+        description: "도보 이동 (약 10분 내외)하여 난카이 난바역 3층 승강장으로 이동",
+        recommendations: ["지하철 또는 도보로 난카이 난바역 승강장 이동"],
+        precautions: ["07:30 공항급행 열차 탑승을 위해 07:25까지 개찰구 통과"]
+      },
+      {
+        id: "d6-4",
+        time: "07:30 ~ 08:20",
+        title: "난카이 공항급행 탑승 🚅 (난카이 공항급행으로 편하게! ❤️)",
         category: "transport",
         icon: "Train",
-        location: "난카이 난바역 3층 승강장 ➔ 간사이공항역",
+        location: "난카이 난바역 ➔ 간사이공항역",
         coordinates: { lat: 34.432, lng: 135.2304 },
         googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Kansai+Airport+Station",
-        description: "난카이 공항선 급행 열차를 타고 간사이 국제공항으로 직행 이동",
-        recommendations: ["창밖으로 오사카만 뷰를 보며 여행 추억 나누기"],
-        precautions: ["공항선 전철 종점 '간사이공항역' 확인 하선"],
+        description: "난카이 난바역 ➔ 간사이공항 (소요시간 약 45~50분, 성인 약 970엔 지정석 없이 자유석 탑승)",
+        recommendations: [
+          "교통카드(ICOCA) 터치 또는 일반 승차권으로 탑승 (지정석 불필요)",
+          "종점 간사이공항역까지 환승 없이 직행"
+        ],
+        precautions: ["공항선 급행 열차 확인 후 탑승"],
         vocabCategories: [
           {
             categoryName: "🚅 공항 열차 승차",
@@ -1605,20 +1564,45 @@ export const ITINERARY_DATA: DayItinerary[] = [
         ]
       },
       {
-        id: "d6-4",
-        time: "09:30",
-        title: "간사이공항 도착 ✈️ (여유롭게 출국 수속 준비)",
+        id: "d6-5",
+        time: "08:20",
+        title: "간사이공항 도착 (KIX) ✈️ (간사이공항 도착! ❤️)",
         category: "transport",
         icon: "PlaneTakeoff",
-        location: "간사이국제공항 제1터미널 4층 국제선 출발 로비",
+        location: "간사이국제공항 제1터미널 4층 국제선 출발층",
         coordinates: { lat: 34.432, lng: 135.2304 },
         googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Kansai+International+Airport",
-        description: "아시아나항공 카운터에서 위탁 수하물 부치고 탑승권 발권 및 보안검색 진행",
+        description: "비행기 출발 2시간 전 도착! 터미널 도착 후 체크인 및 수하물 위탁 준비",
+        recommendations: ["아시아나항공 체크인 카운터 위치 전광판 확인"],
+        precautions: ["10:30 출발 항공편이므로 신속하게 카운터 줄 서기"]
+      },
+      {
+        id: "d6-6",
+        time: "08:30 ~ 09:00",
+        title: "체크인 & 수하물 위탁 🧳 (체크인하고, 출국 수속까지!)",
+        category: "transport",
+        icon: "Luggage",
+        location: "간사이공항 T1 아시아나항공 카운터",
+        coordinates: { lat: 34.432, lng: 135.2304 },
+        description: "아시아나항공 카운터에서 체크인, 수하물 위탁(캐리어 3개) 및 탑승권 수령",
+        recommendations: ["수하물 무게 제한(23kg) 초과 여부 확인"],
+        precautions: ["액체류와 라이터/보조배터리 규정 준수"]
+      },
+      {
+        id: "d6-7",
+        time: "09:00 ~ 10:00",
+        title: "출국 수속 & 면세구역 쇼핑 🛍️ (DUTY FREE)",
+        category: "shopping",
+        icon: "ShoppingBag",
+        location: "간사이공항 면세 구역",
+        coordinates: { lat: 34.432, lng: 135.2304 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Kansai+Airport+Duty+Free",
+        description: "보안검색 및 출국심사 후 면세구역으로 이동, 로이스 생초콜릿, 도쿄 바나나, 시로이 코이비토 쇼핑",
         recommendations: [
-          "OZ111 체크인 카운터 위치 전광판 확인",
-          "출국 심사 후 면세점에서 로이스 초콜릿, 도쿄 바나나 마지막 쇼핑"
+          "로이스 생초콜릿 보냉백(100엔) 추가",
+          "남은 엔화 동전 전액 결제 + 잔액 카드 결제 꿀팁 활용!"
         ],
-        precautions: ["10:30 출발 항공편이므로 10:00 탑승 게이트 도착 필수"],
+        precautions: ["면세점 구경은 시간 여유 있게 하고 탑승구 위치 미리 확인"],
         vocabCategories: [
           {
             categoryName: "🍫 공항 면세점 인기 과자 & 결제",
@@ -1641,7 +1625,7 @@ export const ITINERARY_DATA: DayItinerary[] = [
               },
               {
                 id: "v6-6-4",
-                korean: "남은 엔화 동전 다 쓰고, 나머지는 카드로 결제할게요!",
+                korean: "남은 동전(현금) 다 쓰고, 나머지는 카드로 결제할게요!",
                 japanese: "小銭（現金）を使い切って、残りをカードで払います！",
                 pronunciation: "코제니(겐킨)오 츠카이킷테, 노코리오 카-도데 하라이마스!",
                 category: "shopping",
@@ -1652,30 +1636,46 @@ export const ITINERARY_DATA: DayItinerary[] = [
         ]
       },
       {
-        id: "d6-5",
-        time: "10:30 ~ 12:30",
-        title: "간사이공항 출발 ✈️ ➔ 인천공항 도착 (OZ111)",
+        id: "d6-8",
+        time: "10:00 ~ 10:30",
+        title: "탑승 전 대기 ✈️ (출발 전, 잠시 여유 시간! ❤️)",
+        category: "transport",
+        icon: "Clock",
+        location: "간사이공항 OZ111 탑승구 게이트",
+        coordinates: { lat: 34.432, lng: 135.2304 },
+        description: "탑승구로 이동, 간단한 쇼핑 또는 휴식, 탑승 준비 (10:00 탑승 시작)",
+        recommendations: ["탑승구와 출발 시간을 꼭 다시 확인!"],
+        precautions: ["10:10까지 탑승 게이트 착석"]
+      },
+      {
+        id: "d6-9",
+        time: "10:30 ~ 14:20",
+        title: "오사카 출발 ✈️ (OZ111) ➔ 인천공항 도착 (See you Korea! ❤️)",
         category: "transport",
         icon: "Plane",
-        location: "간사이공항 ➔ 인천국제공항",
+        location: "간사이공항(10:30) ➔ 인천공항 T2(14:20 도착)",
         coordinates: { lat: 37.4602, lng: 126.4407 },
-        description: "10:30 아시아나 OZ111편 탑승 후 12:30 인천국제공항 안전하게 도착 및 귀국 완료 ❤️",
-        recommendations: [
-          "즐거웠던 오사카 5박 6일 가족 여행 사진 정리",
-          "다음에 또 만나요, 오사카! 🎉"
-        ],
+        description: "아시아나 OZ111편 출발 (비행시간 약 1시간 50분) ➔ 14:20 인천국제공항 안전하게 도착, 입국 수속 후 짐 찾기 및 귀국 완료! (좋은 사람들과, 행복한 추억을 가득 담은 오사카 여행 또 가자! ❤️)",
+        recommendations: ["한국에서 다시 일상으로! 즐거웠던 오사카 5박 6일 추억 저장"],
         precautions: ["인천공항 수하물 수령 후 세관 통과"]
       }
     ],
     checklist: [
-      { id: "c6-1", text: "항공권 E-티켓 (OZ111 10:30 출발)", isImportant: true },
-      { id: "c6-2", text: "호텔 체크아웃 08:00 완료", isImportant: true },
-      { id: "c6-3", text: "08:40 난카이 공항급행 열차 탑승", isImportant: true },
-      { id: "c6-4", text: "여권 3인분 및 소지품 최종 확인", isImportant: true }
+      { id: "c6-1", text: "여권 (가족 모두)", isImportant: true },
+      { id: "c6-2", text: "항공권 (모바일 or 출력본 OZ111)", isImportant: true },
+      { id: "c6-3", text: "수하물 (캐리어 3개)", isImportant: true },
+      { id: "c6-4", text: "충전기, 어댑터, 전자기기" },
+      { id: "c6-5", text: "구매한 쇼핑물품 빠짐없이 챙기기" },
+      { id: "c6-6", text: "숙소 내 두고 가는 물건 확인" },
+      { id: "c6-7", text: "교통카드 잔액 사용 또는 환불" },
+      { id: "c6-8", text: "즐거웠던 여행, 좋은 추억 가득! ❤️", isImportant: true }
     ],
     generalTips: [
-      "마지막 날은 08:00에 체크아웃하고 난바역에서 08:40 공항급행을 타면 09:30에 간사이공항에 도착하여 OZ111(10:30)을 아주 여유롭게 수속할 수 있습니다.",
-      "면세점에서 로이스 초콜릿을 살 때 보냉백을 추가하면 한국 집에 도착할 때까지 신선하게 보관됩니다."
+      "공항에는 비행기 출발 2시간 전 도착하기! (08:20 도착 완료)",
+      "난카이 공항급행은 약 45~50분 소요됩니다.",
+      "면세점 구경은 시간 여유 있게 즐기기!",
+      "탑승구와 출발 시간을 꼭 다시 확인!",
+      "마지막까지 안전하고 즐거운 여행 되세요! See you Korea! ❤️"
     ]
   }
 ];
