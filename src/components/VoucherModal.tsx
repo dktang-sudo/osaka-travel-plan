@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, QrCode, Copy, Check, Sparkles, User, Users, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ZoomableImage } from './ZoomableImage';
 
 export interface FamilyMemberQR {
   id: string;
@@ -88,13 +89,13 @@ export const VoucherModal: React.FC<VoucherModalProps> = ({ isOpen, onClose, vou
     : null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/80 backdrop-blur-sm animate-fadeIn font-[var(--font-cute)]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-900/80 backdrop-blur-sm animate-fadeIn font-[var(--font-cute)]">
       <div 
-        className="paper-card w-full max-w-lg bg-white border-2 border-slate-900 shadow-[8px_8px_0px_#1e293b] flex flex-col max-h-[95vh] overflow-hidden"
+        className="paper-card w-full max-w-2xl bg-white border-2 border-slate-900 shadow-[8px_8px_0px_#1e293b] flex flex-col max-h-[96vh] overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="p-4 sm:p-5 bg-amber-100 border-b-2 border-slate-900 flex items-center justify-between">
+        <div className="p-3.5 sm:p-4 bg-amber-100 border-b-2 border-slate-900 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="bg-rose-500 text-white p-1.5 rounded-xl border border-slate-900 shadow-[1px_1px_0px_#1e293b]">
               <QrCode size={18} />
@@ -118,7 +119,7 @@ export const VoucherModal: React.FC<VoucherModalProps> = ({ isOpen, onClose, vou
         </div>
 
         {/* Modal Body */}
-        <div className="p-4 sm:p-5 space-y-3.5 overflow-y-auto max-h-[calc(95vh-130px)]">
+        <div className="p-3.5 sm:p-5 space-y-3 overflow-y-auto max-h-[calc(96vh-120px)]">
           {/* Top Tip Alert */}
           <div className="bg-emerald-50 border-2 border-emerald-800/40 rounded-xl p-2.5 sm:p-3 text-xs text-emerald-950 font-bold flex items-start gap-2 shadow-[2px_2px_0px_#1e293b]">
             <Sparkles size={16} className="text-emerald-600 flex-shrink-0 mt-0.5" />
@@ -136,7 +137,7 @@ export const VoucherModal: React.FC<VoucherModalProps> = ({ isOpen, onClose, vou
                   <Users size={14} className="text-indigo-600" />
                   <span>티켓 / 가족 선택 ({selectedMemberIndex + 1} / {totalCount}):</span>
                 </span>
-                <span className="text-[11px] text-slate-500 font-bold">좌우 버튼 또는 키보드 화살표로 이동</span>
+                <span className="text-[11px] text-slate-500 font-bold">좌우 버튼 또는 탭으로 전환</span>
               </div>
               <div className="grid grid-cols-3 gap-1.5">
                 {voucher.familyMembers!.map((member, idx) => {
@@ -161,8 +162,8 @@ export const VoucherModal: React.FC<VoucherModalProps> = ({ isOpen, onClose, vou
             </div>
           )}
 
-          {/* QR Image Box with Left/Right Nav Arrows */}
-          <div className="bg-slate-50 border-2 border-slate-900 rounded-2xl p-2 sm:p-3 shadow-[3px_3px_0px_#1e293b] relative flex flex-col items-center justify-center">
+          {/* QR Image Box with ZoomableImage & Left/Right Nav Arrows */}
+          <div className="bg-slate-50 border-2 border-slate-900 rounded-2xl p-2.5 sm:p-3 shadow-[3px_3px_0px_#1e293b] relative flex flex-col items-center justify-center">
             {/* Current Member Badge */}
             {currentMember && (
               <div className="mb-2 bg-indigo-100 text-indigo-950 font-black text-xs px-3 py-1 rounded-full border border-slate-900 shadow-sm flex items-center gap-1.5">
@@ -173,52 +174,44 @@ export const VoucherModal: React.FC<VoucherModalProps> = ({ isOpen, onClose, vou
 
             {/* Left / Right Carousel Controls */}
             {hasFamilyMembers && totalCount > 1 && (
-              <>
+              <div className="w-full flex items-center justify-between mb-1.5 px-1">
                 <button
                   onClick={handlePrev}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/95 hover:bg-amber-300 text-slate-900 border-2 border-slate-900 shadow-[2px_2px_0px_#1e293b] flex items-center justify-center transition active:scale-90"
+                  className="px-3 py-1 rounded-xl bg-white hover:bg-amber-300 text-slate-900 border-2 border-slate-900 shadow-[2px_2px_0px_#1e293b] flex items-center gap-1 text-xs font-black transition active:scale-90"
                   aria-label="이전 티켓"
                   title="이전 티켓 보기 (◀)"
                 >
-                  <ChevronLeft size={20} />
+                  <ChevronLeft size={16} />
+                  <span>이전 티켓</span>
                 </button>
+                <div className="flex items-center gap-1.5">
+                  {voucher.familyMembers!.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setSelectedMemberIndex(idx)}
+                      className={`h-2.5 rounded-full transition-all border border-slate-900 ${
+                        selectedMemberIndex === idx ? 'w-5 bg-amber-400' : 'w-2 bg-slate-300'
+                      }`}
+                    />
+                  ))}
+                </div>
                 <button
                   onClick={handleNext}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/95 hover:bg-amber-300 text-slate-900 border-2 border-slate-900 shadow-[2px_2px_0px_#1e293b] flex items-center justify-center transition active:scale-90"
+                  className="px-3 py-1 rounded-xl bg-white hover:bg-amber-300 text-slate-900 border-2 border-slate-900 shadow-[2px_2px_0px_#1e293b] flex items-center gap-1 text-xs font-black transition active:scale-90"
                   aria-label="다음 티켓"
                   title="다음 티켓 보기 (▶)"
                 >
-                  <ChevronRight size={20} />
+                  <span>다음 티켓</span>
+                  <ChevronRight size={16} />
                 </button>
-              </>
-            )}
-
-            <div className="w-full flex justify-center bg-white rounded-xl p-2 border border-slate-200 overflow-hidden">
-              <img
-                src={currentImage}
-                alt={currentMember?.name || voucher.title}
-                className="max-h-[360px] w-auto object-contain rounded-lg shadow-sm"
-              />
-            </div>
-            
-            {/* Dots Indicator */}
-            {hasFamilyMembers && totalCount > 1 && (
-              <div className="flex items-center gap-2 mt-2">
-                {voucher.familyMembers!.map((_, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setSelectedMemberIndex(idx)}
-                    className={`h-2.5 rounded-full transition-all border border-slate-900 ${
-                      selectedMemberIndex === idx ? 'w-6 bg-amber-400' : 'w-2.5 bg-slate-300'
-                    }`}
-                  />
-                ))}
               </div>
             )}
 
-            <p className="text-[11px] text-slate-500 font-bold mt-1 text-center">
-              💡 게이트 스캐너 또는 개찰구 직원에게 QR 코드를 보여주세요.
-            </p>
+            {/* Zoomable QR Image */}
+            <ZoomableImage
+              src={currentImage}
+              alt={currentMember?.name || voucher.title}
+            />
           </div>
 
           {/* Voucher Summary Table */}
