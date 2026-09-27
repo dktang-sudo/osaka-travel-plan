@@ -595,6 +595,34 @@ export const ITINERARY_DATA: DayItinerary[] = [
           "왕복 승선권은 돌아올 때(15:30)도 사용하므로 잘 보관!"
         ],
         precautions: ["승선 10분 전 게이트 대기"],
+        voucher: {
+          id: "voucher-captain-line",
+          title: "캡틴라인 왕복 승선권 E-Ticket",
+          subtitle: "USJ 피어 ➔ 덴포잔 왕복 (대인 2명 + 소인 1명)",
+          bookingNo: "1201906464 (대인2) / 1201906469 (소인1)",
+          travelerName: "성인 2명 + 아동 1명 (총 3명)",
+          date: "2026-10-05 (월)",
+          time: "10:00 출발 (돌아오는 배 15:30)",
+          location: "유니버설 시티포트 (USJ 피어) & 덴포잔 선착장",
+          image: "/images/vouchers/captain_line_adult_qr.jpg",
+          badge: "JTRweb 공식 E-Ticket",
+          usageGuide: "선착장 개찰구 또는 매표소 직원에게 대인/소인 탭을 눌러 QR 코드를 보여주세요.",
+          note: "★ 왕복 승선권이므로 15:30 돌아올 때도 같은 QR 코드로 재탑승합니다!",
+          familyMembers: [
+            {
+              id: "cl-adult",
+              name: "대인 2명 (주문번호 1201906464)",
+              role: "👨‍👩 대인 2명 왕복권",
+              image: "/images/vouchers/captain_line_adult_qr.jpg"
+            },
+            {
+              id: "cl-child",
+              name: "소인 1명 (주문번호 1201906469)",
+              role: "👦 소인 1명 왕복권",
+              image: "/images/vouchers/captain_line_child_qr.jpg"
+            }
+          ]
+        },
         vocabCategories: [
           {
             categoryName: "🎟️ 캡틴라인 티켓 & 탑승",
@@ -761,7 +789,35 @@ export const ITINERARY_DATA: DayItinerary[] = [
         coordinates: { lat: 34.6548, lng: 135.4285 },
         description: "왕복 승선권을 이용하여 덴포잔에서 USJ 피어로 복귀 탑승 (약 10분 소요)",
         recommendations: ["하버 뷰를 감상하며 돌아오기"],
-        precautions: ["15:30 출발 10분 전 선착장 도착 필수"]
+        precautions: ["15:30 출발 10분 전 선착장 도착 필수"],
+        voucher: {
+          id: "voucher-captain-line-return",
+          title: "캡틴라인 복귀 승선권 E-Ticket",
+          subtitle: "덴포잔 ➔ USJ 피어 복귀 (대인 2명 + 소인 1명)",
+          bookingNo: "1201906464 (대인2) / 1201906469 (소인1)",
+          travelerName: "성인 2명 + 아동 1명 (총 3명)",
+          date: "2026-10-05 (월)",
+          time: "15:30 출발",
+          location: "덴포잔 선착장 (가이유칸 앞)",
+          image: "/images/vouchers/captain_line_adult_qr.jpg",
+          badge: "JTRweb 공식 E-Ticket",
+          usageGuide: "덴포잔 선착장 개찰구 또는 직원에게 대인/소인 탭을 눌러 QR 코드를 보여주세요.",
+          note: "★ 왕복 승선권으로 복귀 승선 시 사용합니다!",
+          familyMembers: [
+            {
+              id: "cl-adult-ret",
+              name: "대인 2명 (주문번호 1201906464)",
+              role: "👨‍👩 대인 2명 왕복권",
+              image: "/images/vouchers/captain_line_adult_qr.jpg"
+            },
+            {
+              id: "cl-child-ret",
+              name: "소인 1명 (주문번호 1201906469)",
+              role: "👦 소인 1명 왕복권",
+              image: "/images/vouchers/captain_line_child_qr.jpg"
+            }
+          ]
+        }
       },
       {
         id: "d2-8",
