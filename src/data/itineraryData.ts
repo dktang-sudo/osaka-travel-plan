@@ -388,7 +388,21 @@ export const ITINERARY_DATA: DayItinerary[] = [
         ],
         precautions: [
           "출국 2~3시간 전 도착 추천! 16:40 출발이므로 13:30 도착 완료"
-        ]
+        ],
+        voucher: {
+          id: "voucher-flight-roundtrip",
+          title: "아시아나항공 왕복 e-티켓 여정안내서",
+          subtitle: "Agoda 예약 번호: 1764276185 / PNR: APHWU5",
+          bookingNo: "1764276185 (PNR: APHWU5)",
+          travelerName: "JIIN SEO / DAEKYU PARK / MINJAE PARK (3명)",
+          date: "출국: 2026.10.04(일) / 귀국: 2026.10.09(금)",
+          time: "출국 OZ114 16:40 / 귀국 OZ111 10:30",
+          location: "인천공항 T2 & 간사이공항 T1 아시아나항공 카운터",
+          image: "/images/vouchers/flight_roundtrip_eticket.jpg",
+          badge: "Agoda 공식 e-티켓",
+          usageGuide: "공항 카운터 체크인 및 수하물 위탁 시 여권과 함께 제시하세요.",
+          note: "• [출국] 10/4(일) OZ114: 인천(ICN) 16:40 ➔ 간사이(KIX) 18:30 (직항)\n• [귀국] 10/9(금) OZ111: 간사이(KIX) 10:30 ➔ 인천(ICN) 12:40 (직항)\n• 항공권 번호: 9887550290993 / 9887550290994 / 9887550290995"
+        }
       },
       {
         id: "d1-2",
@@ -489,7 +503,21 @@ export const ITINERARY_DATA: DayItinerary[] = [
         ],
         precautions: [
           "여권 3명 전원 제시 및 객실 키 수령"
-        ]
+        ],
+        voucher: {
+          id: "voucher-singulari-hotel",
+          title: "더 싱귤러리 호텔 & 스카이스파 예약 확정서",
+          subtitle: "Klook 예약 번호: VPV690814 (3박 연박)",
+          bookingNo: "VPV690814",
+          travelerName: "체크인 투숙객: SEO JIIN (성인 2명 + 아동 1명)",
+          date: "2026.10.04(일) ~ 2026.10.07(수) [3박]",
+          time: "체크인 15:00~20:00 / 체크아웃 11:00",
+          location: "6-2-25 Shimaya, Konohana-ku, Osaka (+81 0648049500)",
+          image: "/images/vouchers/singulari_hotel_booking.jpg",
+          badge: "Klook 예약 확정서",
+          usageGuide: "호텔 프런트 데스크에서 여권과 함께 이 예약 확정서 화면을 보여주세요.",
+          note: "• 객실: 이그제큐티브 더블룸 (싱글베드 2개 + 소파베드 1개)\n• 조식 불포함 / 14층 스카이스파 대욕장 온천 무료 이용\n• 연락처: singulari@candeo-hotels.com / 010-9008-0410"
+        }
       },
       {
         id: "d1-5",
@@ -2026,7 +2054,21 @@ export const ITINERARY_DATA: DayItinerary[] = [
         coordinates: { lat: 34.432, lng: 135.2304 },
         description: "아시아나항공 카운터에서 체크인, 수하물 위탁(캐리어 3개) 및 탑승권 수령",
         recommendations: ["수하물 무게 제한(23kg) 초과 여부 확인"],
-        precautions: ["액체류와 라이터/보조배터리 규정 준수"]
+        precautions: ["액체류와 라이터/보조배터리 규정 준수"],
+        voucher: {
+          id: "voucher-flight-roundtrip-return",
+          title: "아시아나항공 귀국편 e-티켓 여정안내서",
+          subtitle: "Agoda 예약 번호: 1764276185 / PNR: APHWU5",
+          bookingNo: "1764276185 (PNR: APHWU5)",
+          travelerName: "JIIN SEO / DAEKYU PARK / MINJAE PARK (3명)",
+          date: "2026-10-09 (금) 귀국",
+          time: "간사이(KIX) 10:30 출발 ➔ 인천(ICN) 12:40 도착 (직항)",
+          location: "간사이국제공항 제1터미널 4층 아시아나항공 카운터",
+          image: "/images/vouchers/flight_roundtrip_eticket.jpg",
+          badge: "Agoda 공식 e-티켓",
+          usageGuide: "아시아나 체크인 카운터에서 여권과 함께 e-티켓 화면을 제시하세요.",
+          note: "• OZ111: KIX 10:30 ➔ ICN 12:40 (직항)\n• 항공권 번호: 9887550290993 / 9887550290994 / 9887550290995\n• 수하물 위탁 무게 제한: 1인당 23kg"
+        }
       },
       {
         id: "d6-7",
