@@ -952,7 +952,41 @@ export const ITINERARY_DATA: DayItinerary[] = [
         googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Universal+Studios+Japan+Main+Gate",
         description: "입장 게이트 통과, 익스프레스 패스 시간 재확인, 에어리어 맵 확인 및 첫 코스 미니언 파크로 이동",
         recommendations: ["입장 직후 지구본 앞에서 가족 인증샷 촬영!"],
-        precautions: ["셀카봉 반입 금지 (보안검색 준수)"]
+        precautions: ["셀카봉 반입 금지 (보안검색 준수)"],
+        voucher: {
+          id: "voucher-usj-direct-in",
+          title: "USJ 다이렉트 인 1 Day 스튜디오 패스 (총 3명)",
+          subtitle: "2026-10-06(화) 당일 유효 공식 e-티켓",
+          bookingNo: "USJ-P1X000000DDVZN",
+          travelerName: "대인 2명(¥9,900×2) + 어린이 1명(¥6,200×1)",
+          date: "2026-10-06 (화)",
+          time: "09:00 파크 오픈 (08:30 대기 권장)",
+          location: "유니버설 스튜디오 재팬 메인 게이트 입장 개찰기",
+          image: "/images/vouchers/usj_direct_in_adult1_qr.jpg",
+          badge: "USJ 공식 다이렉트 인 (Direct-In)",
+          usageGuide: "좌우 화살표 버튼 또는 상단 탭을 눌러 3장의 QR 코드를 차례대로 입장 게이트 개찰기에 스캔하세요.",
+          note: "1인 1매 소지 및 개찰구 스캔 / 퇴장 후 재입장 불가 / 슈퍼 닌텐도 월드 확정권 포함",
+          familyMembers: [
+            {
+              id: "usj-adult-1",
+              name: "대인 1 (-6328)",
+              role: "🧑 대인 1 (12세 이상)",
+              image: "/images/vouchers/usj_direct_in_adult1_qr.jpg"
+            },
+            {
+              id: "usj-adult-2",
+              name: "대인 2 (-6327)",
+              role: "🧑 대인 2 (12세 이상)",
+              image: "/images/vouchers/usj_direct_in_adult2_qr.jpg"
+            },
+            {
+              id: "usj-child",
+              name: "어린이 (-6329)",
+              role: "🧒 어린이 (만 4~11세)",
+              image: "/images/vouchers/usj_direct_in_child_qr.jpg"
+            }
+          ]
+        }
       },
       {
         id: "d3-3",

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'osaka-travel-v9';
+const CACHE_NAME = 'osaka-travel-v10';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -44,6 +44,9 @@ const STATIC_ASSETS = [
   '/images/vouchers/tombori_cruise_adult1_qr.jpg',
   '/images/vouchers/tombori_cruise_adult2_qr.jpg',
   '/images/vouchers/tombori_cruise_child_qr.jpg',
+  '/images/vouchers/usj_direct_in_adult1_qr.jpg',
+  '/images/vouchers/usj_direct_in_adult2_qr.jpg',
+  '/images/vouchers/usj_direct_in_child_qr.jpg',
 ];
 
 // 설치 시 정적 에셋 캐싱
