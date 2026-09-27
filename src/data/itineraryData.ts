@@ -674,6 +674,40 @@ export const ITINERARY_DATA: DayItinerary[] = [
           "가이유칸 시그니처 '미즈타마리 소다 소프트 아이스크림' 맛보기"
         ],
         precautions: ["수조 플래시 촬영 금지 구역 준수"],
+        voucher: {
+          id: "voucher-kaiyukan",
+          title: "가이유칸 e-티켓 (대인 2 + 어린이 1)",
+          subtitle: "2026-10-05(월) 10:45-11:00 입장 지정권",
+          bookingNo: "00290-2026-0905-8100-3450-0005",
+          travelerName: "대인 2명 + 어린이 1명 (총 3명)",
+          date: "2026-10-05 (월)",
+          time: "10:45 ~ 11:00 입장 (10:30 도착 권장)",
+          location: "오사카 가이유칸 수족관 입구 개찰구",
+          image: "/images/vouchers/kaiyukan_adult1_qr.jpg",
+          badge: "Webket 공식 e-티켓",
+          usageGuide: "좌우 화살표 버튼 또는 상단 탭을 눌러 3장의 QR 코드를 차례대로 개찰구에 스캔하세요.",
+          note: "1인 1매 사용 / 개찰구에서 인원수만큼 QR 코드를 제시하여 입장합니다.",
+          familyMembers: [
+            {
+              id: "ky-adult-1",
+              name: "대인 1 (-0012)",
+              role: "🧑 대인 1 (16세 이상)",
+              image: "/images/vouchers/kaiyukan_adult1_qr.jpg"
+            },
+            {
+              id: "ky-adult-2",
+              name: "대인 2 (-0029)",
+              role: "🧑 대인 2 (16세 이상)",
+              image: "/images/vouchers/kaiyukan_adult2_qr.jpg"
+            },
+            {
+              id: "ky-child",
+              name: "어린이 (-0036)",
+              role: "🧒 어린이 (초·중학생)",
+              image: "/images/vouchers/kaiyukan_child_qr.jpg"
+            }
+          ]
+        },
         vocabCategories: [
           {
             categoryName: "🎟️ 가이유칸 입장 & 굿즈",
