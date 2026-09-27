@@ -102,13 +102,13 @@ export const TipsAndChecklist: React.FC = () => {
         <div className="paper-card p-6 bg-pink-100/90 border-2 border-slate-900 shadow-[4px_4px_0px_#1e293b]">
           <div className="flex items-center gap-2 text-slate-900 font-extrabold text-base mb-2">
             <Percent size={20} className="text-pink-600" />
-            <span>★ 우메다 백화점 면세(Tax Free) 팁</span>
+            <span>★ 우메다 백화점 & 돈키호테 면세 팁</span>
           </div>
           <p className="text-xs text-slate-800 font-medium leading-relaxed mb-3">
-            Day 5 (10/8 목) 한큐백화점 / 다이마루 / 루쿠아에서 5,000엔 이상 구매 시 <strong>당일 여권을 지참하여 면세 카운터에서 현금 환급</strong>을 꼭 받으세요!
+            Day 5 (10/8 목) 한큐백화점/루쿠아는 <strong>당일 면세 카운터 환급</strong>, 저녁 돈키호테 난바 미도스지점은 <strong>웹 쿠폰(5%)+면세(10%) 동시 적용</strong>으로 알뜰 쇼핑하세요!
           </p>
           <span className="bg-white text-slate-900 text-[11px] px-2.5 py-1 rounded-md font-extrabold border-2 border-slate-900 shadow-[1px_1px_0px_#1e293b]">
-            여권 지참 + 당일 영수증 환급
+            여권 필수 + 돈키호테 웹 쿠폰
           </span>
         </div>
 

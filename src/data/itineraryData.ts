@@ -1251,75 +1251,66 @@ export const ITINERARY_DATA: DayItinerary[] = [
   },
 
   // =========================================================================
-  // DAY 5 (10/8 목): 우메다 쇼핑 데이 [포켓몬센터 & 캡콤스토어 & 루쿠아 & 한큐백화점 완전 정복! 🛍️]
+  // DAY 5 (10/8 목): 우메다 쇼핑 & 맛집 탐방 DAY [쇼핑도 여행의 추억! 오늘 하루, 오사카를 더 특별하게 ❤️]
   // =========================================================================
   {
     dayNumber: 5,
     dateStr: "10/8",
     dayOfWeek: "목",
-    title: "우메다 쇼핑 데이",
-    tagline: "포켓몬센터 & 캡콤스토어 & 루쿠아 & 한큐백화점 완전 정복! 🛍️",
+    title: "우메다 쇼핑 & 맛집 탐방 DAY",
+    tagline: "쇼핑도 여행의 추억! 오늘 하루, 오사카를 더 특별하게 ❤️",
     hotelInfo: "사쿠라가와 호텔 난바 (10/7~10/9)",
     themeColor: "#F97316",
     gradient: "from-orange-500 to-amber-600",
     badge: {
-      text: "포켓몬 & 캡콤 & 백화점 쇼핑",
+      text: "우메다 쇼핑 & 돈키호테 난바 미도스지점",
       type: "highlight"
     },
     summaryItems: [
-      "09:00 호텔 조식 후 출발",
-      "10:00 우메다 이동 (지하철 미도스지선 15분)",
-      "10:30 포켓몬센터 오사카 (다이마루 13F)",
-      "11:30 CAPCOM STORE & CAFE UMEDA (다이마루 13F)",
-      "12:30 점심 식사 (우메다 주변 맛집)",
-      "13:30 우메다 쇼핑 타임 (LUCUA, 그랜드프론트, 한큐)",
-      "16:30 카페 타임 & 휴식",
-      "17:00 저녁 식사 (우메다 맛집)",
-      "19:00 이후 난바 복귀 (자유시간) & 호텔 휴식"
+      "09:30 난바 숙소 출발 (지하철 약 10~15분)",
+      "10:00 포켓몬센터 오사카 (굿즈 & 포토존)",
+      "11:30 CAPCOM STORE & CAFE UMEDA (몬헌 굿즈)",
+      "13:00 점심 식사 (우메다 맛집 - 스시, 라멘, 카츠)",
+      "14:30 우메다 쇼핑 타임 (루쿠아, 그랜드프론트, 한큐/한신)",
+      "17:00 카페 & 휴식 (스카이빌딩 또는 쇼핑몰 카페)",
+      "18:30 저녁 식사 (우메다 또는 난바 맛집)",
+      "20:00 돈키호테 난바 미도스지점 (필수 쇼핑)",
+      "21:30 난바 숙소 복귀 & 짐정리"
     ],
-    dayRouteQuery: "Sakuragawa+Hotel+Nanba+to+Daimaru+Umeda+to+LUCUA+Osaka+to+Hankyu+Umeda",
+    dayRouteQuery: "Sakuragawa+Hotel+Nanba+to+Pokemon+Center+Osaka+to+LUCUA+Osaka+to+Hankyu+Umeda+to+Don+Quijote+Namba",
     googleEmbedMapUrl: "https://maps.google.com/maps?q=Daimaru+Umeda+Osaka&t=&z=15&ie=UTF8&iwloc=&output=embed",
     schedule: [
       {
         id: "d5-1",
-        time: "09:00",
-        title: "호텔 조식 후 출발 ☀️",
-        category: "hotel",
-        icon: "Sun",
-        location: "사쿠라가와 호텔 난바",
-        coordinates: { lat: 34.666, lng: 135.492 },
-        description: "상쾌하게 기상 후 든든하게 아침 식사를 마치고 우메다로 출발",
-        recommendations: ["여권(면세 쇼핑 필수) 및 에코백 챙기기"],
-        precautions: ["신용카드 및 엔화 현금 확인"]
+        time: "09:30",
+        title: "난바 숙소 출발 🚶 ➔ 우메다로 이동 (오늘도 신나는 하루 출발! ❤️)",
+        category: "transport",
+        icon: "Subway",
+        location: "사쿠라가와 호텔 난바 ➔ 우메다역",
+        coordinates: { lat: 34.7025, lng: 135.496 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Umeda+Station+Osaka",
+        description: "난바에서 우메다로 이동 (오사카 메트로 미도스지선 지하철 약 10~15분)",
+        recommendations: [
+          "여권(면세 쇼핑 필수) 및 에코백 챙기기",
+          "ICOCA 교통카드 터치"
+        ],
+        precautions: ["우메다역 하차 후 다이마루 / JR 오사카역 방면 출구 확인"]
       },
       {
         id: "d5-2",
-        time: "10:00",
-        title: "난바 → 우메다 이동 🚃 (지하철 약 15분)",
-        category: "transport",
-        icon: "Subway",
-        location: "오사카 메트로 미도스지선 난바역 ➔ 우메다역",
-        coordinates: { lat: 34.7025, lng: 135.496 },
-        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Umeda+Station+Osaka",
-        description: "빨간색 미도스지선 지하철로 환승 없이 4정거장(약 10분) 이동",
-        recommendations: ["ICOCA 교통카드 터치"],
-        precautions: ["우메다역 하차 후 '다이마루 백화점 / JR 오사카역' 방향 출구 확인"]
-      },
-      {
-        id: "d5-3",
-        time: "10:30 ~ 11:30",
-        title: "포켓몬센터 오사카 ⚡ (다이마루 백화점 우메다점 13층)",
+        time: "10:00 ~ 11:30",
+        title: "포켓몬센터 오사카 ⚡ (포켓몬센터 오사카 ❤️)",
         category: "shopping",
         icon: "Gamepad2",
-        location: "DAIMARU Umeda 13층 포켓몬센터",
+        location: "포켓몬센터 오사카 (그랜드 프론트 남관 / 다이마루 우메다 13F)",
         coordinates: { lat: 34.7018, lng: 135.4975 },
-        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Pokemon+Center+Osaka+Daimaru+Umeda",
-        description: "서일본 최대 규모 포켓몬센터! 대형 전설의 포켓몬 조형물과 오사카 한정판 굿즈 쇼핑",
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Pokemon+Center+Osaka",
+        description: "포켓몬 굿즈 쇼핑, 대형 피카츄 포토존 & 오사카 한정 상품 구경! (인기 굿즈는 오전 방문 추천)",
         recommendations: [
-          "오사카 한정 피카츄 인형 및 카드 게임, 학용품 굿즈 구매",
-          "가챠(캡슐 토이) 머신 뽑기 체험"
+          "오사카 한정판 피카츄 인형 및 카드 게임, 학용품 굿즈 구매",
+          "대형 포켓몬 조형물 앞에서 가족사진 촬영"
         ],
-        precautions: ["다이마루 백화점 13층에 캡콤 스토어와 함께 위치해 이동 편리"],
+        precautions: ["매장 내 계산 줄 대기 시간 고려"],
         vocabCategories: [
           {
             categoryName: "⚡ 포켓몬센터 & 캐릭터 쇼핑",
@@ -1337,20 +1328,20 @@ export const ITINERARY_DATA: DayItinerary[] = [
         ]
       },
       {
-        id: "d5-4",
-        time: "11:30 ~ 12:30",
-        title: "CAPCOM STORE & CAFE UMEDA 🎮 (다이마루 13층)",
+        id: "d5-3",
+        time: "11:30 ~ 13:00",
+        title: "CAPCOM STORE & CAFE UMEDA 🎮 (CAPCOM STORE & CAFE UMEDA ❤️)",
         category: "shopping",
         icon: "Swords",
-        location: "DAIMARU Umeda 13층 CAPCOM STORE",
+        location: "CAPCOM STORE & CAFE UMEDA (다이마루 13F)",
         coordinates: { lat: 34.7018, lng: 135.4975 },
         googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=CAPCOM+STORE+UMEDA",
-        description: "포켓몬센터 바로 옆! 몬스터헌터, 바이오하자드, 스트리트파이터 공식 캡콤 직영 스토어",
+        description: "몬스터헌터 등 게임 굿즈 쇼핑, CAPCOM 카페 구경, 한정 상품 & 콜라보 굿즈!",
         recommendations: [
-          "몬스터헌터 대형 피규어 및 아이루/가루크 봉제인형 구경",
-          "캡콤 한정 굿즈 및 티셔츠 쇼핑"
+          "몬스터헌터 대형 피규어 및 아이루 봉제인형 구경",
+          "스트리트파이터, 바이오하자드 한정 굿즈 쇼핑"
         ],
-        precautions: ["인기 한정판 굿즈 품절 여부 체크"],
+        precautions: ["인기 한정 굿즈 품절 여부 체크"],
         vocabCategories: [
           {
             categoryName: "🎮 캡콤 스토어 쇼핑",
@@ -1368,38 +1359,35 @@ export const ITINERARY_DATA: DayItinerary[] = [
         ]
       },
       {
-        id: "d5-5",
-        time: "12:30 ~ 13:30",
-        title: "점심 식사 🍜 (우메다 주변 맛집)",
+        id: "d5-4",
+        time: "13:00 ~ 14:30",
+        title: "점심 식사 🍜 (우메다 - 맛있는 점심시간! ❤️)",
         category: "food",
         icon: "Utensils",
-        location: "다이마루 16층 식당가 또는 LUCUA 지하 다이닝",
+        location: "우메다 지역 맛집 (루쿠아 지하 바르치카 또는 다이마루 16층 식당가)",
         coordinates: { lat: 34.7025, lng: 135.496 },
-        description: "우메다 백화점 식당가에서 맛있는 돈카츠, 텐동 또는 스시 런치",
+        description: "우메다 지역 맛집에서 맛있는 식사 (스시, 라멘, 카츠 등, 현장 분위기에 맞춰 선택)",
         recommendations: [
-          "루쿠아 지하 바르치카(Barchica): 유명 라멘/함바그 맛집",
-          "다이마루 16층 우마이모노 플라자: 깔끔한 일식 정식"
+          "루쿠아 지하 바르치카 라멘/함바그 맛집",
+          "다이마루 16층 일식 정식 또는 돈카츠"
         ],
-        precautions: ["13:30부터 본격적인 쇼핑 타임 진행"]
+        precautions: ["14:30부터 본격적인 쇼핑 타임 시작"]
       },
       {
-        id: "d5-6",
-        time: "13:30 ~ 16:30",
-        title: "우메다 쇼핑 타임 🛍️ (LUCUA / 그랜드 프론트 / 한큐백화점)",
+        id: "d5-5",
+        time: "14:30 ~ 17:00",
+        title: "우메다 쇼핑 타임 🛍️ (LUCUA OSAKA ❤️)",
         category: "shopping",
         icon: "ShoppingBag",
-        location: "LUCUA osaka & GRAND FRONT OSAKA & 한큐백화점 본점",
+        location: "LUCUA / GRAND FRONT OSAKA / 한큐백화점 / 한신백화점",
         coordinates: { lat: 34.7035, lng: 135.498 },
         googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=LUCUA+osaka",
-        description: "오사카 최대 쇼핑 메카 우메다의 핵심 백화점과 쇼핑몰 집중 쇼핑",
+        description: "우메다 핵심 쇼핑 스팟 완전 정복!\n• LUCUA / LUCUA 1100 (JR 오사카역 직결 트렌디 쇼핑)\n• GRAND FRONT OSAKA (다양한 브랜드, 라이프스타일)\n• 한큐백화점 (패션, 화장품, 식품 등)\n• 한신백화점 (식품관, 디저트, 기념품)\n• 의류, 잡화, 스포츠 브랜드 쇼핑",
         recommendations: [
-          "한큐백화점 본점: 지하 디저트 매장(바토ンド르 고급 포키, 슈가버터샌드) & 1층 명품 손수건",
-          "LUCUA & LUCUA 1100: 트렌디한 패션, 잡화, 캐릭터 숍",
-          "그랜드 프론트 오사카: 넓고 쾌적한 라이프스타일 숍 및 키즈 매장"
+          "한큐백화점 지하 고급 디저트 및 1층 손수건 쇼핑",
+          "5,000엔 이상 구매 시 백화점 면세(Tax Free) 카운터에서 당일 즉시 환급!"
         ],
-        precautions: [
-          "★ 5,000엔 이상 구매 시 백화점 면세(Tax Free) 카운터에서 당일 환급 필수! (여권 제시)"
-        ],
+        precautions: ["면세 혜택을 위해 여권 원본 반드시 지참"],
         vocabCategories: [
           {
             categoryName: "🛍️ 백화점 면세 & 쇼핑",
@@ -1417,51 +1405,75 @@ export const ITINERARY_DATA: DayItinerary[] = [
         ]
       },
       {
-        id: "d5-7",
-        time: "16:30 ~ 17:00",
-        title: "카페 타임 & 휴식 ☕ 🍰",
+        id: "d5-6",
+        time: "17:00 ~ 18:30",
+        title: "카페 & 휴식 ☕ 🍰 (우메다 스카이 빌딩 & 쇼핑몰 카페)",
         category: "food",
         icon: "Coffee",
-        location: "우메다 그랜드 프론트 / 루쿠아 카페",
-        coordinates: { lat: 34.7035, lng: 135.498 },
-        description: "쇼핑 후 달콤한 팬케이크, 파르페 또는 커피를 마시며 다리 휴식",
-        recommendations: ["하브스(HARBS) 밀크 크레이프 케이크 또는 스타벅스 리저브"],
-        precautions: ["저녁 식사 전 30분간 체력 충전"]
+        location: "우메다 스카이빌딩 주변 또는 쇼핑몰 내 카페",
+        coordinates: { lat: 34.7055, lng: 135.4905 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Umeda+Sky+Building",
+        description: "우메다 스카이빌딩 주변 카페 또는 쇼핑몰 내 카페에서 휴식, 잠시 여유로운 티타임",
+        recommendations: ["달콤한 디저트와 커피로 다리 피로 충전"],
+        precautions: ["저녁 식사 전 30분간 휴식"]
+      },
+      {
+        id: "d5-7",
+        time: "18:30 ~ 20:00",
+        title: "저녁 식사 🥩 (맛있는 저녁타임! ❤️ 오사카의 밤도 즐겨요)",
+        category: "food",
+        icon: "Utensils",
+        location: "우메다 또는 난바 식당가",
+        coordinates: { lat: 34.6687, lng: 135.5013 },
+        description: "우메다 또는 난바로 이동하여 맛있는 저녁 식사, 현지 분위기 즐기기 (야키니쿠, 스키야키 등)",
+        recommendations: ["가족과 함께 오사카 마지막 저녁 만찬"],
+        precautions: ["20:00 돈키호테 쇼핑을 위해 난바로 이동"]
       },
       {
         id: "d5-8",
-        time: "17:00 ~ 19:00",
-        title: "저녁 식사 🥩 (우메다 맛집)",
-        category: "food",
-        icon: "Utensils",
-        location: "우메다 식당가 또는 한큐 32번가",
-        coordinates: { lat: 34.7025, lng: 135.496 },
-        description: "오사카 마지막 밤을 기념하는 우메다 최고급 와규 야키니쿠 또는 스키야키 저녁 식사",
-        recommendations: ["시원한 생맥주와 함께 가족 여행 완주 축하 건배!"],
-        precautions: ["19:00 이후 숙소 난바로 복귀"]
+        time: "20:00 ~ 21:30",
+        title: "돈키호테 난바 미도스지점 🐧 🛒 (일본 여행 필수 쇼핑!)",
+        category: "shopping",
+        icon: "ShoppingBag",
+        location: "DON QUIJOTE 난바 미도스지점 (Don Quijote Namba Midosuji)",
+        coordinates: { lat: 34.6698, lng: 135.5005 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Don+Quijote+Namba+Midosuji",
+        description: "일본 여행 필수 쇼핑! 간식, 과자, 화장품, 의약품(동전파스, 카베진), 기념품 쇼핑 (여권 제시 면세 10% + 할인쿠폰)",
+        recommendations: [
+          "녹차 킷캣, 곤약젤리, 이치란 라멘 밀키트 구매",
+          "5,000엔 이상 면세 전용 카운터에서 결제"
+        ],
+        precautions: ["위탁 수하물로 보낼 액체류는 기내 반입 불가이므로 캐리어에 넣을 준비"]
       },
       {
         id: "d5-9",
-        time: "19:00 이후",
-        title: "난바 복귀 (자유시간) ➔ 호텔 복귀 & 짐 패킹 🧳",
+        time: "21:30",
+        title: "난바 숙소 복귀 🛌 🧳 (지하철로 난바 이동 약 10분, 오늘도 수고했어요! :)",
         category: "hotel",
         icon: "PackageCheck",
         location: "사쿠라가와 호텔 난바",
         coordinates: { lat: 34.666, lng: 135.492 },
-        description: "지하철로 난바 복귀 후 숙소에서 쇼핑한 물품 캐리어 패킹 및 내일 귀국 준비",
-        recommendations: ["액체류(화장품, 젤리류)는 반드시 위탁 수하물 캐리어에 넣기"],
-        precautions: ["내일 아침 06:30 기상 및 07:00 체크아웃 준비"]
+        description: "지하철로 난바 숙소 복귀 (약 10분), 쇼핑한 물품 캐리어 최종 패킹 및 내일 귀국 준비",
+        recommendations: [
+          "좋은 순간이 모여 행복한 여행이 된다 ❤️",
+          "내일 아침 06:30 기상 및 07:00 체크아웃 준비 완료"
+        ],
+        precautions: ["여권, 항공권 E-티켓, 지갑 최종 점검"]
       }
     ],
     checklist: [
-      { id: "c5-1", text: "여권 지참 (백화점 면세 Tax Free 필수)", isImportant: true },
-      { id: "c5-2", text: "다이마루 13층 (포켓몬센터 & 캡콤스토어)", isImportant: true },
-      { id: "c5-3", text: "쇼핑백 및 접이식 보조가방 준비" },
-      { id: "c5-4", text: "귀국 짐싸기: 액체류 위탁 수하물 패킹", isImportant: true }
+      { id: "c5-1", text: "교통카드 / 현금 (일부 매장)", isImportant: true },
+      { id: "c5-2", text: "쇼핑할 브랜드 & 리스트", isImportant: true },
+      { id: "c5-3", text: "편한 신발, 보조배터리" },
+      { id: "c5-4", text: "카메라 or 휴대폰 (사진 필수!)", isImportant: true },
+      { id: "c5-5", text: "쇼핑백(에코백) 챙기기" },
+      { id: "c5-6", text: "즐길 마음! 😊 (좋은 것들을 보고, 사고, 먹고 행복을 채우는 하루 ❤️)", isImportant: true }
     ],
     generalTips: [
-      "다이마루 백화점 우메다점 13층에 포켓몬센터와 캡콤스토어가 나란히 붙어있어 아들과 함께 캐릭터 쇼핑하기에 최고의 동선입니다.",
-      "한큐백화점과 루쿠아에서 쇼핑 후 여권을 제시하고 영수증을 모아 1층/지하 면세 카운터에서 세금을 즉시 환급받으세요."
+      "우메다는 쇼핑몰이 연결되어 있어 실내 이동으로 편리해요!",
+      "인기 굿즈는 오전 방문 추천!",
+      "면세 가능한 매장도 많으니 여권 지참!",
+      "저녁에는 난바로 돌아와 돈키호테에서 마지막 쇼핑까지!"
     ]
   },
 
