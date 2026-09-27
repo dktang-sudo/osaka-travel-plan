@@ -1001,7 +1001,41 @@ export const ITINERARY_DATA: DayItinerary[] = [
           "탑승 후 미니언 파크에서 귀여운 미니언즈와 사진 촬영",
           "미니언 팝콘통 구매"
         ],
-        precautions: ["지정 시간 10:00~10:30 준수하여 익스프레스 라인 진입"]
+        precautions: ["지정 시간 10:00~10:30 준수하여 익스프레스 라인 진입"],
+        voucher: {
+          id: "voucher-usj-express-pass-5",
+          title: "USJ 익스프레스 패스 5 ~ 레이스 & 트램카 스페셜 ~ (3매)",
+          subtitle: "2026-10-06(화) 지정 시간 패스트트랙 e-티켓",
+          bookingNo: "USJ-P1X000000DDVZP",
+          travelerName: "총 3매 (각 24,900엔 / 동일 시간대)",
+          date: "2026-10-06 (화)",
+          time: "10:00 미니언 / 12:20 닌텐도월드&마리오카트 / 12:50 동키콩",
+          location: "각 어트랙션 익스프레스 전용 라인 입구",
+          image: "/images/vouchers/usj_express_pass_1_qr.jpg",
+          badge: "USJ 익스프레스 패스 5",
+          usageGuide: "각 어트랙션 입구에서 좌우 화살표 버튼 또는 상단 탭을 눌러 3장의 QR 코드를 차례대로 직원에게 제시하세요.",
+          note: "★ 지정 시간 준수 필수!\n• 10:00-10:30 미니언\n• 12:20-13:20 닌텐도 월드 입장\n• 12:20-12:50 마리오 카트\n• 12:50-13:20 동키콩 트램카\n• 플라잉 다이너소어 또는 해리포터 포비든 저니 (1개 선택)",
+          familyMembers: [
+            {
+              id: "usj-exp-1",
+              name: "패스 1 (-6332)",
+              role: "🎫 익스프레스 1 (-6332)",
+              image: "/images/vouchers/usj_express_pass_1_qr.jpg"
+            },
+            {
+              id: "usj-exp-2",
+              name: "패스 2 (-6333)",
+              role: "🎫 익스프레스 2 (-6333)",
+              image: "/images/vouchers/usj_express_pass_2_qr.jpg"
+            },
+            {
+              id: "usj-exp-3",
+              name: "패스 3 (-6334)",
+              role: "🎫 익스프레스 3 (-6334)",
+              image: "/images/vouchers/usj_express_pass_3_qr.jpg"
+            }
+          ]
+        }
       },
       {
         id: "d3-4",
@@ -1018,6 +1052,40 @@ export const ITINERARY_DATA: DayItinerary[] = [
           "마리오/루이지/피치공주 포토존"
         ],
         precautions: ["지정 입장시간 12:20 준수, 구역 밖으로 나가면 재입장 불가"],
+        voucher: {
+          id: "voucher-usj-express-pass-5",
+          title: "USJ 익스프레스 패스 5 ~ 레이스 & 트램카 스페셜 ~ (3매)",
+          subtitle: "2026-10-06(화) 지정 시간 패스트트랙 e-티켓",
+          bookingNo: "USJ-P1X000000DDVZP",
+          travelerName: "총 3매 (각 24,900엔 / 동일 시간대)",
+          date: "2026-10-06 (화)",
+          time: "10:00 미니언 / 12:20 닌텐도월드&마리오카트 / 12:50 동키콩",
+          location: "슈퍼 닌텐도 월드 입장 게이트 & 각 어트랙션",
+          image: "/images/vouchers/usj_express_pass_1_qr.jpg",
+          badge: "USJ 익스프레스 패스 5",
+          usageGuide: "닌텐도 월드 입장 게이트 및 어트랙션 입구에서 3장의 QR 코드를 제시하세요.",
+          note: "★ 지정 시간 준수 필수!\n• 10:00-10:30 미니언\n• 12:20-13:20 닌텐도 월드 입장\n• 12:20-12:50 마리오 카트\n• 12:50-13:20 동키콩 트램카\n• 플라잉 다이너소어 또는 해리포터 포비든 저니 (1개 선택)",
+          familyMembers: [
+            {
+              id: "usj-exp-1",
+              name: "패스 1 (-6332)",
+              role: "🎫 익스프레스 1 (-6332)",
+              image: "/images/vouchers/usj_express_pass_1_qr.jpg"
+            },
+            {
+              id: "usj-exp-2",
+              name: "패스 2 (-6333)",
+              role: "🎫 익스프레스 2 (-6333)",
+              image: "/images/vouchers/usj_express_pass_2_qr.jpg"
+            },
+            {
+              id: "usj-exp-3",
+              name: "패스 3 (-6334)",
+              role: "🎫 익스프레스 3 (-6334)",
+              image: "/images/vouchers/usj_express_pass_3_qr.jpg"
+            }
+          ]
+        },
         vocabCategories: [
           {
             categoryName: "🎟️ 닌텐도 월드 & 키노피오 카페",
@@ -1052,7 +1120,41 @@ export const ITINERARY_DATA: DayItinerary[] = [
         coordinates: { lat: 34.6654, lng: 135.4323 },
         description: "실감나는 AR 레이싱 어트랙션! 등껍질을 던지며 쿠파 군단과의 레이스 대결",
         recommendations: ["쿠파 성 내부의 황금 트로피 포토존 구경"],
-        precautions: ["지정 시간 12:20~12:50 익스프레스 라인 탑승"]
+        precautions: ["지정 시간 12:20~12:50 익스프레스 라인 탑승"],
+        voucher: {
+          id: "voucher-usj-express-pass-5",
+          title: "USJ 익스프레스 패스 5 ~ 레이스 & 트램카 스페셜 ~ (3매)",
+          subtitle: "2026-10-06(화) 지정 시간 패스트트랙 e-티켓",
+          bookingNo: "USJ-P1X000000DDVZP",
+          travelerName: "총 3매 (각 24,900엔 / 동일 시간대)",
+          date: "2026-10-06 (화)",
+          time: "10:00 미니언 / 12:20 닌텐도월드&마리오카트 / 12:50 동키콩",
+          location: "마리오 카트 어트랙션 익스프레스 라인",
+          image: "/images/vouchers/usj_express_pass_1_qr.jpg",
+          badge: "USJ 익스프레스 패스 5",
+          usageGuide: "마리오 카트 입구에서 좌우 화살표나 상단 탭을 눌러 3장의 QR 코드를 차례대로 직원에게 제시하세요.",
+          note: "★ 지정 시간: 12:20 ~ 12:50 준수 필수!",
+          familyMembers: [
+            {
+              id: "usj-exp-1",
+              name: "패스 1 (-6332)",
+              role: "🎫 익스프레스 1 (-6332)",
+              image: "/images/vouchers/usj_express_pass_1_qr.jpg"
+            },
+            {
+              id: "usj-exp-2",
+              name: "패스 2 (-6333)",
+              role: "🎫 익스프레스 2 (-6333)",
+              image: "/images/vouchers/usj_express_pass_2_qr.jpg"
+            },
+            {
+              id: "usj-exp-3",
+              name: "패스 3 (-6334)",
+              role: "🎫 익스프레스 3 (-6334)",
+              image: "/images/vouchers/usj_express_pass_3_qr.jpg"
+            }
+          ]
+        }
       },
       {
         id: "d3-6",
@@ -1065,6 +1167,40 @@ export const ITINERARY_DATA: DayItinerary[] = [
         description: "정글 속 스릴 넘치는 롤러코스터 어트랙션! 부서진 레일을 점프하며 달리는 짜릿함",
         recommendations: ["황금 바나나 신전 앞에서 동키콩 포즈 사진"],
         precautions: ["지정 시간 12:50~13:20 준수"],
+        voucher: {
+          id: "voucher-usj-express-pass-5",
+          title: "USJ 익스프레스 패스 5 ~ 레이스 & 트램카 스페셜 ~ (3매)",
+          subtitle: "2026-10-06(화) 지정 시간 패스트트랙 e-티켓",
+          bookingNo: "USJ-P1X000000DDVZP",
+          travelerName: "총 3매 (각 24,900엔 / 동일 시간대)",
+          date: "2026-10-06 (화)",
+          time: "10:00 미니언 / 12:20 닌텐도월드&마리오카트 / 12:50 동키콩",
+          location: "동키콩 크레이지 트램카 익스프레스 라인",
+          image: "/images/vouchers/usj_express_pass_1_qr.jpg",
+          badge: "USJ 익스프레스 패스 5",
+          usageGuide: "동키콩 트램카 입구에서 좌우 화살표나 상단 탭을 눌러 3장의 QR 코드를 차례대로 직원에게 제시하세요.",
+          note: "★ 지정 시간: 12:50 ~ 13:20 준수 필수!",
+          familyMembers: [
+            {
+              id: "usj-exp-1",
+              name: "패스 1 (-6332)",
+              role: "🎫 익스프레스 1 (-6332)",
+              image: "/images/vouchers/usj_express_pass_1_qr.jpg"
+            },
+            {
+              id: "usj-exp-2",
+              name: "패스 2 (-6333)",
+              role: "🎫 익스프레스 2 (-6333)",
+              image: "/images/vouchers/usj_express_pass_2_qr.jpg"
+            },
+            {
+              id: "usj-exp-3",
+              name: "패스 3 (-6334)",
+              role: "🎫 익스프레스 3 (-6334)",
+              image: "/images/vouchers/usj_express_pass_3_qr.jpg"
+            }
+          ]
+        },
         vocabCategories: [
           {
             categoryName: "🦍 동키콩 구역 표현",
@@ -1119,6 +1255,40 @@ export const ITINERARY_DATA: DayItinerary[] = [
           "호그와트 성 앞 호수 반영 사진 촬영"
         ],
         precautions: ["중간중간 벤치에서 휴식"],
+        voucher: {
+          id: "voucher-usj-express-pass-5",
+          title: "USJ 익스프레스 패스 5 ~ 레이스 & 트램카 스페셜 ~ (3매)",
+          subtitle: "2026-10-06(화) 지정 시간 패스트트랙 e-티켓",
+          bookingNo: "USJ-P1X000000DDVZP",
+          travelerName: "총 3매 (각 24,900엔 / 동일 시간대)",
+          date: "2026-10-06 (화)",
+          time: "플라잉 다이너소어 또는 해리포터 포비든 저니 (1개 선택 이용)",
+          location: "해리포터 포비든 저니 / 플라잉 다이너소어 입구",
+          image: "/images/vouchers/usj_express_pass_1_qr.jpg",
+          badge: "USJ 익스프레스 패스 5",
+          usageGuide: "어트랙션 입구에서 좌우 화살표나 상단 탭을 눌러 3장의 QR 코드를 차례대로 직원에게 제시하세요.",
+          note: "• 플라잉 다이너소어 또는 해리포터 포비든 저니 중 1개 선택하여 탑승 가능!",
+          familyMembers: [
+            {
+              id: "usj-exp-1",
+              name: "패스 1 (-6332)",
+              role: "🎫 익스프레스 1 (-6332)",
+              image: "/images/vouchers/usj_express_pass_1_qr.jpg"
+            },
+            {
+              id: "usj-exp-2",
+              name: "패스 2 (-6333)",
+              role: "🎫 익스프레스 2 (-6333)",
+              image: "/images/vouchers/usj_express_pass_2_qr.jpg"
+            },
+            {
+              id: "usj-exp-3",
+              name: "패스 3 (-6334)",
+              role: "🎫 익스프레스 3 (-6334)",
+              image: "/images/vouchers/usj_express_pass_3_qr.jpg"
+            }
+          ]
+        },
         vocabCategories: [
           {
             categoryName: "🍺 해리포터 버터맥주 & 파크 스낵",
