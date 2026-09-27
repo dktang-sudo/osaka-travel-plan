@@ -1,5 +1,13 @@
-import React, { useEffect } from 'react';
-import { X, QrCode, Copy, Check, Download, ExternalLink, Sparkles, AlertCircle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, QrCode, Copy, Check, Sparkles, User, Users } from 'lucide-react';
+
+export interface FamilyMemberQR {
+  id: string;
+  name: string;      // 예: "PARK DAEKYU"
+  role: string;      // 예: "👨 아빠 (내꺼)"
+  image: string;     // 예: "/images/vouchers/vjw_dad_qr.jpg"
+  description?: string;
+}
 
 export interface VoucherData {
   id: string;
@@ -10,10 +18,11 @@ export interface VoucherData {
   date?: string;
   time?: string;
   location?: string;
-  image: string; // public 경로 (예: '/images/vouchers/innn_pickup_qr.jpg')
+  image: string; // 기본 이미지 (예: '/images/vouchers/innn_pickup_qr.jpg')
   badge: string;
   usageGuide: string;
   note?: string;
+  familyMembers?: FamilyMemberQR[]; // 3인 가족 QR 전환 지원!
 }
 
 interface VoucherModalProps {
@@ -23,7 +32,12 @@ interface VoucherModalProps {
 }
 
 export const VoucherModal: React.FC<VoucherModalProps> = ({ isOpen, onClose, voucher }) => {
-  const [copied, setCopied] = React.useState(false);
+  const [copied, setCopied] = useState(false);
+  const [selectedMemberIndex, setSelectedMemberIndex] = useState(0);
+
+  useEffect(() => {
+    setSelectedMemberIndex(0);
+  }, [voucher]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -49,10 +63,18 @@ export const VoucherModal: React.FC<VoucherModalProps> = ({ isOpen, onClose, vou
     }
   };
 
+  const hasFamilyMembers = voucher.familyMembers && voucher.familyMembers.length > 0;
+  const currentImage = hasFamilyMembers
+    ? voucher.familyMembers![selectedMemberIndex].image
+    : voucher.image;
+  const currentMember = hasFamilyMembers
+    ? voucher.familyMembers![selectedMemberIndex]
+    : null;
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/80 backdrop-blur-sm animate-fadeIn font-[var(--font-cute)]">
       <div 
-        className="paper-card w-full max-w-lg bg-white border-2 border-slate-900 shadow-[8px_8px_0px_#1e293b] flex flex-col max-h-[92vh] overflow-hidden"
+        className="paper-card w-full max-w-lg bg-white border-2 border-slate-900 shadow-[8px_8px_0px_#1e293b] flex flex-col max-h-[94vh] overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
@@ -80,27 +102,63 @@ export const VoucherModal: React.FC<VoucherModalProps> = ({ isOpen, onClose, vou
         </div>
 
         {/* Modal Body */}
-        <div className="p-4 sm:p-5 space-y-4 overflow-y-auto max-h-[calc(92vh-130px)]">
+        <div className="p-4 sm:p-5 space-y-4 overflow-y-auto max-h-[calc(94vh-130px)]">
           {/* Top Tip Alert */}
           <div className="bg-emerald-50 border-2 border-emerald-800/40 rounded-xl p-2.5 sm:p-3 text-xs text-emerald-950 font-bold flex items-start gap-2 shadow-[2px_2px_0px_#1e293b]">
             <Sparkles size={16} className="text-emerald-600 flex-shrink-0 mt-0.5" />
             <div>
               <p>{voucher.usageGuide}</p>
-              <p className="text-[11px] text-emerald-700 mt-0.5">※ 오프라인(비행기 모드)에서도 QR코드와 바우처가 정상 표시됩니다.</p>
+              <p className="text-[11px] text-emerald-700 mt-0.5">※ 오프라인(비행기 모드)에서도 QR코드와 바우처가 100% 정상 작동합니다.</p>
             </div>
           </div>
 
+          {/* Family Member Select Tabs (Visit Japan Web 3인 가족 전용) */}
+          {hasFamilyMembers && (
+            <div className="space-y-1.5">
+              <div className="text-xs font-black text-slate-700 flex items-center gap-1.5">
+                <Users size={14} className="text-indigo-600" />
+                <span>심사 대상 가족 선택 (탭하여 QR 전환):</span>
+              </div>
+              <div className="grid grid-cols-3 gap-2">
+                {voucher.familyMembers!.map((member, idx) => {
+                  const isSelected = selectedMemberIndex === idx;
+                  return (
+                    <button
+                      key={member.id}
+                      onClick={() => setSelectedMemberIndex(idx)}
+                      className={`p-2.5 rounded-xl text-xs font-black transition border-2 border-slate-900 flex flex-col items-center justify-center gap-1 active:scale-95 ${
+                        isSelected
+                          ? 'bg-amber-400 text-slate-900 shadow-[2px_2px_0px_#1e293b] scale-[1.02]'
+                          : 'bg-slate-100 hover:bg-slate-200 text-slate-700 shadow-sm'
+                      }`}
+                    >
+                      <span className="text-sm">{member.role.split(' ')[0]}</span>
+                      <span className="text-[11px] font-extrabold">{member.role.split(' ')[1] || member.role}</span>
+                      <span className="text-[10px] font-mono opacity-80 truncate max-w-[90px]">{member.name}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           {/* QR Image Box */}
           <div className="bg-slate-50 border-2 border-slate-900 rounded-2xl p-2 sm:p-3 shadow-[3px_3px_0px_#1e293b] flex flex-col items-center justify-center">
+            {currentMember && (
+              <div className="mb-2 bg-indigo-100 text-indigo-950 font-black text-xs px-3 py-1 rounded-full border border-slate-900 shadow-sm flex items-center gap-1.5">
+                <User size={13} />
+                <span>{currentMember.role} : <strong>{currentMember.name}</strong></span>
+              </div>
+            )}
             <div className="w-full flex justify-center bg-white rounded-xl p-2 border border-slate-200 overflow-hidden">
               <img
-                src={voucher.image}
-                alt={voucher.title}
+                src={currentImage}
+                alt={currentMember?.name || voucher.title}
                 className="max-h-[380px] w-auto object-contain rounded-lg shadow-sm"
               />
             </div>
             <p className="text-[11px] text-slate-500 font-bold mt-2 text-center">
-              💡 현장 직원 또는 게이트 기기에 화면을 그대로 보여주세요.
+              💡 심사관 또는 자동 입국/세관 키오스크 기계에 QR 코드를 스캔하세요.
             </p>
           </div>
 
@@ -125,7 +183,7 @@ export const VoucherModal: React.FC<VoucherModalProps> = ({ isOpen, onClose, vou
             <div className="grid grid-cols-2 gap-2">
               {voucher.travelerName && (
                 <div className="bg-white p-2 rounded-xl border border-slate-300">
-                  <span className="text-slate-500 font-bold block text-[10px]">예약자명</span>
+                  <span className="text-slate-500 font-bold block text-[10px]">대상자</span>
                   <span className="font-bold text-slate-900">{voucher.travelerName}</span>
                 </div>
               )}

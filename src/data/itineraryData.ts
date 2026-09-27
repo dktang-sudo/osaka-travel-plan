@@ -30,6 +30,14 @@ export interface VocabularyCategory {
   items: VocabItem[];
 }
 
+export interface FamilyMemberQR {
+  id: string;
+  name: string;      // 예: "PARK DAEKYU"
+  role: string;      // 예: "👨 아빠 (내꺼)"
+  image: string;     // 예: "/images/vouchers/vjw_dad_qr.jpg"
+  description?: string;
+}
+
 export interface VoucherData {
   id: string;
   title: string;
@@ -43,6 +51,7 @@ export interface VoucherData {
   badge: string;
   usageGuide: string;
   note?: string;
+  familyMembers?: FamilyMemberQR[]; // 3인 가족 QR 전환 지원!
 }
 
 export interface ScheduleItem {
@@ -397,7 +406,40 @@ export const ITINERARY_DATA: DayItinerary[] = [
         ],
         precautions: [
           "입국 심사(QR) ➔ 수하물 수령 ➔ 세관 통과 후 1층 도착 로비 INNN 카운터로 이동"
-        ]
+        ],
+        voucher: {
+          id: "voucher-vjw-family",
+          title: "Visit Japan Web 입국심사 & 세관 QR (3인 가족)",
+          subtitle: "아빠(DAEKYU) · 엄마(JIIN) · 아들(MINJAE)",
+          travelerName: "가족 3명 (PARK DAEKYU / SEO JIIN / PARK MINJAE)",
+          date: "2026-10-04 (일)",
+          time: "18:30 간사이공항 입국 심사",
+          location: "간사이국제공항 T1 입국심사대 & 세관신고 게이트",
+          image: "/images/vouchers/vjw_dad_qr.jpg",
+          badge: "VJW QR 코드 3명분",
+          usageGuide: "상단의 가족 이름 탭을 터치하여 각자의 QR 코드를 입국심사관 또는 키오스크에 스캔하세요.",
+          note: "오프라인(비행기 모드)에서도 아빠, 엄마, 아들 3명의 QR 코드가 선명하게 표시됩니다.",
+          familyMembers: [
+            {
+              id: "vjw-dad",
+              name: "PARK DAEKYU",
+              role: "👨 아빠 (내꺼)",
+              image: "/images/vouchers/vjw_dad_qr.jpg"
+            },
+            {
+              id: "vjw-mom",
+              name: "SEO JIIN",
+              role: "👩 엄마 (와이프)",
+              image: "/images/vouchers/vjw_mom_qr.jpg"
+            },
+            {
+              id: "vjw-son",
+              name: "PARK MINJAE",
+              role: "👦 아들 (민재)",
+              image: "/images/vouchers/vjw_son_qr.jpg"
+            }
+          ]
+        }
       },
       {
         id: "d1-3",
