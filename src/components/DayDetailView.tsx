@@ -157,6 +157,9 @@ export const DayDetailView: React.FC<DayDetailViewProps> = ({
               <span className="bg-amber-300 text-slate-900 font-extrabold text-xs px-3 py-1 rounded-full border-2 border-slate-900 shadow-[2px_2px_0px_#1e293b]">
                 {day.badge.text}
               </span>
+              <span className="bg-indigo-100 text-indigo-950 font-extrabold text-xs px-3 py-1 rounded-full border-2 border-slate-900 shadow-[2px_2px_0px_#1e293b] flex items-center gap-1">
+                🏨 {day.hotelInfo}
+              </span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900 mb-2">

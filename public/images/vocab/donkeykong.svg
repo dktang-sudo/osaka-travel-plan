@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <rect width="100" height="100" rx="20" fill="#FEF3C7"/>
+  <!-- Donkey Kong Tie Shape -->
+  <polygon points="50,25 62,45 56,75 50,85 44,75 38,45" fill="#DC2626" stroke="#1E293B" stroke-width="2.5"/>
+  <circle cx="50" cy="35" r="8" fill="#F59E0B" stroke="#1E293B" stroke-width="1.5"/>
+  <text x="50" y="38" font-family="sans-serif" font-size="7" font-weight="900" fill="#DC2626" text-anchor="middle">DK</text>
+  <text x="50" y="60" font-family="sans-serif" font-size="8" font-weight="900" fill="#FEF08A" text-anchor="middle">DK</text>
+  <text x="50" y="94" font-family="sans-serif" font-size="7" font-weight="900" fill="#78350F" text-anchor="middle">DONKEY KONG</text>
+</svg>

@@ -41,7 +41,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
 
   const navItems = [
     { id: 'overview', label: '전체 일정 오버뷰', icon: Compass },
-    { id: 'day1', label: 'DAY 1', sub: '10/4 (토)' },
+    { id: 'day1', label: 'DAY 1', sub: '10/4 (일)' },
     { id: 'day2', label: 'DAY 2', sub: '10/5 (월)' },
     { id: 'day3', label: 'DAY 3', sub: '10/6 (화)' },
     { id: 'day4', label: 'DAY 4', sub: '10/7 (수)' },
@@ -58,13 +58,13 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
           <div>
             <div className="flex flex-wrap items-center gap-1.5 sm:gap-2.5 mb-2.5 font-[var(--font-cute)]">
               <span className="bg-rose-500 text-white font-bold text-[11px] sm:text-xs px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full border border-slate-900 shadow-[2px_2px_0px_#1e293b] flex items-center gap-1">
-                <Sparkles size={12} /> Osaka 2026
+                <Sparkles size={12} /> 엄마+아빠+아들 3명 여행 👨‍👩‍👦
               </span>
               <span className="bg-amber-300 text-slate-900 font-bold text-[11px] sm:text-xs px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full border border-slate-900 shadow-[2px_2px_0px_#1e293b] flex items-center gap-1">
                 <Clock size={12} /> {dDayStr}
               </span>
               <span className="bg-emerald-200 text-slate-900 font-bold text-[11px] sm:text-xs px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full border border-slate-900 shadow-[2px_2px_0px_#1e293b] flex items-center gap-1">
-                <Calendar size={12} /> 10/4 (토) ~ 10/9 (금)
+                <Calendar size={12} /> 10/4 (일) ~ 10/9 (금)
               </span>
               {isOnline ? (
                 <span className="bg-blue-100 text-blue-950 font-bold text-[11px] sm:text-xs px-2 py-0.5 rounded-full border border-slate-900 flex items-center gap-1">
@@ -78,26 +78,26 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
             </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 mb-1.5 font-[var(--font-cute)] leading-tight">
-              🇯🇵 오사카 5박 6일 <span className="bg-amber-300 px-2 py-0.5 rounded-lg border-2 border-slate-900 shadow-[2px_2px_0px_#1e293b] inline-block mt-1 sm:mt-0">여행 안내서</span>
+              🇯🇵 OSAKA TRIP <span className="bg-amber-300 px-2 py-0.5 rounded-lg border-2 border-slate-900 shadow-[2px_2px_0px_#1e293b] inline-block mt-1 sm:mt-0">행복한 오사카 여행</span>
             </h1>
             <p className="text-slate-700 text-xs sm:text-sm lg:text-base font-medium max-w-2xl font-[var(--font-cute)]">
-              시간표 · 구글 지도 길찾기 · 오프라인 동선 맵 · 현지 꿀팁 & 주의사항 모음
+              보고, 먹고, 즐기고, 함께하는 행복한 오사카의 추억 ❤️ (5박 6일)
             </p>
           </div>
 
           {/* Quick Info Badges */}
           <div className="grid grid-cols-3 gap-2 sm:gap-3 font-[var(--font-cute)] mt-2 lg:mt-0">
             <div className="bg-white border-2 border-slate-900 rounded-xl sm:rounded-2xl p-2 sm:p-3 text-center shadow-[2px_2px_0px_#1e293b]">
-              <div className="text-[10px] sm:text-xs text-slate-500 font-bold">여행 기간</div>
-              <div className="text-xs sm:text-base font-extrabold text-indigo-600">5박 6일</div>
+              <div className="text-[10px] sm:text-xs text-slate-500 font-bold">항공편</div>
+              <div className="text-xs sm:text-sm font-extrabold text-indigo-600">OZ114 / OZ111</div>
+            </div>
+            <div className="bg-white border-2 border-slate-900 rounded-xl sm:rounded-2xl p-2 sm:p-3 text-center shadow-[2px_2px_0px_#1e293b]">
+              <div className="text-[10px] sm:text-xs text-slate-500 font-bold">숙소</div>
+              <div className="text-xs sm:text-sm font-extrabold text-teal-600">더싱귤러리+사쿠라가와</div>
             </div>
             <div className="bg-white border-2 border-slate-900 rounded-xl sm:rounded-2xl p-2 sm:p-3 text-center shadow-[2px_2px_0px_#1e293b]">
               <div className="text-[10px] sm:text-xs text-slate-500 font-bold">오프라인 지원</div>
-              <div className="text-xs sm:text-base font-extrabold text-teal-600">100% PWA</div>
-            </div>
-            <div className="bg-white border-2 border-slate-900 rounded-xl sm:rounded-2xl p-2 sm:p-3 text-center shadow-[2px_2px_0px_#1e293b]">
-              <div className="text-[10px] sm:text-xs text-slate-500 font-bold">교통 패스</div>
-              <div className="text-xs sm:text-base font-extrabold text-rose-600">라피트+캡틴라인</div>
+              <div className="text-xs sm:text-sm font-extrabold text-rose-600">100% PWA</div>
             </div>
           </div>
         </div>

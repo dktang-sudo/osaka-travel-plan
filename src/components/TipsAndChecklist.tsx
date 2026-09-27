@@ -102,13 +102,13 @@ export const TipsAndChecklist: React.FC = () => {
         <div className="paper-card p-6 bg-pink-100/90 border-2 border-slate-900 shadow-[4px_4px_0px_#1e293b]">
           <div className="flex items-center gap-2 text-slate-900 font-extrabold text-base mb-2">
             <Percent size={20} className="text-pink-600" />
-            <span>★ 돈키호테 면세 5%+10% 쿠폰</span>
+            <span>★ 우메다 백화점 면세(Tax Free) 팁</span>
           </div>
           <p className="text-xs text-slate-800 font-medium leading-relaxed mb-3">
-            Day 5 (10/8 목) MEGA 돈키호테 결제 시 화면 캡처본은 거절됩니다. 반드시 <strong>스마트폰 웹 브라우저 화면</strong>으로 바코드를 제시하고 여권을 제시하세요.
+            Day 5 (10/8 목) 한큐백화점 / 다이마루 / 루쿠아에서 5,000엔 이상 구매 시 <strong>당일 여권을 지참하여 면세 카운터에서 현금 환급</strong>을 꼭 받으세요!
           </p>
           <span className="bg-white text-slate-900 text-[11px] px-2.5 py-1 rounded-md font-extrabold border-2 border-slate-900 shadow-[1px_1px_0px_#1e293b]">
-            여권 + 웹 쿠폰 제시
+            여권 지참 + 당일 영수증 환급
           </span>
         </div>
 
