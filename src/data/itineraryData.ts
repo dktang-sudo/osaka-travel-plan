@@ -1372,7 +1372,41 @@ export const ITINERARY_DATA: DayItinerary[] = [
         recommendations: [
           "배가 글리코상 앞에 멈출 때 글리코 만세 포즈로 가족사진 촬영!"
         ],
-        precautions: ["19:45까지 선착장 승선 대기"],
+        precautions: ["19:45까지 선착장 승선 대기 (늦을 시 탑승 및 환불 불가)"],
+        voucher: {
+          id: "voucher-tombori-cruise",
+          title: "톤보리 리버크루즈 승선 티켓 (총 3명)",
+          subtitle: "2026-10-07(수) 20:00 출항 예약 승선권",
+          bookingNo: "Tombori River Cruise (20:00発)",
+          travelerName: "성인 2명(¥2,000×2) + 어린이 1명(¥500×1)",
+          date: "2026-10-07 (수)",
+          time: "20:00 출항 (19:45까지 선착장 대기)",
+          location: "도톤보리 돈키호테 도톤보리점 앞 승선장",
+          image: "/images/vouchers/tombori_cruise_adult1_qr.jpg",
+          badge: "공식 모바일 승선 티켓",
+          usageGuide: "좌우 화살표 버튼 또는 상단 탭을 눌러 3장의 QR 코드를 차례대로 승선 게이트에 제시하세요.",
+          note: "구매 후 취소/변경/재발행 불가 / 승선 시간에 늦을 경우 환불이 불가하므로 19:45까지 반드시 도착하세요.",
+          familyMembers: [
+            {
+              id: "tc-adult-1",
+              name: "대인 1 (¥2,000)",
+              role: "🧑 대인 1 (Adult)",
+              image: "/images/vouchers/tombori_cruise_adult1_qr.jpg"
+            },
+            {
+              id: "tc-adult-2",
+              name: "대인 2 (¥2,000)",
+              role: "🧑 대인 2 (Adult)",
+              image: "/images/vouchers/tombori_cruise_adult2_qr.jpg"
+            },
+            {
+              id: "tc-child",
+              name: "어린이 (¥500)",
+              role: "🧒 어린이 (Child)",
+              image: "/images/vouchers/tombori_cruise_child_qr.jpg"
+            }
+          ]
+        },
         vocabCategories: [
           {
             categoryName: "🛥️ 도톤보리 크루즈 & 글리코상 포토",
