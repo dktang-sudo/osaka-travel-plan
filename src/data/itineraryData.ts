@@ -390,18 +390,18 @@ export const ITINERARY_DATA: DayItinerary[] = [
           "출국 2~3시간 전 도착 추천! 16:40 출발이므로 13:30 도착 완료"
         ],
         voucher: {
-          id: "voucher-flight-roundtrip",
-          title: "아시아나항공 왕복 e-티켓 여정안내서",
-          subtitle: "Agoda 예약 번호: 1764276185 / PNR: APHWU5",
-          bookingNo: "1764276185 (PNR: APHWU5)",
-          travelerName: "JIIN SEO / DAEKYU PARK / MINJAE PARK (3명)",
-          date: "출국: 2026.10.04(일) / 귀국: 2026.10.09(금)",
-          time: "출국 OZ114 16:40 / 귀국 OZ111 10:30",
-          location: "인천공항 T2 & 간사이공항 T1 아시아나항공 카운터",
-          image: "/images/vouchers/flight_roundtrip_eticket.jpg",
-          badge: "Agoda 공식 e-티켓",
-          usageGuide: "공항 카운터 체크인 및 수하물 위탁 시 여권과 함께 제시하세요.",
-          note: "• [출국] 10/4(일) OZ114: 인천(ICN) 16:40 ➔ 간사이(KIX) 18:30 (직항)\n• [귀국] 10/9(금) OZ111: 간사이(KIX) 10:30 ➔ 인천(ICN) 12:40 (직항)\n• 항공권 번호: 9887550290993 / 9887550290994 / 9887550290995"
+          id: "voucher-boarding-pass-oz114",
+          title: "아시아나항공 모바일 탑승권 (OZ 114)",
+          subtitle: "인천(ICN) ➔ 간사이(KIX) 탑승 게이트 QR",
+          bookingNo: "APHWU5 (OZ114/38E/033)",
+          travelerName: "PARK / DAEKYU (좌석: 38E, ZONE 3)",
+          date: "2026-10-04 (일)",
+          time: "출발 16:40 / 탑승시각 16:15",
+          location: "인천국제공항 제2여객터미널 탑승구 (모니터 확인)",
+          image: "/images/vouchers/asiana_boarding_pass_oz114.jpg",
+          badge: "아시아나 모바일 탑승권 QR",
+          usageGuide: "출국장 보안검색대 및 비행기 탑승 게이트에서 이 QR 코드를 스캔하세요.",
+          note: "• 편명: OZ114 (Economy)\n• 좌석: 38E (ZONE 3, 탑승시각 16:15)\n• 예약번호: APHWU5 / 회원번호: OZ363817427 Silver\n• 인천(ICN) 16:40 ➔ 간사이(KIX) 18:30"
         }
       },
       {
