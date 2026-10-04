@@ -507,16 +507,16 @@ export const ITINERARY_DATA: DayItinerary[] = [
         voucher: {
           id: "voucher-singulari-hotel",
           title: "더 싱귤러리 호텔 & 스카이스파 예약 확정서",
-          subtitle: "Klook 예약 번호: VPV690814 (3박 연박)",
-          bookingNo: "VPV690814",
-          travelerName: "체크인 투숙객: SEO JIIN (성인 2명 + 아동 1명)",
+          subtitle: "Agoda 예약 번호: 1780765424 (3박 연박)",
+          bookingNo: "1780765424",
+          travelerName: "투숙객: JIIN SEO / DAEKYU PARK / MINJAE PARK",
           date: "2026.10.04(일) ~ 2026.10.07(수) [3박]",
-          time: "체크인 15:00~20:00 / 체크아웃 11:00",
-          location: "6-2-25 Shimaya, Konohana-ku, Osaka (+81 0648049500)",
+          time: "체크인 15:00 이후 / 체크아웃 11:00 이전",
+          location: "6-2-25 Shimaya, Konohana-ku, Osaka (+81 6 4804 9500)",
           image: "/images/vouchers/singulari_hotel_booking.jpg",
-          badge: "Klook 예약 확정서",
+          badge: "Agoda 공식 예약 확정서",
           usageGuide: "호텔 프런트 데스크에서 여권과 함께 이 예약 확정서 화면을 보여주세요.",
-          note: "• 객실: 이그제큐티브 더블룸 (싱글베드 2개 + 소파베드 1개)\n• 조식 불포함 / 14층 스카이스파 대욕장 온천 무료 이용\n• 연락처: singulari@candeo-hotels.com / 010-9008-0410"
+          note: "• 객실: Run of House (금연실) / 성인 2명 + 아동 1명 (총 3명)\n• 무료 Wi-Fi 및 14층 스카이스파 사우나/대욕장 온천 무료 이용\n• 요청사항: 고층, 트윈베드, 조용한 방 (엘리베이터에서 떨어진 곳)"
         }
       },
       {
